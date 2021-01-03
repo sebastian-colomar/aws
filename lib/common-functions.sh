@@ -15,14 +15,14 @@ function encode_string {						\
 }									;
 #########################################################################
 function exec_remote_file {						\
-
+                                                                        #
   local domain=$1							;
   local file=$2								;
   local path=$3								;
-
+                                                                        #
   local uuid=$( uuidgen )						;
   path=$uuid/$path                                                      ;
-
+                                                                        #
   git clone                                                             \
         --single-branch --branch $branch_docker_aws                     \
         https://$domain/$A                                              \
@@ -30,7 +30,7 @@ function exec_remote_file {						\
                                                                         ;
   ./$path/$file								;
   rm --force --recursive $uuid                                          ;
-
+                                                                        #
 }									;
 #########################################################################
 function send_command {							\
@@ -70,7 +70,7 @@ function send_list_command {						\
 }									;
 #########################################################################
 function send_remote_file {						\
-
+                                                                        #
   local domain=$1							;
   local export="$2"							;
   local file=$3								;
