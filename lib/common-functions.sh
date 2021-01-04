@@ -70,6 +70,17 @@ function send_list_command {						\
   done 									;
 }									;
 #########################################################################
+function send_list_targets {						\
+  local command="$1"							;
+  local sleep=$2							;
+  local stack=$3							;
+  local targets="$4"							;
+  for target in $targets                                                ;
+  do                                                                    \
+    send_list_command "$command" $sleep $stack $target			;
+  done                                                                  ;
+}									;
+#########################################################################
 function send_remote_file {						\
                                                                         #
   local domain=$1							;
