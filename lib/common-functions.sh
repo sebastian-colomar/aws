@@ -66,13 +66,6 @@ function send_list_command {						\
       --details 							\
       --output text 							\
     | 									\
-    grep ERROR && continue						;
-    aws ssm list-command-invocations 					\
-      --command-id $CommandId 						\
-      --query "CommandInvocations[].CommandPlugins[].Output" 		\
-      --details 							\
-      --output text 							\
-    | 									\
     grep [a-zA-Z0-9] && break						;
   done 									;
 }									;
@@ -122,7 +115,12 @@ function send_wait_targets {						\
   local targets="$4"							;
   for target in $targets                                                ;
   do                                                                    \
-    send_list_command "$command" $sleep $stack $target			;
+    while true								;
+    do									\
+      output="$( send_list_command "$command" $sleep $stack $target )"	;
+      echo "$output" | grep ERROR && continue				;
+      echo "$output" | grep [a-zA-Z0-9] && break			;
+    done								;
   done                                                                  ;
 }									;
 #########################################################################
