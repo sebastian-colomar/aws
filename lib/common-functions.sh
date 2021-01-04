@@ -59,14 +59,14 @@ function send_list_command {						\
   ) 									;
   while true 								;
   do									\
+    sleep $sleep							;
     aws ssm list-command-invocations 					\
       --command-id $CommandId 						\
       --query "CommandInvocations[].CommandPlugins[].Output" 		\
       --details 							\
       --output text 							\
     | 									\
-    grep [a-zA-Z0-9] && break 						;
-    sleep $sleep							;
+    grep ERROR && continue || break					;
   done 									;
 }									;
 #########################################################################
