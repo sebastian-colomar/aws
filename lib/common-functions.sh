@@ -66,7 +66,14 @@ function send_list_command {						\
       --details 							\
       --output text 							\
     | 									\
-    grep ERROR && continue || break					;
+    grep ERROR && continue						;
+    aws ssm list-command-invocations 					\
+      --command-id $CommandId 						\
+      --query "CommandInvocations[].CommandPlugins[].Output" 		\
+      --details 							\
+      --output text 							\
+    | 									\
+    grep [a-zA-Z0-9] && break						;
   done 									;
 }									;
 #########################################################################
