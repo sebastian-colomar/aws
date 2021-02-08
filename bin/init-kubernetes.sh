@@ -53,7 +53,8 @@ targets="								\
 	InstanceMaster1							\
 "									;
 #########################################################################
-file=init-kubernetes-leader.sh;
+role=leader
+file=init-${mode}-${role}.sh;
 _send_list_command_remote ${branch} "${export}" ${file} ${path} ${sleep} ${stack} "${targets}" ${url};
 #########################################################################
 command="								\
@@ -104,7 +105,8 @@ export=" 								\
   &&									\
   export token_token=$token_token					\
 "									;
-file=cluster-kubernetes-manager.sh					;
+role=master
+file=init-${mode}-${role}.sh;
 targets="								\
 	InstanceMaster2							\
 	InstanceMaster3							\
@@ -116,7 +118,8 @@ unset token_certificate							;
 export=" 								\
   $export								\
 "									;
-file=init-kubernetes-worker.sh;
+role=worker;
+test ${engine} == docker && file=init-${mode}-${function}-${role}.sh || file=init-${mode}-${role}.sh;
 targets="								\
 	InstanceWorker1							\
 	InstanceWorker2							\
