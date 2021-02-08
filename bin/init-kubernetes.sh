@@ -3,19 +3,20 @@
 #      Copyright (C) 2020        Sebastian Francisco Colomar Bauza      #
 #      SPDX-License-Identifier:  GPL-2.0-only                           #
 #########################################################################
-set -x									;
+set -x;
 #########################################################################
-
+domain=github.com
+username=academiaonline
+repository=kubernetes
 #########################################################################
 export=" 								\
 "									;
-ip_leader=${ip_leader}	;
-kube=$RecordSetNameKube.$HostedZoneName                                 ;
-log=/tmp/init-${mode}.log	;
-path=${path}								;
-sleep=10								;
+kube=${RecordSetNameKube}.${HostedZoneName};
+log=/tmp/init-${mode}.log;
+path=${path};
+sleep=10;
 #########################################################################
-url=${domain}/${username}/${repository}					;
+url=${domain}/${username}/${repository};
 #########################################################################
 export=" 								\
   $export								\
@@ -52,11 +53,8 @@ targets="								\
 	InstanceMaster1							\
 "									;
 #########################################################################
-file=init-kubernetes-leader.sh					;
-_send_list_command_remote $domain "$export" $file $path $sleep $stack "$targets"	;
-#########################################################################
-file=init-kubernetes-wait.sh						;
-_send_list_command_remote $domain "$export" $file $path $sleep $stack "$targets"	;
+file=init-kubernetes-leader.sh;
+_send_list_command_remote ${branch} "${export}" ${file} ${path} ${sleep} ${stack} "${targets}" ${url};
 #########################################################################
 command="								\
 	grep --max-count 1						\
@@ -66,7 +64,7 @@ command="								\
 token_certificate=$(							\
   encode_string "							\
     $(									\
-      _send_list_command_targets_wait "$command" $sleep $stack "$targets"		\
+      _send_list_command_targets_wait "$command" $sleep $stack "$targets" \
     )									\
   "									;	
 )									;
@@ -79,7 +77,7 @@ command="								\
 token_discovery=$(							\
   encode_string "							\
     $(									\
-      _send_list_command_targets_wait "$command" $sleep $stack "$targets"		\
+      _send_list_command_targets_wait "$command" $sleep $stack "$targets" \
     )									\
   "									;	
 )									;
@@ -92,7 +90,7 @@ command="								\
 token_token=$(								\
   encode_string "							\
     $(									\
-      send_wait_targets "$command" $sleep $stack "$targets"		\
+      _send_list_command_targets_wait "$command" $sleep $stack "$targets" \
     )									\
   "									;	
 )									;
@@ -111,7 +109,7 @@ targets="								\
 	InstanceMaster2							\
 	InstanceMaster3							\
 "									;
-_send_list_command_remote $domain "$export" $file $path $sleep $stack "$targets"	;
+_send_list_command_remote ${branch} "${export}" ${file} ${path} ${sleep} ${stack} "${targets}" ${url};
 #########################################################################
 unset token_certificate							;
 #########################################################################
@@ -124,5 +122,5 @@ targets="								\
 	InstanceWorker2							\
 	InstanceWorker3							\
 "									;
-_send_list_command_remote $domain "$export" $file $path $sleep $stack "$targets"	;
+_send_list_command_remote ${branch} "${export}" ${file} ${path} ${sleep} ${stack} "${targets}" ${url};
 #########################################################################
