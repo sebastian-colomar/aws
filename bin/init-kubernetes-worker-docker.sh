@@ -22,44 +22,44 @@ uuid=/tmp/$( uuidgen )                                                  ;
 git clone                                                               \
         --single-branch --branch v2.3                                   \
         https://github.com/academiaonline/nlb                           \
-        $uuid                                                           ;
+        ${uuid}                                                         ;
 sed --in-place s/worker/manager/                                        \
-        $uuid/$compose                                                  ;
-sed --in-place s/port_master/$port_master/                              \
-        $uuid/$compose                                                  ;
-sed --in-place s/port_master/$port_master/                              \
-        $uuid/run/secrets/etc/nginx/conf.d/default.conf                 ;
-sed --in-place s/ip_master1/$ip_master1/                                \
-        $uuid/run/secrets/etc/nginx/conf.d/default.conf                 ;
-sed --in-place s/ip_master2/$ip_master2/                                \
-        $uuid/run/secrets/etc/nginx/conf.d/default.conf                 ;
-sed --in-place s/ip_master3/$ip_master3/                                \
-        $uuid/run/secrets/etc/nginx/conf.d/default.conf                 ;
-sudo cp --recursive --verbose $uuid/run/* /run                          ;
+        ${uuid}/${compose}                                              ;
+sed --in-place s/port_master/${port_master}/                            \
+        ${uuid}/${compose}                                              ;
+sed --in-place s/port_master/${port_master}/                            \
+        ${uuid}/run/secrets/etc/nginx/conf.d/default.conf               ;
+sed --in-place s/ip_master1/${ip_master1}/                              \
+        ${uuid}/run/secrets/etc/nginx/conf.d/default.conf               ;
+sed --in-place s/ip_master2/${ip_master2}/                              \
+        ${uuid}/run/secrets/etc/nginx/conf.d/default.conf               ;
+sed --in-place s/ip_master3/${ip_master3}/                              \
+        ${uuid}/run/secrets/etc/nginx/conf.d/default.conf               ;
+sudo cp --recursive --verbose ${uuid}/run/* /run                        ;
 sudo docker swarm init                                                  ;
-sudo docker stack deploy --compose-file $uuid/$compose nlb              ;
-rm --recursive --force $uuid                                            ;
+sudo docker stack deploy --compose-file ${uuid}/${compose} nlb          ;
+rm --recursive --force ${uuid}                                          ;
 while true                                                              ;
 do                                                                      \
-  sleep 1                                                               ;
-  sudo docker service ls | grep '\([0-9]\)/\1' && break                 ;
+        sleep 1                                                         ;
+        sudo docker service ls | grep '\([0-9]\)/\1' && break           ;
 done                                                                    ;
 sudo rm --recursive --force /run/secrets /run/configs                   ;
 #########################################################################
 sudo sed --in-place                                                     \
-        /$kube/d                                                        \
+        /${kube}/d                                                      \
         /etc/hosts                                                      ;
 sudo sed --in-place                                                     \
-        /127.0.0.1.*localhost/s/$/' '$kube/                             \
+        /127.0.0.1.*localhost/s/$/' '${kube}/                           \
         /etc/hosts                                                      ;
 #########################################################################
 token_discovery="$(                                                     \
-        echo $token_discovery                                           \
+        echo ${token_discovery}                                         \
         |                                                               \
         base64 --decode                                                 \
 )"                                                                      ;
 token_token="$(                                                         \
-        echo $token_token                                               \
+        echo ${token_token}                                             \
         |                                                               \
         base64 --decode                                                 \
 )"                                                                      ;
@@ -72,23 +72,23 @@ do                                                                      \
         &&                                                              \
         break                                                           \
                                                                         ;
-        sleep $sleep                                                    ;
+        sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
         sudo                                                            \
-                $token_token                                            \
-                $token_discovery                                        \
+                ${token_token}                                          \
+                ${token_discovery}                                      \
                 --ignore-preflight-errors all                           \
                 2>&1                                                    \
         |                                                               \
-        tee --append $log                                               \
+        tee --append ${log}                                             \
                                                                         ;
-        grep 'This node has joined the cluster' $log                    \
+        grep 'This node has joined the cluster' ${log}                  \
         &&                                                              \
         break                                                           \
                                                                         ;
-        sleep $sleep                                                    ;
+        sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
