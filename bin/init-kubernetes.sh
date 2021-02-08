@@ -119,7 +119,7 @@ export=" 								\
   $export								\
 "									;
 role=worker;
-test ${engine} == docker && file=init-${mode}-${function}-${role}.sh || file=init-${mode}-${role}.sh;
+test ${engine} == docker && file=init-${mode}-${role}-${engine}.sh || file=init-${mode}-${role}.sh;
 targets="								\
 	InstanceWorker1							\
 	InstanceWorker2							\
