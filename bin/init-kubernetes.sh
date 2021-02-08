@@ -5,21 +5,35 @@
 #########################################################################
 set -x;
 #########################################################################
+test -n "${file}"               || exit 101                             ;
+test -n "${HostedZoneName}"	|| exit 102                             ;
+test -n "${ip_leader}"          || exit 103                             ;
+test -n "${stack}"          || exit 103                             ;
+#########################################################################
 domain=github.com
 username=academiaonline
-repository=kubernetes
+repository=aws
+branch=main
+
+calico=https://docs.projectcalico.org/v3.17/manifests/calico.yaml       ;
+pod_network_cidr=192.168.0.0/16                                         ;
 #########################################################################
 export=" 								\
 "									;
+RecordSetNameKube=kube-apiserver
 kube=${RecordSetNameKube}.${HostedZoneName};
-log=/tmp/init-${mode}.log;
-path=${path};
+log=/tmp/${file}.log;
+path=bin;
 sleep=10;
+
+engine=docker
+os=ubuntu18
+
 #########################################################################
 url=${domain}/${username}/${repository};
 #########################################################################
 export=" 								\
-  $export								\
+  ${export}								\
   && 									\
   export branch=${branch} \
   && 									\
@@ -37,7 +51,7 @@ targets="								\
 for service in ${engine} kubelet	;
 	do \
 		file=install-${service}-{os}.sh	;
-		_send_list_command_remote $branch "$export" $file $path $sleep $stack "$targets" $url	;
+		_send_list_command_remote ${branch} "" ${file} ${path} ${sleep} ${stack} "${targets}" ${url};
 	done	;
 #########################################################################
 export=" 								\
