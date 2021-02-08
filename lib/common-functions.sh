@@ -77,17 +77,6 @@ function _send_list_command {						\
                                                                         #
 }									;
 #########################################################################
-function _send_list_command_targets {					\
-  local command="$1"							;
-  local sleep=$2							;
-  local stack=$3							;
-  local targets="$4"							;
-  for target in $targets                                                ;
-  do                                                                    \
-    _send_list_command "$command" $sleep $stack $target			;
-  done                                                                  ;
-}									;
-#########################################################################
 function _send_list_command_remote {					\
                                                                         #
   local branch=$1
@@ -126,6 +115,17 @@ function _send_list_command_remote {					\
     _send_list_command "$command" $sleep $stack $target			;
   done                                                                  ;
                                                                         #
+}									;
+#########################################################################
+function _send_list_command_targets {					\
+  local command="$1"							;
+  local sleep=$2							;
+  local stack=$3							;
+  local targets="$4"							;
+  for target in $targets                                                ;
+  do                                                                    \
+    _send_list_command "$command" $sleep $stack $target			;
+  done                                                                  ;
 }									;
 #########################################################################
 function _send_list_command_targets_wait {				\
