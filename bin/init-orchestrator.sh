@@ -27,7 +27,7 @@ export -f send_remote_file						;
 export -f send_wait_targets						;
 export -f service_wait_targets						;
 #########################################################################
-file=$mode-init.sh						;
+file=init-$mode.sh						;
 path=bin								;
 #########################################################################
 ./$path/$file                                                           ;
