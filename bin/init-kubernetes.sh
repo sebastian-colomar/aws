@@ -8,7 +8,7 @@ set -x;
 test -n "${file}"               || exit 101                             ;
 test -n "${HostedZoneName}"	|| exit 102                             ;
 test -n "${ip_leader}"          || exit 103                             ;
-test -n "${stack}"          || exit 103                             ;
+test -n "${stack}"		|| exit 104                             ;
 #########################################################################
 domain=github.com
 username=academiaonline
