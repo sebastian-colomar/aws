@@ -52,7 +52,7 @@ do                                                                      \
                 ${token_discovery}                                      \
                 ${token_certificate}                                    \
                 --ignore-preflight-errors all                           \
-                2>&1                                                    \
+                2>& 1                                                   \
         |                                                               \
         tee --append ${log}                                             ;
         grep 'This node has joined the cluster' ${log}                  \
