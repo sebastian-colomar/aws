@@ -116,7 +116,7 @@ unset token_certificate							;
 export=" 								\
   $export								\
 "									;
-file=cluster-kubernetes-worker.sh					;
+file=init-kubernetes-worker.sh;
 targets="								\
 	InstanceWorker1							\
 	InstanceWorker2							\
