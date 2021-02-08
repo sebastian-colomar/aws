@@ -66,7 +66,7 @@ sudo cp /etc/kubernetes/admin.conf ${HOME}/.kube/config                 ;
 sudo chown -R $( id -u ):$( id -g ) ${HOME}/.kube/                      ;
 echo 'source 0<( kubectl completion bash )'                             \
 |                                                                       \
-tee --append $HOME/.bashrc                                              ;
+tee --append ${HOME}/.bashrc                                            ;
 #########################################################################
 sudo sed --in-place                                                     \
         /${kube}/d                                                      \
