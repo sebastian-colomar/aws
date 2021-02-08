@@ -6,10 +6,10 @@
 set -x                                                                  ;
 #########################################################################
 test -n "${calico}"             || exit 100                             ;
-test -n "${file}"               || exit 100                             ;
-test -n "${ip_leader}"          || exit 101                             ;
-test -n "${kube}"               || exit 102                             ;
-test -n "${pod_network_cidr}"   || exit 103                             ;
+test -n "${file}"               || exit 101                             ;
+test -n "${ip_leader}"          || exit 102                             ;
+test -n "${kube}"               || exit 103                             ;
+test -n "${pod_network_cidr}"   || exit 104                             ;
 #########################################################################
 kubeconfig=/etc/kubernetes/admin.conf                                   ;
 log=/tmp/${file}.log                                                    ;
