@@ -15,7 +15,7 @@ test -n "${token_discovery}"    || exit 305                             ;
 test -n "${token_token}"        || exit 306                             ;
 #########################################################################
 compose=etc/swarm/nlb.yaml                                              ;
-log=/tmp/install-worker.log                                             ;
+log=/tmp/${file}.log                                                    ;
 port_master=6443                                                        ;
 sleep=10                                                                ;
 uuid=/tmp/$( uuidgen )                                                  ;
