@@ -3,35 +3,27 @@
 #      Copyright (C) 2020        Sebastian Francisco Colomar Bauza      #
 #      SPDX-License-Identifier:  GPL-2.0-only                           #
 #########################################################################
-set +x && test "$debug" = true && set -x				;
+set -x									;
 #########################################################################
-test -n "$A"			|| exit 601				;
-test -n "$branch_docker_aws"	|| exit 602				;
-test -n "$debug"		|| exit 603				;
-test -n "$domain"		|| exit 604				;
-test -n "$HostedZoneName"	|| exit 605				;
-test -n "$RecordSetNameKube"	|| exit 606				;
-test -n "$stack"		|| exit 607				;
+
 #########################################################################
 export=" 								\
-  export debug=$debug 							\
 "									;
-ip_leader=10.168.1.100                                                  ;
+ip_leader=${ip_leader}	;
 kube=$RecordSetNameKube.$HostedZoneName                                 ;
-log=/tmp/kubernetes-init.log                              		;
-path=bin								;
+log=/tmp/init-${mode}.log	;
+path=${path}								;
 sleep=10								;
+#########################################################################
+url=${domain}/${username}/${repository}					;
 #########################################################################
 export=" 								\
   $export								\
   && 									\
-  export A=$A								\
+  export branch=${branch} \
   && 									\
-  export branch_docker_aws=$branch_docker_aws				\
-  && 									\
-  export domain=$domain							\
+  export url=${url}							\
 "									;
-file=cluster-kubernetes-install.sh					;
 targets="								\
 	InstanceMaster1							\
 	InstanceMaster2							\
@@ -40,7 +32,12 @@ targets="								\
 	InstanceWorker2							\
 	InstanceWorker3							\
 "									;
-send_remote_file $domain "$export" $file $path $sleep $stack "$targets"	;
+#########################################################################
+for service in ${engine} kubelet	;
+	do \
+		file=install-${service}-{os}.sh	;
+		_send_list_command_remote $branch "$export" $file $path $sleep $stack "$targets" $url	;
+	done	;
 #########################################################################
 export=" 								\
   $export								\
@@ -55,11 +52,11 @@ targets="								\
 	InstanceMaster1							\
 "									;
 #########################################################################
-file=cluster-kubernetes-leader.sh					;
-send_remote_file $domain "$export" $file $path $sleep $stack "$targets"	;
+file=init-kubernetes-leader.sh					;
+_send_list_command_remote $domain "$export" $file $path $sleep $stack "$targets"	;
 #########################################################################
-file=cluster-kubernetes-wait.sh						;
-send_remote_file $domain "$export" $file $path $sleep $stack "$targets"	;
+file=init-kubernetes-wait.sh						;
+_send_list_command_remote $domain "$export" $file $path $sleep $stack "$targets"	;
 #########################################################################
 command="								\
 	grep --max-count 1						\
@@ -69,7 +66,7 @@ command="								\
 token_certificate=$(							\
   encode_string "							\
     $(									\
-      send_wait_targets "$command" $sleep $stack "$targets"		\
+      _send_list_command_targets_wait "$command" $sleep $stack "$targets"		\
     )									\
   "									;	
 )									;
@@ -82,7 +79,7 @@ command="								\
 token_discovery=$(							\
   encode_string "							\
     $(									\
-      send_wait_targets "$command" $sleep $stack "$targets"		\
+      _send_list_command_targets_wait "$command" $sleep $stack "$targets"		\
     )									\
   "									;	
 )									;
@@ -114,7 +111,7 @@ targets="								\
 	InstanceMaster2							\
 	InstanceMaster3							\
 "									;
-send_remote_file $domain "$export" $file $path $sleep $stack "$targets"	;
+_send_list_command_remote $domain "$export" $file $path $sleep $stack "$targets"	;
 #########################################################################
 unset token_certificate							;
 #########################################################################
@@ -127,5 +124,5 @@ targets="								\
 	InstanceWorker2							\
 	InstanceWorker3							\
 "									;
-send_remote_file $domain "$export" $file $path $sleep $stack "$targets"	;
+_send_list_command_remote $domain "$export" $file $path $sleep $stack "$targets"	;
 #########################################################################
