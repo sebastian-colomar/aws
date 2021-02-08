@@ -6,13 +6,13 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${file}"                 || exit 300                           ;
-test -n "${ip_master1}"           || exit 301                           ;
-test -n "${ip_master2}"           || exit 302                           ;
-test -n "${ip_master3}"           || exit 303                           ;
-test -n "${kube}"                 || exit 304                           ;
-test -n "${token_discovery}"      || exit 305                           ;
-test -n "${token_token}"          || exit 306                           ;
+test -n "${file}"               || exit 300                             ;
+test -n "${ip_master1}"         || exit 301                             ;
+test -n "${ip_master2}"         || exit 302                             ;
+test -n "${ip_master3}"         || exit 303                             ;
+test -n "${kube}"               || exit 304                             ;
+test -n "${token_discovery}"    || exit 305                             ;
+test -n "${token_token}"        || exit 306                             ;
 #########################################################################
 compose=etc/swarm/nlb.yaml                                              ;
 log=/tmp/install-worker.log                                             ;
