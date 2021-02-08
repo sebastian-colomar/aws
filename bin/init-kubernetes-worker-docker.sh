@@ -81,7 +81,7 @@ do                                                                      \
                 ${token_token}                                          \
                 ${token_discovery}                                      \
                 --ignore-preflight-errors all                           \
-                2>&1                                                    \
+                2>& 1                                                   \
         |                                                               \
         tee --append ${log}                                             \
                                                                         ;
