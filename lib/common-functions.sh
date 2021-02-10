@@ -5,7 +5,7 @@
 function _encode_string {						\
                                                                         #
   local string="$1"							;
-  echo -n $string                                                 	\
+  echo -n ${string}                                                 	\
   |     	                                                        \
   sed 's/\\/ /'                                           		\
   |                                                       		\
@@ -22,16 +22,16 @@ function _exec_remote_file {						\
   local url=$4								;
                                                                         #
   local uuid=$( uuidgen )						;
-  path=$uuid/$path                                                      ;
+  path=${uuid}/${path}                                                  ;
                                                                         #
   git clone                                                             \
-        --single-branch --branch $branch				\
-	https://$url		                                        \
-        $uuid                                                           \
+        --single-branch --branch ${branch}				\
+	https://${url}		                                        \
+        ${uuid}                                                         \
 									;
-  chmod +x ./$path/$file						;
-  ./$path/$file								;
-  rm --force --recursive $uuid                                          ;
+  chmod +x ./${path}/${file}						;
+  ./${path}/${file}							;
+  rm --force --recursive ${uuid}                                        ;
                                                                         #
 }									;
 #########################################################################
@@ -44,11 +44,11 @@ function _send_command {						\
   aws ssm send-command 							\
     --document-name "AWS-RunShellScript" 				\
     --output text 							\
-    --parameters commands="$command" 					\
+    --parameters commands="${command}" 					\
     --query "Command.CommandId" 					\
     --targets 								\
-      Key=tag:"aws:cloudformation:stack-name",Values="$stack" 		\
-      Key=tag:"aws:cloudformation:logical-id",Values="$target" 		\
+      Key=tag:"aws:cloudformation:stack-name",Values="${stack}"		\
+      Key=tag:"aws:cloudformation:logical-id",Values="${target}" 	\
    									;
 }									;
 #########################################################################
@@ -60,14 +60,14 @@ function _send_list_command {						\
   local target=$4 							;
                                                                         #
   local CommandId=$( 							\
-    _send_command "$command" $stack $target				\
+    _send_command "${command}" ${stack} ${target}			\
   ) 									;
                                                                         #
   while true 								;
   do									\
-    sleep $sleep							;
+    sleep ${sleep}							;
     aws ssm list-command-invocations 					\
-      --command-id $CommandId 						\
+      --command-id ${CommandId} 					\
       --details 							\
       --output text 							\
       --query "CommandInvocations[].CommandPlugins[].Output" 		\
@@ -89,30 +89,30 @@ function _send_list_command_remote {					\
   local url=$8								;
                                                                         #
   local uuid=$( uuidgen )						;
-  path=$uuid/$path                                                      ;
+  path=${uuid}/${path}                                                  ;
                                                                         #
   local command="							\
-    $export								\
+    ${export}								\
     &&									\
-    path=$path                                                          \
+    path=${path}                                                        \
     &&									\
     git clone                                                           \
-      --single-branch --branch $branch		                     	\
-      https://$url                                              	\
-      $uuid                                                           	\
+      --single-branch --branch ${branch}	                     	\
+      https://${url}                                              	\
+      ${uuid}                                                          	\
     &&									\
-    chmod +x ./$path/$file						\
-    ./$path/$file                                                       \
-      2>&1                                                    		\
+    chmod +x ./${path}/${file}						\
+    ./${path}/${file}                                                   \
+      2>& 1                                                    		\
     |                                                               	\
-    tee /tmp/$file.log                                    		\
+    tee /tmp/${file}.log                                    		\
     &&                                                              	\
-    rm --force --recursive $uuid                                      	\
+    rm --force --recursive ${uuid}                                     	\
   "									;
                                                                         #
-  for target in $targets                                                ;
+  for target in ${targets}                                              ;
   do                                                                    \
-    _send_list_command "$command" $sleep $stack $target			;
+    _send_list_command "${command}" ${sleep} ${stack} ${target}		;
   done                                                                  ;
                                                                         #
 }									;
@@ -122,9 +122,9 @@ function _send_list_command_targets {					\
   local sleep=$2							;
   local stack=$3							;
   local targets="$4"							;
-  for target in $targets                                                ;
+  for target in ${targets}                                              ;
   do                                                                    \
-    _send_list_command "$command" $sleep $stack $target			;
+    _send_list_command "${command}" ${sleep} ${stack} ${target}		;
   done                                                                  ;
 }									;
 #########################################################################
@@ -135,13 +135,13 @@ function _send_list_command_targets_wait {				\
   local stack=$3							;
   local targets="$4"							;
                                                                         #
-  for target in $targets                                                ;
+  for target in ${targets}                                              ;
   do                                                                    \
     while true								;
     do									\
-      output="$( _send_list_command "$command" $sleep $stack $target )"	;
-      echo "$output" | grep ERROR && continue				;
-      echo "$output" | grep [a-zA-Z0-9] && break			;
+      output="$( _send_list_command "${command}" ${sleep} ${stack} ${target} )"	;
+      echo "${output}" | grep ERROR && continue				;
+      echo "${output}" | grep [a-zA-Z0-9] && break			;
     done								;
   done                                                                  ;
                                                                         #
@@ -155,10 +155,10 @@ function _wait_service_targets {					\
   local targets="$4"							;
                                                                         #
   local command="                                                       \
-    service $service status 2> /dev/null | grep running			\
+    service ${service} status 2> /dev/null | grep running		\
   "                                                                     ;
                                                                         #
-  _send_list_command_targets_wait "$command" $sleep $stack "$targets"   ;
+  _send_list_command_targets_wait "${command}" ${sleep} ${stack} "${targets}"   ;
                                                                         #
 }									;
 #########################################################################
