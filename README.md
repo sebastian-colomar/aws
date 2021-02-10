@@ -16,5 +16,6 @@ export stack=${os}-$( date +%s )
 
 aws cloudformation create-stack --stack-name ${stack} --template-body file://${location} --capabilities CAPABILITY_NAMED_IAM --parameters ParameterKey=RecordSetName,ParameterValue=${stack} ParameterKey=PrivateIpAddressInstanceMaster1,ParameterValue=${ip_master1} ParameterKey=PrivateIpAddressInstanceMaster2,ParameterValue=${ip_master2} ParameterKey=PrivateIpAddressInstanceMaster3,ParameterValue=${ip_master3} 
 
+chmod +x ./bin/init-orchestrator.sh
 nohup ./bin/init-orchestrator.sh &
 ```
