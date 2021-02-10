@@ -5,12 +5,12 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "$ip_master1"           || exit 301                             ;
-test -n "$ip_master2"           || exit 302                             ;
-test -n "$ip_master3"           || exit 303                             ;
-test -n "$kube"                 || exit 304                             ;
-test -n "$token_discovery"      || exit 305                             ;
-test -n "$token_token"          || exit 306                             ;
+test -n "${ip_master1}"         || exit 301                             ;
+test -n "${ip_master2}"         || exit 302                             ;
+test -n "${ip_master3}"         || exit 303                             ;
+test -n "${kube}"               || exit 304                             ;
+test -n "${token_discovery}"    || exit 305                             ;
+test -n "${token_token}"        || exit 306                             ;
 #########################################################################
 log=/tmp/$( uuidgen ).log                                               ;
 port_master=6443                                                        ;
@@ -24,12 +24,12 @@ echo $ip_master1 $kube                                                  \
 sudo tee --append /etc/hosts                                            ;
 #########################################################################
 token_discovery="$(                                                     \
-        echo $token_discovery                                           \
+        echo ${token_discovery}                                         \
         |                                                               \
         base64 --decode                                                 \
 )"                                                                      ;
 token_token="$(                                                         \
-        echo $token_token                                               \
+        echo ${token_token}                                             \
         |                                                               \
         base64 --decode                                                 \
 )"                                                                      ;
@@ -40,16 +40,15 @@ do                                                                      \
         |                                                               \
         grep enabled                                                    \
         &&                                                              \
-        break                                                           \
-                                                                        ;
-        sleep $sleep                                                    ;
+        break                                                           ;
+        sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
         sudo                                                            \
-                $token_token                                            \
-                $token_discovery                                        \
+                ${token_token}                                          \
+                ${token_discovery}                                      \
                 --ignore-preflight-errors all                           \
                 2>& 1                                                   \
         |                                                               \
@@ -59,6 +58,6 @@ do                                                                      \
         rm --force ${log}                                               \
         &&                                                              \
         break                                                           ;
-        sleep $sleep                                                    ;
+        sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
