@@ -45,7 +45,7 @@ for service in ${engine} kubelet					;
 		file=install-${service}-${os}.sh			;
 		_send_list_command_remote 				\
 			${branch} 					\
-			"" 						\
+			"${export}" 					\
 			${file} 					\
 			${path} 					\
 			${sleep} 					\
