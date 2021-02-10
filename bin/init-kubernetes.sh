@@ -27,18 +27,13 @@ log=/tmp/${file}.log;
 path=bin;
 sleep=10;
 
-engine=docker
-os=ubuntu18
-
 #########################################################################
 url=${domain}/${username}/${repository};
 #########################################################################
 export=" 								\
   ${export}								\
   && 									\
-  export branch=${branch} \
-  && 									\
-  export url=${url}							\
+  export engine=${engine} 						\
 "									;
 targets="								\
 	InstanceMaster1							\
@@ -56,13 +51,17 @@ for service in ${engine} kubelet	;
 	done	;
 #########################################################################
 export=" 								\
+"									;
+export=" 								\
   $export								\
   && 									\
-  export ip_leader=$ip_leader						\
+  export calico=${calico} 						\
   && 									\
-  export kube=$kube							\
+  export ip_leader=${ip_leader}						\
   && 									\
-  export log=$log							\
+  export kube=${kube}							\
+  && 									\
+  export pod_network_cidr=${pod_network_cidr} 				\
 "									;
 targets="								\
 	InstanceMaster1							\
@@ -112,8 +111,14 @@ token_token=$(								\
 )									;
 #########################################################################
 export=" 								\
+"									;
+export=" 								\
   $export								\
   &&									\
+  export ip_leader=${ip_leader}						\
+  && 									\
+  export kube=${kube}							\
+  && 									\
   export token_certificate=$token_certificate				\
   &&									\
   export token_discovery=$token_discovery				\
@@ -131,7 +136,19 @@ _send_list_command_remote ${branch} "${export}" ${file} ${path} ${sleep} ${stack
 unset token_certificate							;
 #########################################################################
 export=" 								\
+"									;
+export=" 								\
   $export								\
+  &&									\
+  export ip_leader=${ip_leader}						\
+  && 									\
+  export kube=${kube}							\
+  && 									\
+  export token_certificate=$token_certificate				\
+  &&									\
+  export token_discovery=$token_discovery				\
+  &&									\
+  export token_token=$token_token					\
 "									;
 role=worker;
 test ${engine} == docker && file=init-${mode}-${role}-${engine}.sh || file=init-${mode}-${role}.sh;
