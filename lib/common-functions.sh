@@ -91,44 +91,44 @@ function _send_list_command_remote {					\
   local uuid=$( uuidgen )						;
   path=${uuid}/${path}                                                  ;
                                                                         #
-  local command="							\
-    ${export}								\
-    &&									\
-    path=${path}                                                        \
-    &&									\
-    git clone                                                           \
-      --single-branch --branch ${branch}	                     	\
-      https://${url}                                              	\
-      ${uuid}                                                          	\
-    &&									\
-    chmod +x ./${path}/${file}						\
-    ./${path}/${file}                                                   \
-      2>& 1                                                    		\
-    |                                                               	\
-    tee /tmp/${file}.log                                    		\
-    &&                                                              	\
-    rm --force --recursive ${uuid}                                     	\
+  local command=" 							\
+    ${export} 								\
+    && 									\
+    path=${path} 							\
+    && 									\
+    git clone 								\
+      --single-branch --branch ${branch} 				\
+      https://${url} 							\
+      ${uuid} 								\
+    && 									\
+    chmod +x ./${path}/${file} 						\
+    ./${path}/${file} 							\
+      2>& 1 								\
+    | 									\
+    tee /tmp/${file}.log 						\
+    && 									\
+    rm --force --recursive ${uuid} 					\
   "									;
                                                                         #
   for target in ${targets}                                              ;
-  do                                                                    \
+  do 									\
     _send_list_command "${command}" ${sleep} ${stack} ${target}		;
   done                                                                  ;
                                                                         #
 }									;
 #########################################################################
-function _send_list_command_targets {					\
+function _send_list_command_targets { 					\
   local command="$1"							;
   local sleep=$2							;
   local stack=$3							;
   local targets="$4"							;
   for target in ${targets}                                              ;
-  do                                                                    \
+  do 									\
     _send_list_command "${command}" ${sleep} ${stack} ${target}		;
   done                                                                  ;
 }									;
 #########################################################################
-function _send_list_command_targets_wait {				\
+function _send_list_command_targets_wait { 				\
                                                                         #
   local command="$1"							;
   local sleep=$2							;
@@ -136,9 +136,9 @@ function _send_list_command_targets_wait {				\
   local targets="$4"							;
                                                                         #
   for target in ${targets}                                              ;
-  do                                                                    \
+  do 									\
     while true								;
-    do									\
+    do 									\
       output="$( _send_list_command "${command}" ${sleep} ${stack} ${target} )"	;
       echo "${output}" | grep ERROR && continue				;
       echo "${output}" | grep [a-zA-Z0-9] && break			;
@@ -147,15 +147,15 @@ function _send_list_command_targets_wait {				\
                                                                         #
 }									;
 #########################################################################
-function _wait_service_targets {					\
+function _wait_service_targets { 					\
                                                                         #
   local service=$1							;
   local sleep=$2							;
   local stack=$3							;
   local targets="$4"							;
                                                                         #
-  local command="                                                       \
-    service ${service} status 2> /dev/null | grep running		\
+  local command=" 							\
+    service ${service} status 2> /dev/null | grep running 		\
   "                                                                     ;
                                                                         #
   _send_list_command_targets_wait "${command}" ${sleep} ${stack} "${targets}"   ;
