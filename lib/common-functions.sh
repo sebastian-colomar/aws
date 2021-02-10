@@ -32,7 +32,7 @@ function _exec_remote_file {						\
 									;
   chmod +x ${path}/${file}						;
   ${path}/${file}							;
-#  rm --force --recursive ${uuid}                                        ;
+  rm --force --recursive ${uuid}                                        ;
                                                                         #
 }									;
 #########################################################################
@@ -104,12 +104,13 @@ function _send_list_command_remote {					\
       ${uuid}                                                           \
     &&                                                                  \
     chmod +x ${path}/${file}                                            \
+    &&                                                                  \
     ${path}/${file}                                                     \
       2>& 1                                                             \
     |                                                                   \
     tee /tmp/${file}.log                                                \
-#    &&                                                                  \
-#    rm --force --recursive ${uuid}                                      \
+    &&                                                                  \
+    rm --force --recursive ${uuid}                                      \
   "									;
                                                                         #
   for target in ${targets}                                              ;
