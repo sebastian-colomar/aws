@@ -52,7 +52,7 @@ for service in ${engine} kubelet					;
 			${stack} 					\
 			"${targets}" 					\
 			${url} 						\
-									;
+									&
 	done								;
 #########################################################################
 export=" 								\
