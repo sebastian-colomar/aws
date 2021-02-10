@@ -143,7 +143,7 @@ function _send_list_command_targets_wait { 				\
     while true								;
     do 									\
       output="$( _send_list_command "${command}" ${sleep} ${stack} ${target} )"	;
-      echo "${output}" | grep ERROR && continue				;
+      echo "${output}" | grep -q ERROR && continue			;
       echo "${output}" | grep [a-zA-Z0-9] && break			;
     done								;
   done                                                                  ;
