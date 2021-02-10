@@ -89,7 +89,7 @@ command="								\
 		${log}							\
 "									;
 token_certificate=$(							\
-	encode_string "							\
+	_encode_string "						\
 		$(							\
 			_send_list_command_targets_wait 		\
 				"${command}" 				\
@@ -106,7 +106,7 @@ command="								\
 		${log}							\
 "									;
 token_discovery=$(							\
-	encode_string "							\
+	_encode_string "						\
 		$(							\
 			_send_list_command_targets_wait 		\
 				"${command}" 				\
@@ -123,7 +123,7 @@ command="								\
 		${log}							\
 "									;
 token_token=$(								\
-	encode_string "							\
+	_encode_string "						\
 		$(							\
 			_send_list_command_targets_wait 		\
 				"${command}" 				\
