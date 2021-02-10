@@ -5,7 +5,6 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${file}"               || exit 300                             ;
 test -n "${ip_master1}"         || exit 301                             ;
 test -n "${ip_master2}"         || exit 302                             ;
 test -n "${ip_master3}"         || exit 303                             ;
@@ -14,7 +13,7 @@ test -n "${token_discovery}"    || exit 305                             ;
 test -n "${token_token}"        || exit 306                             ;
 #########################################################################
 compose=etc/swarm/nlb.yaml                                              ;
-log=/tmp/${file}.log                                                    ;
+log=/tmp/$( uuidgen ).log                                               ;
 port_master=6443                                                        ;
 sleep=10                                                                ;
 uuid=/tmp/$( uuidgen )                                                  ;
@@ -70,8 +69,7 @@ do                                                                      \
         |                                                               \
         grep enabled                                                    \
         &&                                                              \
-        break                                                           \
-                                                                        ;
+        break                                                           ;
         sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
@@ -83,12 +81,12 @@ do                                                                      \
                 --ignore-preflight-errors all                           \
                 2>& 1                                                   \
         |                                                               \
-        tee --append ${log}                                             \
-                                                                        ;
+        tee ${log}                                                      ;
         grep 'This node has joined the cluster' ${log}                  \
         &&                                                              \
-        break                                                           \
-                                                                        ;
+        rm --force ${log}                                               \
+        &&                                                              \
+        break                                                           ;
         sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
