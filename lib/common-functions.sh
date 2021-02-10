@@ -22,7 +22,7 @@ function _exec_remote_file {						\
   local url=$4								;
                                                                         #
   local uuid=$( uuidgen )						;
-  path=${uuid}/${path}                                                  ;
+  path=/tmp/${uuid}/${path}                                             ;
                                                                         #
   git clone                                                             \
         --single-branch --branch ${branch}				\
@@ -31,7 +31,7 @@ function _exec_remote_file {						\
 									;
   chmod +x ./${path}/${file}						;
   ./${path}/${file}							;
-  rm --force --recursive ${uuid}                                        ;
+#  rm --force --recursive ${uuid}                                        ;
                                                                         #
 }									;
 #########################################################################
@@ -89,7 +89,7 @@ function _send_list_command_remote {					\
   local url=$8								;
                                                                         #
   local uuid=$( uuidgen )						;
-  path=${uuid}/${path}                                                  ;
+  path=/tmp/${uuid}/${path}                                             ;
                                                                         #
   local command="                                                       \
     ${export}                                                           \
@@ -106,8 +106,8 @@ function _send_list_command_remote {					\
       2>& 1                                                             \
     |                                                                   \
     tee /tmp/${file}.log                                                \
-    &&                                                                  \
-    rm --force --recursive ${uuid}                                      \
+#    &&                                                                  \
+#    rm --force --recursive ${uuid}                                      \
   "									;
                                                                         #
   for target in ${targets}                                              ;
@@ -158,7 +158,11 @@ function _wait_service_targets { 					\
     service ${service} status 2> /dev/null | grep running 		\
   "                                                                     ;
                                                                         #
-  _send_list_command_targets_wait "${command}" ${sleep} ${stack} "${targets}"   ;
-                                                                        #
+  _send_list_command_targets_wait 					\
+  	"${command}" 							\
+	${sleep} 							\
+	${stack} 							\
+	"${targets}" 							\
+									;
 }									;
 #########################################################################
