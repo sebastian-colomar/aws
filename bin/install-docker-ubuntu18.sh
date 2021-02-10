@@ -5,18 +5,11 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-engine=docker                                                           ;
-log=/tmp/install-docker-ubuntu18.sh.log                                 ;
+test -n "${engine}"		|| exit 100                             ;
 #########################################################################
 sudo apt-get update                                                     ;
-sudo apt-get install -y ${engine}.io                                    \
-        2>& 1                                                           \
-|                                                                       \
-tee --append ${log}                                                     ;
-sudo systemctl enable --now ${engine}                                   \
-        2>& 1                                                           \
-|                                                                       \
-tee --append ${log}                                                     ;
+sudo apt-get install -y ${engine}.io                                    ;
+sudo systemctl enable --now ${engine}                                   ;
 #########################################################################
 sleep=10                                                                ;
 #########################################################################
