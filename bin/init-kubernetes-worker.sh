@@ -12,7 +12,7 @@ test -n "$kube"                 || exit 304                             ;
 test -n "$token_discovery"      || exit 305                             ;
 test -n "$token_token"          || exit 306                             ;
 #########################################################################
-log=/tmp/init-kubernetes-worker.log                                     ;
+log=/tmp/$( uuidgen ).log                                               ;
 port_master=6443                                                        ;
 sleep=10                                                                ;
 uuid=/tmp/$( uuidgen )                                                  ;
@@ -51,14 +51,14 @@ do                                                                      \
                 $token_token                                            \
                 $token_discovery                                        \
                 --ignore-preflight-errors all                           \
-                2>&1                                                    \
+                2>& 1                                                   \
         |                                                               \
-        tee --append $log                                               \
-                                                                        ;
-        grep 'This node has joined the cluster' $log                    \
+        tee ${log}                                                      ;
+        grep 'This node has joined the cluster' ${log}                  \
         &&                                                              \
-        break                                                           \
-                                                                        ;
+        rm --force ${log}                                               \
+        &&                                                              \
+        break                                                           ;
         sleep $sleep                                                    ;
 done                                                                    ;
 #########################################################################
