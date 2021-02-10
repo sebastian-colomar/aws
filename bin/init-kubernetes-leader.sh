@@ -41,7 +41,8 @@ sudo kubectl apply                                                      \
         --filename                                                      \
                 ${calico}                                               \
         --kubeconfig                                                    \
-                ${kubeconfig}                                           ;
+                ${kubeconfig}                                           \
+                                                                        ;
 #########################################################################
 mkdir -p ${HOME}/.kube                                                  ;
 sudo cp /etc/kubernetes/admin.conf ${HOME}/.kube/config                 ;
@@ -52,7 +53,10 @@ tee --append ${HOME}/.bashrc                                            ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
+        sudo                                                            \
         kubectl get node                                                \
+        --kubeconfig                                                    \
+                ${kubeconfig}                                           \
         |                                                               \
         grep Ready                                                      \
         |                                                               \
