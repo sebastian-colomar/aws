@@ -12,7 +12,7 @@ test -n "${token_discovery}"    || exit 204                             ;
 test -n "${token_token}"        || exit 205                             ;
 #########################################################################
 sleep=10                                                                ;
-uuid=$( uuidgen )                                                       ;
+log=/tmp/$( uuidgen ).log                                               ;
 #########################################################################
 token_certificate="$(                                                   \
         echo ${token_certificate}                                       \
@@ -53,10 +53,10 @@ do                                                                      \
                 --ignore-preflight-errors all                           \
                 2>& 1                                                   \
         |                                                               \
-        tee /tmp/${uuid}                                                ;
-        grep 'This node has joined the cluster' /tmp/${uuid}            \
+        tee ${log}                                                      ;
+        grep 'This node has joined the cluster' ${log}                  \
         &&                                                              \
-        rm --force /tmp/${uuid}                                         \
+        rm --force ${log}                                               \
         &&                                                              \
         break                                                           ;
         sleep ${sleep}                                                  ;
