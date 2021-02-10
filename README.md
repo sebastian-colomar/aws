@@ -12,7 +12,7 @@ os=ubuntu18
 
 ip_leader=${ip_master1}
 location=etc/aws/${template}.yaml
-stack=${os}-${engine}-${template}-$( date +%s )
+stack=${os}-$( date +%s )
 
 aws cloudformation create-stack --stack-name ${stack} --template-body file://${location} --capabilities CAPABILITY_NAMED_IAM --parameters ParameterKey=RecordSetName,ParameterValue=${stack} ParameterKey=PrivateIpAddressInstanceMaster1,ParameterValue=${ip_master1} ParameterKey=PrivateIpAddressInstanceMaster2,ParameterValue=${ip_master2} ParameterKey=PrivateIpAddressInstanceMaster3,ParameterValue=${ip_master3} 
 
