@@ -23,7 +23,6 @@ Metadata:
           - NodeInstallUrlPath
           - NodeInstallUrlFileMaster
           - NodeInstallUrlFileWorker
-          - OperatingSystem
       -
         Label:
           default: Cluster Master Configuration
@@ -90,8 +89,6 @@ Metadata:
         default: The name of the script for the common install of the Master nodes
       NodeInstallUrlFileWorker:
         default: The name of the script for the common install of the Worker nodes
-      OperatingSystem:
-        default: The operating system for the nodes
       PortListenerWorker:
         default: The listening port for Listener Worker
       PortTargetGroupWorker:
@@ -193,21 +190,15 @@ Parameters:
     Type: String
     
   NodeInstallUrlFileMaster:
-    Default: bin/install-ssm
+    Default: bin/install-ssm-rhel8.sh
     Description: >
       The name of the script for the common install of the Master nodes.
     Type: String
     
   NodeInstallUrlFileWorker:
-    Default: bin/install-ssm
+    Default: bin/install-ssm-rhel8.sh
     Description: >
       The name of the script for the common install of the Worker nodes.
-    Type: String
-    
-  OperatingSystem:
-    Default: rhel8
-    Description: >
-      The operating system for the nodes.
     Type: String
     
   PortListenerWorker:
@@ -349,8 +340,8 @@ Resources:
             #!/bin/sh
             sudo yum install -y git
             git clone --single-branch --branch ${BranchAWS} ${NodeInstallUrlPath} GitRepository
-            chmod +x GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
-            ./GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
+            chmod +x GitRepository/${NodeInstallUrlFileMaster}
+            ./GitRepository/${NodeInstallUrlFileMaster}
             rm --force --recursive GitRepository
     Type: AWS::EC2::Instance
             
@@ -369,8 +360,8 @@ Resources:
             #!/bin/sh
             sudo yum install -y git
             git clone --single-branch --branch ${BranchAWS} ${NodeInstallUrlPath} GitRepository
-            chmod +x GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
-            ./GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
+            chmod +x GitRepository/${NodeInstallUrlFileMaster}
+            ./GitRepository/${NodeInstallUrlFileMaster}
             rm --force --recursive GitRepository
     Type: AWS::EC2::Instance
             
@@ -389,8 +380,8 @@ Resources:
             #!/bin/sh
             sudo yum install -y git
             git clone --single-branch --branch ${BranchAWS} ${NodeInstallUrlPath} GitRepository
-            chmod +x GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
-            ./GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
+            chmod +x GitRepository/${NodeInstallUrlFileMaster}
+            ./GitRepository/${NodeInstallUrlFileMaster}
             rm --force --recursive GitRepository
     Type: AWS::EC2::Instance
             
@@ -411,8 +402,8 @@ Resources:
             #!/bin/sh
             sudo yum install -y git
             git clone --single-branch --branch ${BranchAWS} ${NodeInstallUrlPath} GitRepository
-            chmod +x GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
-            ./GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
+            chmod +x GitRepository/${NodeInstallUrlFileMaster}
+            ./GitRepository/${NodeInstallUrlFileMaster}
             rm --force --recursive GitRepository
     Type: AWS::EC2::Instance
 
@@ -428,8 +419,8 @@ Resources:
             #!/bin/sh
             sudo yum install -y git
             git clone --single-branch --branch ${BranchAWS} ${NodeInstallUrlPath} GitRepository
-            chmod +x GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
-            ./GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
+            chmod +x GitRepository/${NodeInstallUrlFileMaster}
+            ./GitRepository/${NodeInstallUrlFileMaster}
             rm --force --recursive GitRepository
     Type: AWS::EC2::Instance
 
@@ -445,8 +436,8 @@ Resources:
             #!/bin/sh
             sudo yum install -y git
             git clone --single-branch --branch ${BranchAWS} ${NodeInstallUrlPath} GitRepository
-            chmod +x GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
-            ./GitRepository/${NodeInstallUrlFileMaster}-${OperatingSystem}.sh
+            chmod +x GitRepository/${NodeInstallUrlFileMaster}
+            ./GitRepository/${NodeInstallUrlFileMaster}
             rm --force --recursive GitRepository
     Type: AWS::EC2::Instance
 
