@@ -14,7 +14,6 @@ set -x                                                                  ;
 test -n "${engine}"		|| exit 100                             ;
 #########################################################################
 baseurl=https://packages.cloud.google.com				;
-repo=https://download.docker.com/linux/centos/docker-ce.repo		;
 rpm_key=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg	;
 sleep=10                                                                ;
 version="1.18.14-00"                                                    ;
