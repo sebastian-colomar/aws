@@ -42,7 +42,7 @@ targets="								\
 #########################################################################
 for service in ${engine} kubelet					;
 	do 								\
-		file=install-${service}-{os}.sh				;
+		file=install-${service}-${os}.sh			;
 		_send_list_command_remote 				\
 			${branch} 					\
 			"" 						\
