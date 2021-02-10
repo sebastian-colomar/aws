@@ -29,8 +29,8 @@ function _exec_remote_file {						\
 	https://${url}		                                        \
         ${uuid}                                                         \
 									;
-  chmod +x ./${path}/${file}						;
-  ./${path}/${file}							;
+  chmod +x ${path}/${file}						;
+  ${path}/${file}							;
 #  rm --force --recursive ${uuid}                                        ;
                                                                         #
 }									;
@@ -101,8 +101,8 @@ function _send_list_command_remote {					\
       https://${url}                                                    \
       ${uuid}                                                           \
     &&                                                                  \
-    chmod +x ./${path}/${file}                                          \
-    ./${path}/${file}                                                   \
+    chmod +x ${path}/${file}                                            \
+    ${path}/${file}                                                     \
       2>& 1                                                             \
     |                                                                   \
     tee /tmp/${file}.log                                                \
