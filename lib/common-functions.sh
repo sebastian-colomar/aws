@@ -115,7 +115,7 @@ function _send_list_command_remote {					\
                                                                         #
   for target in ${targets}                                              ;
   do 									\
-    _send_list_command "${command}" ${sleep} ${stack} ${target}		;
+    _send_list_command "${command}" ${sleep} ${stack} ${target}		&
   done                                                                  ;
                                                                         #
 }									;
@@ -127,7 +127,7 @@ function _send_list_command_targets { 					\
   local targets="$4"							;
   for target in ${targets}                                              ;
   do 									\
-    _send_list_command "${command}" ${sleep} ${stack} ${target}		;
+    _send_list_command "${command}" ${sleep} ${stack} ${target}		&
   done                                                                  ;
 }									;
 #########################################################################
