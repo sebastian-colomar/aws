@@ -5,15 +5,14 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${file}"               || exit 200                             ;
 test -n "${ip_leader}"          || exit 201                             ;
 test -n "${kube}"               || exit 202                             ;
 test -n "${token_certificate}"  || exit 203                             ;
 test -n "${token_discovery}"    || exit 204                             ;
 test -n "${token_token}"        || exit 205                             ;
 #########################################################################
-log=/tmp/${file}.log                                                    ;
 sleep=10                                                                ;
+uuid=$( uuidgen )                                                       ;
 #########################################################################
 token_certificate="$(                                                   \
         echo ${token_certificate}                                       \
@@ -54,8 +53,10 @@ do                                                                      \
                 --ignore-preflight-errors all                           \
                 2>& 1                                                   \
         |                                                               \
-        tee --append ${log}                                             ;
-        grep 'This node has joined the cluster' ${log}                  \
+        tee /tmp/${uuid}                                                ;
+        grep 'This node has joined the cluster' /tmp/${uuid}            \
+        &&                                                              \
+        rm --force /tmp/${uuid}                                         \
         &&                                                              \
         break                                                           ;
         sleep ${sleep}                                                  ;
