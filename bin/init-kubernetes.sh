@@ -31,13 +31,13 @@ url=${domain}/${username}/${repository}					;
 export=" 								\
   export engine=${engine} 						\
 "									;
-targets="								\
-	InstanceMaster1							\
-	InstanceMaster2							\
-	InstanceMaster3							\
-	InstanceWorker1							\
-	InstanceWorker2							\
-	InstanceWorker3							\
+targets=" 								\
+	InstanceMaster1 						\
+	InstanceMaster2 						\
+	InstanceMaster3 						\
+	InstanceWorker1 						\
+	InstanceWorker2 						\
+	InstanceWorker3 						\
 "									;
 #########################################################################
 for service in ${engine} kubelet					;
