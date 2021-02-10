@@ -21,7 +21,7 @@ function _exec_remote_file {						\
   local path=$3								;
   local url=$4								;
                                                                         #
-  local uuid=/tmp/$( uuidgen )						;
+  local uuid=$( uuidgen )						;
                                                                         #
   path=${uuid}/${path}							;
                                                                         #
@@ -89,7 +89,7 @@ function _send_list_command_remote {					\
   local targets="$7"							;
   local url=$8								;
                                                                         #
-  local uuid=/tmp/$( uuidgen )						;
+  local uuid=$( uuidgen )						;
                                                                         #
   path=${uuid}/${path}							;
                                                                         #
