@@ -12,7 +12,6 @@ test -n "${kube}"               || exit 103                             ;
 test -n "${pod_network_cidr}"   || exit 104                             ;
 #########################################################################
 kubeconfig=/etc/kubernetes/admin.conf                                   ;
-log=/tmp/${file}.log                                                    ;
 sleep=10                                                                ;
 #########################################################################
 while true                                                              ;
@@ -37,19 +36,13 @@ sudo kubeadm init                                                       \
         --pod-network-cidr                                              \
                 ${pod_network_cidr}                                     \
         --ignore-preflight-errors                                       \
-                all                                                     \
-        2>& 1                                                           \
-|                                                                       \
-tee --append ${log}                                                     ;
+                all                                                     ;
 #########################################################################
 sudo kubectl apply                                                      \
         --filename                                                      \
                 ${calico}                                               \
         --kubeconfig                                                    \
-                ${kubeconfig}                                           \
-        2>& 1                                                           \
-|                                                                       \
-tee --append ${log}                                                     ;
+                ${kubeconfig}                                           ;
 #########################################################################
 mkdir -p ${HOME}/.kube                                                  ;
 sudo cp /etc/kubernetes/admin.conf ${HOME}/.kube/config                 ;
