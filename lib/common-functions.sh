@@ -21,8 +21,9 @@ function _exec_remote_file {						\
   local path=$3								;
   local url=$4								;
                                                                         #
-  local uuid=$( uuidgen )						;
-  path=/tmp/${uuid}/${path}                                             ;
+  local uuid=/tmp/$( uuidgen )						;
+                                                                        #
+  path=${uuid}/${path}							;
                                                                         #
   git clone                                                             \
         --single-branch --branch ${branch}				\
@@ -88,8 +89,9 @@ function _send_list_command_remote {					\
   local targets="$7"							;
   local url=$8								;
                                                                         #
-  local uuid=$( uuidgen )						;
-  path=/tmp/${uuid}/${path}                                             ;
+  local uuid=/tmp/$( uuidgen )						;
+                                                                        #
+  path=${uuid}/${path}							;
                                                                         #
   local command="                                                       \
     ${export}                                                           \
