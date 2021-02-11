@@ -14,7 +14,8 @@ test -n "${ip_master3}"		|| exit 106                             ;
 test -n "${mode}"		|| exit 107                             ;
 test -n "${os}"			|| exit 108                             ;
 test -n "${stack}"		|| exit 109                             ;
-test -n "${version_major}"	|| exit 102                             ;
+test -n "${version_major}"	|| exit 110                             ;
+test -n "${version_minor}"	|| exit 111                             ;
 #########################################################################
 file=common-functions.sh                                                ;
 path=lib                                                                ;
