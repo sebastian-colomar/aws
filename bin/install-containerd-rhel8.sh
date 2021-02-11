@@ -32,14 +32,3 @@ containerd config default | sudo tee /etc/containerd/config.toml	;
 sudo systemctl restart ${engine}					;
 sudo systemctl enable --now ${engine}					;
 #########################################################################
-while true                                                              ;
-do                                                                      \
-        systemctl status ${engine}                                      \
-        |                                                               \
-        grep running                                                    \
-        &&                                                              \
-        break                                                           \
-                                                                        ;
-        sleep $sleep                                                    ;
-done                                                                    ;
-#########################################################################
