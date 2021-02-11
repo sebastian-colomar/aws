@@ -83,11 +83,12 @@ function _send_list_command_remote {					\
   local branch=$1
   local export="$2"							;
   local file=$3								;
-  local path=$4								;
-  local sleep=$5							;
-  local stack=$6							;
-  local targets="$7"							;
-  local url=$8								;
+  local log=$4								;
+  local path=$5								;
+  local sleep=$6							;
+  local stack=$7							;
+  local targets="$8"							;
+  local url=$9								;
                                                                         #
   local uuid=$( uuidgen )						;
                                                                         #
@@ -108,7 +109,7 @@ function _send_list_command_remote {					\
     ${path}/${file}                                                     \
       2>& 1                                                             \
     |                                                                   \
-    tee /tmp/${file}.log                                                \
+    tee ${log} 								\
     &&                                                                  \
     rm --force --recursive ${uuid}                                      \
   "									;
