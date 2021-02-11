@@ -8,7 +8,8 @@ set -x                                                                  ;
 test -n "${calico}"             || exit 101                             ;
 test -n "${ip_leader}"          || exit 102                             ;
 test -n "${kube}"               || exit 103                             ;
-test -n "${pod_network_cidr}"   || exit 104                             ;
+test -n "${log}"                || exit 104                             ;
+test -n "${pod_network_cidr}"   || exit 105                             ;
 #########################################################################
 kubeconfig=/etc/kubernetes/admin.conf                                   ;
 sleep=10                                                                ;
@@ -28,14 +29,38 @@ echo ${ip_leader} ${kube}                                               \
 |                                                                       \
 sudo tee --append /etc/hosts                                            ;
 sudo swapoff --all                                                      ;
-sudo kubeadm init                                                       \
-        --upload-certs                                                  \
-        --control-plane-endpoint                                        \
-                "${kube}"                                               \
-        --pod-network-cidr                                              \
-                ${pod_network_cidr}                                     \
-        --ignore-preflight-errors                                       \
-                all                                                     ;
+#########################################################################
+success='Your Kubernetes control-plane has initialized successfully'    ;
+while true                                                              ;
+do                                                                      \
+        sudo kubeadm init                                               \
+                --upload-certs                                          \
+                --control-plane-endpoint                                \
+                        "${kube}"                                       \
+                --pod-network-cidr                                      \
+                        ${pod_network_cidr}                             \
+                --ignore-preflight-errors                               \
+                        all                                             \
+                                                                        ;
+        grep                                                            \
+                ${success}                                              \
+                ${log}                                                  \
+        &&                                                              \
+        break                                                           ;
+        echo 'cgroupDriver: systemd'                                    \
+        |                                                               \
+        sudo tee --append /var/lib/kubelet/config.yaml                  ;
+        sudo systemctl restart kubelet                                  ;
+        while true                                                      ;
+        do                                                              \
+                systemctl status kubelet                                \
+                |                                                       \
+                grep running                                            \
+                &&                                                      \
+                break                                                   ;
+                sleep $sleep                                            ;
+        done                                                            ;
+done                                                                    ;
 #########################################################################
 sudo kubectl apply                                                      \
         --filename                                                      \
@@ -43,13 +68,6 @@ sudo kubectl apply                                                      \
         --kubeconfig                                                    \
                 ${kubeconfig}                                           \
                                                                         ;
-#########################################################################
-mkdir -p ${HOME}/.kube                                                  ;
-sudo cp /etc/kubernetes/admin.conf ${HOME}/.kube/config                 ;
-sudo chown -R $( id -u ):$( id -g ) ${HOME}/.kube/                      ;
-echo 'source 0<( kubectl completion bash )'                             \
-|                                                                       \
-tee --append ${HOME}/.bashrc                                            ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
