@@ -59,6 +59,14 @@ for service in ${engine} kubelet					;
 									&
 	done								;
 #########################################################################
+role=leader								;
+targets="								\
+	InstanceMaster1							\
+"									;
+#########################################################################
+file=init-${mode}-${role}.sh						;
+log=/tmp/${file}.log							;
+#########################################################################
 export=" 								\
   export calico=${calico} 						\
   && 									\
@@ -68,20 +76,16 @@ export=" 								\
   && 									\
   export kube=${kube}							\
   && 									\
+  export log=${log}							\
+  && 									\
   export pod_network_cidr=${pod_network_cidr} 				\
 "									;
-role=leader								;
-targets="								\
-	InstanceMaster1							\
-"									;
-#########################################################################
-file=init-${mode}-${role}.sh						;
-log=/tmp/${file}.log							;
 #########################################################################
 _send_list_command_remote 						\
 	${branch} 							\
 	"${export}" 							\
 	${file} 							\
+	${log} 								\
 	${path} 							\
 	${sleep} 							\
 	${stack} 							\
