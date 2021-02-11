@@ -14,6 +14,8 @@ test -n "${ip_master3}"		|| exit 106                             ;
 test -n "${mode}"		|| exit 107                             ;
 test -n "${os}"			|| exit 108                             ;
 test -n "${stack}"		|| exit 109                             ;
+test -n "${version_major}"	|| exit 110                             ;
+test -n "${version_minor}"	|| exit 111                             ;
 #########################################################################
 branch=main								;
 calico=https://docs.projectcalico.org/v3.17/manifests/calico.yaml       ;
@@ -30,6 +32,8 @@ url=${domain}/${username}/${repository}					;
 #########################################################################
 export=" 								\
   export engine=${engine} 						\
+  export version_major=${version_major} 				\
+  export version_minor=${version_minor} 				\
 "									;
 targets=" 								\
 	InstanceMaster1 						\
