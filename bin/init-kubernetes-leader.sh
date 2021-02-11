@@ -43,7 +43,7 @@ do                                                                      \
                         all                                             \
                                                                         ;
         grep                                                            \
-                ${success}                                              \
+                "${success}"                                            \
                 ${log}                                                  \
         &&                                                              \
         break                                                           ;
