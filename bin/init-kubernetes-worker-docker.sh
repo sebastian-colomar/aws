@@ -5,9 +5,9 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${ip_master1}"         || exit 301                             ;
-test -n "${ip_master2}"         || exit 302                             ;
-test -n "${ip_master3}"         || exit 303                             ;
+test -n "${InstanceMaster1}"    || exit 301                             ;
+test -n "${InstanceMaster2}"    || exit 302                             ;
+test -n "${InstanceMaster3}"    || exit 303                             ;
 test -n "${kube}"               || exit 304                             ;
 test -n "${token_discovery}"    || exit 305                             ;
 test -n "${token_token}"        || exit 306                             ;
@@ -28,11 +28,11 @@ sed --in-place s/port_master/${port_master}/                            \
         ${uuid}/${compose}                                              ;
 sed --in-place s/port_master/${port_master}/                            \
         ${uuid}/run/secrets/etc/nginx/conf.d/default.conf               ;
-sed --in-place s/ip_master1/${ip_master1}/                              \
+sed --in-place s/ip_master1/${InstanceMaster1}/                         \
         ${uuid}/run/secrets/etc/nginx/conf.d/default.conf               ;
-sed --in-place s/ip_master2/${ip_master2}/                              \
+sed --in-place s/ip_master2/${InstanceMaster2}/                         \
         ${uuid}/run/secrets/etc/nginx/conf.d/default.conf               ;
-sed --in-place s/ip_master3/${ip_master3}/                              \
+sed --in-place s/ip_master3/${InstanceMaster3}/                         \
         ${uuid}/run/secrets/etc/nginx/conf.d/default.conf               ;
 sudo cp --recursive --verbose ${uuid}/run/* /run                        ;
 sudo docker swarm init                                                  ;
