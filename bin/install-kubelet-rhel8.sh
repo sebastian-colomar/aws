@@ -12,11 +12,12 @@ set -x                                                                  ;
 set -x                                                                  ;
 #########################################################################
 test -n "${engine}"		|| exit 100                             ;
+test -n "${version_major}"	|| exit 110                             ;
+test -n "${version_minor}"	|| exit 111                             ;
 #########################################################################
 baseurl=https://packages.cloud.google.com				;
 rpm_key=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg	;
 sleep=10                                                                ;
-version="1.18.14-00"                                                    ;
 yum_key=https://packages.cloud.google.com/yum/doc/yum-key.gpg		;
 #########################################################################
 sudo tee /etc/yum.repos.d/kubernetes.repo <<EOF
@@ -45,7 +46,10 @@ do                                                                      \
 done                                                                    ;
 #########################################################################
 sudo yum install -y --disableexcludes=kubernetes                        \
-        kubeadm-${version} kubectl-${version} kubelet-${version}        ;
+        kubeadm-${version_major}.${version_minor}                       \
+        kubectl-${version_major}.${version_minor}                       \
+        kubelet-${version_major}.${version_minor}                       \
+                                                                        ;
 echo cgroupDriver: systemd                                              \
 |                                                                       \
 sudo tee --append /var/lib/kubelet/config.yaml                          ;
