@@ -193,6 +193,8 @@ _send_list_command_remote 						\
 									;
 #########################################################################
 export=" 								\
+  export engine=${engine} 						\
+  && 									\
   export InstanceMaster1=${InstanceMaster1}				\
   && 									\
   export InstanceMaster2=${InstanceMaster2}				\
