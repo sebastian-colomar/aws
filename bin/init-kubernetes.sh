@@ -14,7 +14,7 @@ test -n "${version_major}"	|| exit 106                             ;
 test -n "${version_minor}"	|| exit 107                             ;
 #########################################################################
 branch=main								;
-calico=https://docs.projectcalico.org/v3.17/manifests/calico.yaml       ;
+calico=https://docs.projectcalico.org/manifests/calico.yaml		;
 domain=github.com							;
 path=bin								;
 pod_network_cidr=192.168.0.0/16                                         ;
