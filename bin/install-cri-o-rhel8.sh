@@ -6,7 +6,7 @@
 set -x                                                                  ;
 #########################################################################
 test -n "${engine}"		|| exit 100                             ;
-test -n "${version_major}"	|| exit 101                             ;
+test -n "${version_major}"	|| exit 110                             ;
 #########################################################################
 OS=CentOS_8								;
 repo_path=/etc/yum.repos.d/devel:kubic:libcontainers			;
