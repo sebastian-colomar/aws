@@ -26,6 +26,24 @@ username=academiaonline							;
 kube=${RecordSetNameKube}.${HostedZoneName}				;
 url=${domain}/${username}/${repository}					;
 #########################################################################
+for instance in 							\
+	InstanceMaster1 						\
+	InstanceMaster2 						\
+	InstanceMaster3 						\
+									;
+do 									\
+	eval ${instance}="$( 						\
+		aws ec2 describe-instances 				\
+			--filters 					\
+	Name=tag:"aws:cloudformation:stack-name",Values="$stack" 	\
+	Name=tag:"aws:cloudformation:logical-id",Values="${instance}" 	\
+			--query 					\
+	Reservations[].Instances[].PrivateIpAddress 			\
+			--output 					\
+				text 					\
+	)"								;
+done									;
+#########################################################################
 export=" 								\
   export engine=${engine} 						\
   export version_major=${version_major} 				\
@@ -70,7 +88,7 @@ export=" 								\
   && 									\
   export engine=${engine} 						\
   && 									\
-  export ip_leader=${ip_leader}						\
+  export InstanceMaster1=${InstanceMaster1} 				\
   && 									\
   export kube=${kube}							\
   && 									\
@@ -141,24 +159,6 @@ token_token=$(								\
 		)							\
 	"								;
 )									;
-#########################################################################
-for instance in 							\
-	InstanceMaster1 						\
-	InstanceMaster2 						\
-	InstanceMaster3 						\
-									;
-do 									\
-	eval ${instance}="$( 						\
-		aws ec2 describe-instances 				\
-			--filters 					\
-	Name=tag:"aws:cloudformation:stack-name",Values="$stack" 	\
-	Name=tag:"aws:cloudformation:logical-id",Values="${instance}" 	\
-			--query 					\
-	Reservations[].Instances[].PrivateIpAddress 			\
-			--output 					\
-				text 					\
-	)"								;
-done									;
 #########################################################################
 export=" 								\
   export InstanceMaster1=${InstanceMaster1}				\
