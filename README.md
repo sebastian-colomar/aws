@@ -13,6 +13,8 @@ export ip_master3=10.168.5.100
 export mode=kubernetes
 export os=ubuntu18
 export os=rhel8
+export version_major=1.18
+export version_minor=14-00
 
 export ip_leader=${ip_master1}
 export location=etc/aws/${template}.yaml
