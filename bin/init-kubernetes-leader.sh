@@ -30,7 +30,7 @@ echo ${ip_leader} ${kube}                                               \
 sudo tee --append /etc/hosts                                            ;
 sudo swapoff --all                                                      ;
 #########################################################################
-success='Your Kubernetes control-plane has initialized successfully'    ;
+success='^Your Kubernetes control-plane has initialized successfully'   ;
 while true                                                              ;
 do                                                                      \
         sudo kubeadm init                                               \
