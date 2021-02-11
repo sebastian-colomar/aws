@@ -51,15 +51,6 @@ do                                                                      \
         |                                                               \
         sudo tee --append /var/lib/kubelet/config.yaml                  ;
         sudo systemctl restart kubelet                                  ;
-        while true                                                      ;
-        do                                                              \
-                systemctl status kubelet                                \
-                |                                                       \
-                grep running                                            \
-                &&                                                      \
-                break                                                   ;
-                sleep $sleep                                            ;
-        done                                                            ;
 done                                                                    ;
 #########################################################################
 sudo kubectl apply                                                      \
