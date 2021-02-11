@@ -58,6 +58,8 @@ for service in ${engine} kubelet					;
 export=" 								\
   export calico=${calico} 						\
   && 									\
+  export engine=${engine} 						\
+  && 									\
   export ip_leader=${ip_leader}						\
   && 									\
   export kube=${kube}							\
