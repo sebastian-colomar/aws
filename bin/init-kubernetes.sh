@@ -146,8 +146,26 @@ token_token=$(								\
 	"								;
 )									;
 #########################################################################
+for instance in 							\
+	InstanceMaster1 						\
+	InstanceMaster2 						\
+	InstanceMaster3 						\
+									;
+do 									\
+	eval ${instance}="$( 						\
+		aws ec2 describe-instances 				\
+			--filters 					\
+	Name=tag:"aws:cloudformation:stack-name",Values="$stack" 	\
+	Name=tag:"aws:cloudformation:logical-id",Values="${instance}" 	\
+			--query 					\
+	Reservations[].Instances[].PrivateIpAddress 			\
+			--output 					\
+				text 					\
+	)"								;
+done									;
+#########################################################################
 export=" 								\
-  export ip_leader=${ip_leader}						\
+  export InstanceMaster1=${InstanceMaster1}				\
   && 									\
   export kube=${kube}							\
   && 									\
@@ -179,11 +197,11 @@ _send_list_command_remote 						\
 									;
 #########################################################################
 export=" 								\
-  export ip_master1=${ip_master1}					\
+  export InstanceMaster1=${InstanceMaster1}				\
   && 									\
-  export ip_master2=${ip_master2}					\
+  export InstanceMaster2=${InstanceMaster2}				\
   && 									\
-  export ip_master3=${ip_master3}					\
+  export InstanceMaster3=${InstanceMaster3}				\
   && 									\
   export kube=${kube}							\
   && 									\
