@@ -66,7 +66,7 @@ tee --append ${HOME}/.bashrc                                            ;
 while true                                                              ;
 do                                                                      \
         sudo                                                            \
-        kubectl get node                                                \
+        kubectl get no                                                  \
         --kubeconfig                                                    \
                 ${kubeconfig}                                           \
         |                                                               \
