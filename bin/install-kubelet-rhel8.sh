@@ -33,6 +33,17 @@ EOF
 sudo setenforce 0							;
 sudo sed -i /^SELINUX/s/enforcing/permissive/ /etc/selinux/config	;
 #########################################################################
+while true                                                              ;
+do                                                                      \
+        systemctl status ${engine}                                      \
+        |                                                               \
+        grep running                                                    \
+        &&                                                              \
+        break                                                           \
+                                                                        ;
+        sleep $sleep                                                    ;
+done                                                                    ;
+#########################################################################
 sudo yum install -y --disableexcludes=kubernetes                        \
         kubeadm-${version} kubectl-${version} kubelet-${version}        ;
 sudo systemctl enable --now kubelet                                     ;
