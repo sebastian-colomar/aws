@@ -5,6 +5,7 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
+test -n "${engine}"             || exit 300                             ;
 test -n "${InstanceMaster1}"    || exit 301                             ;
 test -n "${InstanceMaster2}"    || exit 302                             ;
 test -n "${InstanceMaster3}"    || exit 303                             ;
@@ -18,6 +19,17 @@ port_master=6443                                                        ;
 sleep=10                                                                ;
 uuid=/tmp/$( uuidgen )                                                  ;
 #########################################################################
+while true                                                              ;
+do                                                                      \
+        systemctl status ${engine}                                      \
+        |                                                               \
+        grep running                                                    \
+        &&                                                              \
+        break                                                           ;
+        sleep ${sleep}                                                  ;
+done                                                                    ;
+#########################################################################
+
 git clone                                                               \
         --single-branch --branch v2.3                                   \
         https://github.com/academiaonline/nlb                           \
