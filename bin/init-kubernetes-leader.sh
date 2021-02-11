@@ -25,7 +25,7 @@ do                                                                      \
         sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
-echo ${ip_leader} ${kube}                                               \
+echo ${InstanceMaster1} ${kube}                                         \
 |                                                                       \
 sudo tee --append /etc/hosts                                            ;
 sudo swapoff --all                                                      ;
