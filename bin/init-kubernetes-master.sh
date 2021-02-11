@@ -5,7 +5,7 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${ip_leader}"          || exit 201                             ;
+test -n "${InstanceMaster1}"    || exit 201                             ;
 test -n "${kube}"               || exit 202                             ;
 test -n "${token_certificate}"  || exit 203                             ;
 test -n "${token_discovery}"    || exit 204                             ;
@@ -30,7 +30,7 @@ token_token="$(                                                         \
         base64 --decode                                                 \
 )"                                                                      ;
 #########################################################################
-echo ${ip_leader} ${kube}                                               \
+echo ${InstanceMaster1} ${kube}                                         \
 |                                                                       \
 sudo tee --append /etc/hosts                                            ;
 #########################################################################
