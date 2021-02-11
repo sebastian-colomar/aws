@@ -7,15 +7,11 @@ set -x									;
 #########################################################################
 test -n "${engine}"		|| exit 101                             ;
 test -n "${HostedZoneName}"	|| exit 102                             ;
-test -n "${ip_leader}"          || exit 103                             ;
-test -n "${ip_master1}"		|| exit 104                             ;
-test -n "${ip_master2}"		|| exit 105                             ;
-test -n "${ip_master3}"		|| exit 106                             ;
-test -n "${mode}"		|| exit 107                             ;
-test -n "${os}"			|| exit 108                             ;
-test -n "${stack}"		|| exit 109                             ;
-test -n "${version_major}"	|| exit 110                             ;
-test -n "${version_minor}"	|| exit 111                             ;
+test -n "${mode}"		|| exit 103                             ;
+test -n "${os}"			|| exit 104                             ;
+test -n "${stack}"		|| exit 105                             ;
+test -n "${version_major}"	|| exit 106                             ;
+test -n "${version_minor}"	|| exit 107                             ;
 #########################################################################
 branch=main								;
 calico=https://docs.projectcalico.org/v3.17/manifests/calico.yaml       ;
