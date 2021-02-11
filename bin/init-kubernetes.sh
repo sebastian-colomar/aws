@@ -162,11 +162,13 @@ targets="								\
 "									;
 #########################################################################
 file=init-${mode}-${role}.sh						;
+log=/tmp/${file}.log							;
 #########################################################################
 _send_list_command_remote 						\
 	${branch} 							\
 	"${export}" 							\
 	${file} 							\
+	${log} 								\
 	${path} 							\
 	${sleep} 							\
 	${stack} 							\
@@ -199,11 +201,13 @@ test ${engine} == docker 						\
 file=init-${mode}-${role}-${engine}.sh 					\
 || 									\
 file=init-${mode}-${role}.sh						;
+log=/tmp/${file}.log							;
 #########################################################################
 _send_list_command_remote 						\
 	${branch} 							\
 	"${export}" 							\
 	${file} 							\
+	${log} 								\
 	${path} 							\
 	${sleep} 							\
 	${stack} 							\
