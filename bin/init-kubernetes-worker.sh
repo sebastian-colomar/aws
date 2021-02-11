@@ -5,9 +5,7 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${ip_master1}"         || exit 301                             ;
-test -n "${ip_master2}"         || exit 302                             ;
-test -n "${ip_master3}"         || exit 303                             ;
+test -n "${InstanceMaster1}"    || exit 301                             ;
 test -n "${kube}"               || exit 304                             ;
 test -n "${token_discovery}"    || exit 305                             ;
 test -n "${token_token}"        || exit 306                             ;
@@ -19,7 +17,7 @@ uuid=/tmp/$( uuidgen )                                                  ;
 #########################################################################
 # TEMPORARY SOLUTION UNTIL WE DEPLOY A PROPER KUBE-APISERVER LOADBALANCER
 #########################################################################
-echo $ip_master1 $kube                                                  \
+echo ${InstanceMaster1} $kube                                           \
 |                                                                       \
 sudo tee --append /etc/hosts                                            ;
 #########################################################################
