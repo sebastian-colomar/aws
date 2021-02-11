@@ -47,6 +47,7 @@ targets=" 								\
 for service in ${engine} kubelet					;
 	do 								\
 		file=install-${service}-${os}.sh			;
+		log=/tmp/${file}.log					;
 		_send_list_command_remote 				\
 			${branch} 					\
 			"${export}" 					\
