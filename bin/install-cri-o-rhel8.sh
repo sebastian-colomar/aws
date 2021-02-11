@@ -6,11 +6,11 @@
 set -x                                                                  ;
 #########################################################################
 test -n "${engine}"		|| exit 100                             ;
+test -n "${version_major}"	|| exit 101                             ;
 #########################################################################
 OS=CentOS_8								;
 repo_path=/etc/yum.repos.d/devel:kubic:libcontainers			;
 repo_url=https://download.opensuse.org/repositories/devel		;
-VERSION=1.18								;
 #########################################################################
 sudo tee /etc/modules-load.d/${engine}.conf <<EOF
 overlay
@@ -28,8 +28,8 @@ sudo sysctl --system							;
 #########################################################################
 sudo curl -L -o ${repo_path}:stable.repo				\
 	${repo_url}:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo	;
-sudo curl -L -o ${repo_path}:stable:cri-o:$VERSION.repo			\
-	${repo_url}:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo	;
+sudo curl -L -o ${repo_path}:stable:cri-o:$version_major.repo			\
+	${repo_url}:kubic:libcontainers:stable:cri-o:$version_major/$OS/devel:kubic:libcontainers:stable:cri-o:$version_major.repo	;
 sudo yum install -y ${engine}						;
 sudo systemctl restart ${engine}					;
 sudo systemctl enable --now ${engine}					;
