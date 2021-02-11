@@ -6,9 +6,10 @@
 set -x                                                                  ;
 #########################################################################
 test -n "${engine}"		|| exit 100                             ;
+test -n "${version_major}"	|| exit 110                             ;
+test -n "${version_minor}"	|| exit 111                             ;
 #########################################################################
 sleep=10                                                                ;
-version="1.18.14-00"                                                    ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
@@ -28,9 +29,9 @@ echo deb http://apt.kubernetes.io/ kubernetes-xenial main               \
 sudo tee -a /etc/apt/sources.list.d/kubernetes.list                     ;
 sudo apt-get update                                                     ;
 sudo apt-get install -y --allow-downgrades                              \
-        kubeadm=${version}                                              \
-        kubectl=${version}                                              \
-        kubelet=${version}                                              \
+        kubeadm=${version_major}.${version_minor}                       \
+        kubectl=${version_major}.${version_minor}                       \
+        kubelet=${version_major}.${version_minor}                       \
                                                                         ;
 sudo systemctl enable --now kubelet                                     ;
 #########################################################################
