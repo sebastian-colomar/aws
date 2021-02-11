@@ -52,6 +52,7 @@ for service in ${engine} kubelet					;
 			${branch} 					\
 			"${export}" 					\
 			${file} 					\
+			${log} 						\
 			${path} 					\
 			${sleep} 					\
 			${stack} 					\
