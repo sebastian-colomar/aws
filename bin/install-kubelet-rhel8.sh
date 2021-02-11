@@ -46,5 +46,8 @@ done                                                                    ;
 #########################################################################
 sudo yum install -y --disableexcludes=kubernetes                        \
         kubeadm-${version} kubectl-${version} kubelet-${version}        ;
+echo cgroupDriver: systemd                                              \
+|                                                                       \
+sudo tee --append /var/lib/kubelet/config.yaml                          ;
 sudo systemctl enable --now kubelet                                     ;
 #########################################################################
