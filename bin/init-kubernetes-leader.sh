@@ -30,17 +30,32 @@ echo ${InstanceMaster1} ${kube}                                         \
 sudo tee --append /etc/hosts                                            ;
 sudo swapoff --all                                                      ;
 #########################################################################
+config=/tmp/$( uuidgen ).yaml                                           ;
+sudo tee ${config} 0<<EOF
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+nodeRegistration:
+  kubeletExtraArgs:
+    cgroup-driver: "systemd"
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+controlPlaneEndpoint: "${kube}:6443"
+kind: ClusterConfiguration
+networking:
+  podSubnet: ${pod_network_cidr}
+---
+EOF
+#########################################################################
 success='^Your Kubernetes control-plane has initialized successfully'   ;
 while true                                                              ;
 do                                                                      \
         sudo kubeadm init                                               \
-                --upload-certs                                          \
-                --control-plane-endpoint                                \
-                        "${kube}"                                       \
-                --pod-network-cidr                                      \
-                        ${pod_network_cidr}                             \
+                --config                                                \
+                        ${config}                                       \
                 --ignore-preflight-errors                               \
                         all                                             \
+                --upload-certs                                          \
                                                                         ;
         grep                                                            \
                 "${success}"                                            \
@@ -52,6 +67,8 @@ do                                                                      \
         sudo tee --append /var/lib/kubelet/config.yaml                  ;
         sudo systemctl restart kubelet                                  ;
 done                                                                    ;
+#########################################################################
+rm --force ${uuid}                                                      ;
 #########################################################################
 sudo kubectl apply                                                      \
         --filename                                                      \
