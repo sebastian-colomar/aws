@@ -68,7 +68,7 @@ do                                                                      \
         sudo systemctl restart kubelet                                  ;
 done                                                                    ;
 #########################################################################
-rm --force ${uuid}                                                      ;
+rm --force ${config}                                                    ;
 #########################################################################
 sudo kubectl apply                                                      \
         --filename                                                      \
