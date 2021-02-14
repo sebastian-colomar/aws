@@ -19,7 +19,7 @@ sudo tee /etc/${engine}/daemon.json <<EOF
   "log-opts": {
     "max-size": "100m"
   },
-  "storage-driver": "overlay2",
+  "storage-driver": "overlay2"
 }
 EOF
 #########################################################################
