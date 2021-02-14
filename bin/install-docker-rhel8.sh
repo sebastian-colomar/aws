@@ -30,6 +30,7 @@ sudo tee /etc/${engine}/daemon.json <<EOF
 }
 EOF
 #########################################################################
+sudo systemctl daemon-reload                                            ;
 sudo systemctl restart ${engine}					;
 sudo systemctl enable --now ${engine}					;
 #########################################################################
