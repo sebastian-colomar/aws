@@ -21,7 +21,7 @@ uuid=/tmp/$( uuidgen )                                                  ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
-        systemctl status ${engine}                                      \
+        systemctl status docker                                         \
         |                                                               \
         grep running                                                    \
         &&                                                              \
