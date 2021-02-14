@@ -27,20 +27,15 @@ kube=${RecordSetNameKube}.${HostedZoneName}				;
 url=${domain}/${username}/${repository}					;
 #########################################################################
 export=" 								\
-  export engine=${engine} 						\
-  export version_major=${version_major} 				\
-  export version_minor=${version_minor} 				\
+  export engine=docker	 						\
 "									;
 targets=" 								\
-	InstanceMaster1 						\
-	InstanceMaster2 						\
-	InstanceMaster3 						\
 	InstanceWorker1 						\
 	InstanceWorker2 						\
 	InstanceWorker3 						\
 "									;
 #########################################################################
-for service in ${engine} kubelet					;
+for service in docker							;
 	do 								\
 		file=install-${service}-${os}.sh			;
 		log=/tmp/${file}.log					;
@@ -58,15 +53,20 @@ for service in ${engine} kubelet					;
 	done								;
 #########################################################################
 export=" 								\
-  export engine=docker	 						\
+  export engine=${engine} 						\
+  export version_major=${version_major} 				\
+  export version_minor=${version_minor} 				\
 "									;
 targets=" 								\
+	InstanceMaster1 						\
+	InstanceMaster2 						\
+	InstanceMaster3 						\
 	InstanceWorker1 						\
 	InstanceWorker2 						\
 	InstanceWorker3 						\
 "									;
 #########################################################################
-for service in docker							;
+for service in ${engine} kubelet					;
 	do 								\
 		file=install-${service}-${os}.sh			;
 		log=/tmp/${file}.log					;
