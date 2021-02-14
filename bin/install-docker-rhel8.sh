@@ -10,6 +10,7 @@ test -n "${engine}"		|| exit 100                             ;
 repo=https://download.docker.com/linux/centos/docker-ce.repo		;
 sleep=10                                                                ;
 #########################################################################
+sudo yum update -y                                                      ;
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2	;
 sudo yum-config-manager --add-repo ${repo}				;
 sudo yum update -y                                                      ;
