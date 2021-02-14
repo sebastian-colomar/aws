@@ -24,7 +24,7 @@ export version_minor=2-00
 export template=${os}-mumbai-3masters-3workers-https
 
 export location=etc/aws/${template}.yaml
-export stack=${os}-1-${version_major}-${version_minor}-$( date +%s | rev | cut -c1,2 )
+export stack=${os}-${engine}-${version_major}-${version_minor}-$( date +%s | rev | cut -c1,2 )
 
 aws cloudformation create-stack --stack-name ${stack} --template-body file://${location} --capabilities CAPABILITY_NAMED_IAM --parameters ParameterKey=RecordSetName,ParameterValue=${stack}
 
