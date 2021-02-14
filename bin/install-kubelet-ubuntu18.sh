@@ -29,9 +29,9 @@ echo deb http://apt.kubernetes.io/ kubernetes-xenial main               \
 sudo tee -a /etc/apt/sources.list.d/kubernetes.list                     ;
 sudo apt-get update                                                     ;
 sudo apt-get install -y --allow-downgrades                              \
-        kubeadm=${version_major}.${version_minor}                       \
-        kubectl=${version_major}.${version_minor}                       \
-        kubelet=${version_major}.${version_minor}                       \
+        kubeadm=1.${version_major}.${version_minor}                     \
+        kubectl=1.${version_major}.${version_minor}                     \
+        kubelet=1.${version_major}.${version_minor}                     \
                                                                         ;
 sudo systemctl enable --now kubelet                                     ;
 #########################################################################
