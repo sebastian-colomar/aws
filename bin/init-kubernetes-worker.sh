@@ -12,9 +12,11 @@ test -n "${kube}"               || exit 304                             ;
 test -n "${token_discovery}"    || exit 305                             ;
 test -n "${token_token}"        || exit 306                             ;
 #########################################################################
+branch=docker                                                           ;
 compose=etc/swarm/nlb.yaml                                              ;
 log=/tmp/$( uuidgen ).log                                               ;
 port_master=6443                                                        ;
+repository=https://github.com/academiaonline/nlb                        ;
 sleep=10                                                                ;
 uuid=/tmp/$( uuidgen )                                                  ;
 #########################################################################
@@ -29,8 +31,8 @@ do                                                                      \
 done                                                                    ;
 #########################################################################
 git clone                                                               \
-        --single-branch --branch docker                                   \
-        https://github.com/academiaonline/nlb                           \
+        --single-branch --branch ${branch}                              \
+        ${repository}                                                   \
         ${uuid}                                                         ;
 sed --in-place s/worker/manager/                                        \
         ${uuid}/${compose}                                              ;
