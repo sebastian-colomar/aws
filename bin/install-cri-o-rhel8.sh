@@ -27,9 +27,9 @@ EOF
 sudo sysctl --system							;
 #########################################################################
 sudo curl -L -o ${repo_path}:stable.repo				\
-	${repo_url}:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo	;
-sudo curl -L -o ${repo_path}:stable:cri-o:$version_major.repo			\
-	${repo_url}:kubic:libcontainers:stable:cri-o:$version_major/$OS/devel:kubic:libcontainers:stable:cri-o:$version_major.repo	;
+	${repo_url}:/kubic:/libcontainers:/stable/${OS}/devel:kubic:libcontainers:stable.repo	;
+sudo curl -L -o ${repo_path}:stable:${engine}:${version_major}.repo			\
+	${repo_url}:kubic:libcontainers:stable:${engine}:${version_major}/${OS}/devel:kubic:libcontainers:stable:${engine}:${version_major}.repo	;
 sudo yum install -y ${engine}						;
 sudo systemctl restart ${engine}					;
 sudo systemctl enable --now ${engine}					;
