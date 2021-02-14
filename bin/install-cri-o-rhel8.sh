@@ -28,7 +28,7 @@ sudo sysctl --system							;
 #########################################################################
 sudo curl -L -o ${repo_path}:stable.repo				\
 	${repo_url}:/kubic:/libcontainers:/stable/${OS}/devel:kubic:libcontainers:stable.repo	;
-sudo curl -L -o ${repo_path}:stable:${engine}:${version_major}.repo			\
+sudo curl -L -o ${repo_path}:stable:${engine}:${version_major}.repo	\
 	${repo_url}:kubic:libcontainers:stable:${engine}:${version_major}/${OS}/devel:kubic:libcontainers:stable:${engine}:${version_major}.repo	;
 sudo yum update -y                                                      ;
 sudo yum install -y ${engine}						;
