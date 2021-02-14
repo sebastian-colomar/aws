@@ -9,6 +9,16 @@ engine=containerd                                                       ;
 repo=https://download.docker.com/linux/centos/docker-ce.repo		;
 sleep=10                                                                ;
 #########################################################################
+while true                                                              ;
+do                                                                      \
+        sudo systemctl is-enabled docker                                \
+        |                                                               \
+        grep enabled                                                    \
+        &&                                                              \
+        break                                                           ;
+        sleep ${sleep}                                                  ;
+done                                                                    ;
+#########################################################################
 sudo tee /etc/modules-load.d/${engine}.conf <<EOF
 overlay
 br_netfilter
