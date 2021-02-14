@@ -45,6 +45,7 @@ do                                                                      \
         sleep $sleep                                                    ;
 done                                                                    ;
 #########################################################################
+sudo yum update -y                                                      ;
 sudo yum install -y --disableexcludes=kubernetes                        \
         kubeadm-${version_major}.${version_minor}                       \
         kubectl-${version_major}.${version_minor}                       \
