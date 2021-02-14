@@ -29,7 +29,7 @@ do                                                                      \
 done                                                                    ;
 #########################################################################
 git clone                                                               \
-        --single-branch --branch v2.3                                   \
+        --single-branch --branch docker                                   \
         https://github.com/academiaonline/nlb                           \
         ${uuid}                                                         ;
 sed --in-place s/worker/manager/                                        \
