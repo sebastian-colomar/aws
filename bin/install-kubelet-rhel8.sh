@@ -41,9 +41,9 @@ done                                                                    ;
 #########################################################################
 sudo yum update -y                                                      ;
 sudo yum install -y --disableexcludes=kubernetes                        \
-        kubeadm-${version_major}.${version_minor}                       \
-        kubectl-${version_major}.${version_minor}                       \
-        kubelet-${version_major}.${version_minor}                       \
+        kubeadm-1.${version_major}.${version_minor}                     \
+        kubectl-1.${version_major}.${version_minor}                     \
+        kubelet-1.${version_major}.${version_minor}                     \
                                                                         ;
 sudo systemctl enable --now kubelet                                     ;
 #########################################################################
