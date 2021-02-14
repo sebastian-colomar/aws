@@ -13,7 +13,7 @@ test -n "${token_discovery}"    || exit 305                             ;
 test -n "${token_token}"        || exit 306                             ;
 #########################################################################
 branch=docker                                                           ;
-compose=etc/swarm/nlb.yaml                                              ;
+compose=etc/swarm/manifests/nlb.yaml                                    ;
 log=/tmp/$( uuidgen ).log                                               ;
 port_master=6443                                                        ;
 repository=https://github.com/academiaonline/nlb                        ;
