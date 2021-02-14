@@ -11,6 +11,17 @@ engine=cri-o								;
 OS=CentOS_8								;
 repo_path=/etc/yum.repos.d/devel:kubic:libcontainers			;
 repo_url=https://download.opensuse.org/repositories/devel		;
+sleep=10                                                                ;
+#########################################################################
+while true                                                              ;
+do                                                                      \
+        sudo systemctl is-enabled docker                                \
+        |                                                               \
+        grep enabled                                                    \
+        &&                                                              \
+        break                                                           ;
+        sleep ${sleep}                                                  ;
+done                                                                    ;
 #########################################################################
 sudo tee /etc/modules-load.d/${engine}.conf <<EOF
 overlay
