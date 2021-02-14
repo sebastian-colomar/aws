@@ -26,24 +26,6 @@ username=academiaonline							;
 kube=${RecordSetNameKube}.${HostedZoneName}				;
 url=${domain}/${username}/${repository}					;
 #########################################################################
-for instance in 							\
-	InstanceMaster1 						\
-	InstanceMaster2 						\
-	InstanceMaster3 						\
-									;
-do 									\
-	eval ${instance}="$( 						\
-		aws ec2 describe-instances 				\
-			--filters 					\
-	Name=tag:"aws:cloudformation:stack-name",Values="$stack" 	\
-	Name=tag:"aws:cloudformation:logical-id",Values="${instance}" 	\
-			--query 					\
-	Reservations[].Instances[].PrivateIpAddress 			\
-			--output 					\
-				text 					\
-	)"								;
-done									;
-#########################################################################
 export=" 								\
   export engine=${engine} 						\
   export version_major=${version_major} 				\
@@ -74,6 +56,50 @@ for service in ${engine} kubelet					;
 			${url} 						\
 									&
 	done								;
+#########################################################################
+export=" 								\
+  export engine=docker	 						\
+"									;
+targets=" 								\
+	InstanceWorker1 						\
+	InstanceWorker2 						\
+	InstanceWorker3 						\
+"									;
+#########################################################################
+for service in docker							;
+	do 								\
+		file=install-${service}-${os}.sh			;
+		log=/tmp/${file}.log					;
+		_send_list_command_remote 				\
+			${branch} 					\
+			"${export}" 					\
+			${file} 					\
+			${log} 						\
+			${path} 					\
+			${sleep} 					\
+			${stack} 					\
+			"${targets}" 					\
+			${url} 						\
+									&
+	done								;
+#########################################################################
+for instance in 							\
+	InstanceMaster1 						\
+	InstanceMaster2 						\
+	InstanceMaster3 						\
+									;
+do 									\
+	eval ${instance}="$( 						\
+		aws ec2 describe-instances 				\
+			--filters 					\
+	Name=tag:"aws:cloudformation:stack-name",Values="${stack}" 	\
+	Name=tag:"aws:cloudformation:logical-id",Values="${instance}" 	\
+			--query 					\
+	Reservations[].Instances[].PrivateIpAddress 			\
+			--output 					\
+				text 					\
+	)"								;
+done									;
 #########################################################################
 role=leader								;
 targets="								\
@@ -214,10 +240,6 @@ targets="								\
 	InstanceWorker3							\
 "									;
 #########################################################################
-test ${engine} == docker 						\
-&& 									\
-file=init-${mode}-${role}-${engine}.sh 					\
-|| 									\
 file=init-${mode}-${role}.sh						;
 log=/tmp/${file}.log							;
 #########################################################################
