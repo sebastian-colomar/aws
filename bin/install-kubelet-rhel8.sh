@@ -17,7 +17,7 @@ yum_key=https://packages.cloud.google.com/yum/doc/yum-key.gpg		;
 sudo tee /etc/yum.repos.d/kubernetes.repo <<EOF
 [kubernetes]
 name=Kubernetes
-baseurl=${baseurl}/yum/repos/kubernetes-el7-\$basearch
+baseurl=${baseurl}/yum/repos/kubernetes-el7-\${basearch}
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
