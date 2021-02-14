@@ -27,7 +27,7 @@ sudo sysctl --system							;
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2	;
 sudo yum-config-manager --add-repo ${repo}				;
 sudo yum install -y ${engine}.io					;
-sudo mkdir -p /etc/containerd						;
+sudo mkdir -p /etc/${engine}						;
 containerd config default | sudo tee /etc/containerd/config.toml	;
 sudo systemctl restart ${engine}					;
 sudo systemctl enable --now ${engine}					;
