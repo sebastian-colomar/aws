@@ -5,9 +5,9 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${engine}"		|| exit 100                             ;
 test -n "${version_major}"	|| exit 110                             ;
 #########################################################################
+engine=docker								;
 OS=CentOS_8								;
 repo_path=/etc/yum.repos.d/devel:kubic:libcontainers			;
 repo_url=https://download.opensuse.org/repositories/devel		;
