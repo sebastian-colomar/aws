@@ -61,11 +61,8 @@ do                                                                      \
                 "${success}"                                            \
                 ${log}                                                  \
         &&                                                              \
-        break                                                           ;
-        echo 'cgroupDriver: systemd'                                    \
-        |                                                               \
-        sudo tee --append /var/lib/kubelet/config.yaml                  ;
-        sudo systemctl restart kubelet                                  ;
+        break                                                           \
+        sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
 rm --force ${config}                                                    ;
@@ -88,8 +85,7 @@ do                                                                      \
         |                                                               \
         grep --invert-match NotReady                                    \
         &&                                                              \
-        break                                                           \
-                                                                        ;
+        break                                                           ;
         sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
