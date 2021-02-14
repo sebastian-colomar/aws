@@ -9,17 +9,21 @@ test -n "${engine}"		|| exit 100                             ;
 #########################################################################
 sudo apt-get update                                                     ;
 sudo apt-get install -y ${engine}.io                                    ;
-sudo systemctl enable --now ${engine}                                   ;
+sudo mkdir -p /etc/${engine}						;
+sudo mkdir -p /etc/systemd/system/${engine}.service.d                   ;
 #########################################################################
-sleep=10                                                                ;
+sudo tee /etc/${engine}/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2",
+}
+EOF
 #########################################################################
-while true                                                              ;
-do                                                                      \
-        systemctl status ${engine}                                      \
-        |                                                               \
-        grep running                                                    \
-        &&                                                              \
-        break                                                           ;
-        sleep ${sleep}                                                  ;
-done                                                                    ;
+sudo systemctl daemon-reload                                            ;
+sudo systemctl restart ${engine}					;
+sudo systemctl enable --now ${engine}					;
 #########################################################################
