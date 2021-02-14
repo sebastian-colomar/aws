@@ -7,7 +7,7 @@ set -x                                                                  ;
 #########################################################################
 test -n "${version_major}"	|| exit 100                             ;
 #########################################################################
-engine=docker								;
+engine=cri-o								;
 OS=CentOS_8								;
 repo_path=/etc/yum.repos.d/devel:kubic:libcontainers			;
 repo_url=https://download.opensuse.org/repositories/devel		;
