@@ -54,6 +54,9 @@ sed --in-place                                                          \
 sed --in-place                                                          \
         /criSocket:/s/docker/containerd/g                               \
         ${config}                                                       ;
+test ${engine} = docker                                                 \
+        /criSocket:/d                                                   \
+        ${config}                                                       ;
 #########################################################################
 success='^Your Kubernetes control-plane has initialized successfully'   ;
 while true                                                              ;
