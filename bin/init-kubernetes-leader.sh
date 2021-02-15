@@ -51,9 +51,6 @@ EOF
 sed --in-place                                                          \
         /criSocket:/s/cri-o/crio/g                                      \
         ${config}                                                       ;
-sed --in-place                                                          \
-        /criSocket:/s/docker/containerd/g                               \
-        ${config}                                                       ;
 test ${engine} = docker                                                 \
 &&                                                                      \
 sed --in-place                                                          \
