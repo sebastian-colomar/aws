@@ -28,55 +28,6 @@ url=${domain}/${username}/${repository}					;
 #########################################################################
 export=" 								\
   export engine=${engine} 						\
-"									;
-targets=" 								\
-	InstanceWorker1 						\
-	InstanceWorker2 						\
-	InstanceWorker3 						\
-"									;
-#########################################################################
-for service in 								\
-	docker 								\
-									;
-	do 								\
-		file=install-${service}-${os}.sh			;
-		log=/tmp/${file}.log					;
-		_send_list_command_remote 				\
-			${branch} 					\
-			"${export}" 					\
-			${file} 					\
-			${log} 						\
-			${path} 					\
-			${sleep} 					\
-			${stack} 					\
-			"${targets}" 					\
-			${url} 						\
-									&
-	done								;
-#########################################################################
-export=" 								\
-  export engine=${engine} 						\
-"									;
-targets=" 								\
-	InstanceWorker1 						\
-	InstanceWorker2 						\
-	InstanceWorker3 						\
-"									;
-#########################################################################
-for service in 								\
-	docker 								\
-									;
-	do 								\
-		_wait_service_targets 					\
-			${service} 					\
-			${sleep} 					\
-			${stack} 					\
-			"${targets}" 					\
-									;
-	done								;
-#########################################################################
-export=" 								\
-  export engine=${engine} 						\
   export version_major=${version_major} 				\
   export version_minor=${version_minor} 				\
 "									;
@@ -137,11 +88,9 @@ log=/tmp/${file}.log							;
 export=" 								\
   export calico=${calico} 						\
   && 									\
-  export engine=${engine} 						\
+  export kube=${kube}							\
   && 									\
   export InstanceMaster1=${InstanceMaster1} 				\
-  && 									\
-  export kube=${kube}							\
   && 									\
   export log=${log}							\
   && 									\
@@ -244,13 +193,7 @@ _send_list_command_remote 						\
 									;
 #########################################################################
 export=" 								\
-  export engine=${engine} 						\
-  && 									\
   export InstanceMaster1=${InstanceMaster1}				\
-  && 									\
-  export InstanceMaster2=${InstanceMaster2}				\
-  && 									\
-  export InstanceMaster3=${InstanceMaster3}				\
   && 									\
   export kube=${kube}							\
   && 									\
@@ -279,4 +222,66 @@ _send_list_command_remote 						\
 	"${targets}" 							\
 	${url} 								\
 									;
+#########################################################################
+export=" 								\
+  export engine=${engine} 						\
+"									;
+targets=" 								\
+	InstanceWorker1 						\
+	InstanceWorker2 						\
+	InstanceWorker3 						\
+"									;
+#########################################################################
+for service in 								\
+	docker 								\
+									;
+	do 								\
+		file=install-${service}-${os}.sh			;
+		log=/tmp/${file}.log					;
+		_send_list_command_remote 				\
+			${branch} 					\
+			"${export}" 					\
+			${file} 					\
+			${log} 						\
+			${path} 					\
+			${sleep} 					\
+			${stack} 					\
+			"${targets}" 					\
+			${url} 						\
+									&
+	done								;
+#########################################################################
+export=" 								\
+  export InstanceMaster1=${InstanceMaster1}				\
+  && 									\
+  export InstanceMaster2=${InstanceMaster2}				\
+  && 									\
+  export InstanceMaster3=${InstanceMaster3}				\
+  && 									\
+  export kube=${kube}							\
+"									;
+targets=" 								\
+	InstanceWorker1 						\
+	InstanceWorker2 						\
+	InstanceWorker3 						\
+"									;
+#########################################################################
+for service in 								\
+	kube-lb								\
+									;
+	do 								\
+		file=install-${service}.sh				;
+		log=/tmp/${file}.log					;
+		_send_list_command_remote 				\
+			${branch} 					\
+			"${export}" 					\
+			${file} 					\
+			${log} 						\
+			${path} 					\
+			${sleep} 					\
+			${stack} 					\
+			"${targets}" 					\
+			${url} 						\
+									&
+	done								;
 #########################################################################
