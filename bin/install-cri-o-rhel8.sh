@@ -18,16 +18,6 @@ sleep=10                                                                ;
 path3=${OS}/devel:kubic:libcontainers:stable				;
 path4=${engine}:1.${version_major}					;
 #########################################################################
-while true                                                              ;
-do                                                                      \
-        sudo systemctl is-enabled docker                                \
-        |                                                               \
-        grep enabled                                                    \
-        &&                                                              \
-        break                                                           ;
-        sleep ${sleep}                                                  ;
-done                                                                    ;
-#########################################################################
 sudo tee /etc/modules-load.d/${engine}.conf <<EOF
 overlay
 br_netfilter
