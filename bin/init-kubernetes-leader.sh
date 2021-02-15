@@ -55,6 +55,8 @@ sed --in-place                                                          \
         /criSocket:/s/docker/containerd/g                               \
         ${config}                                                       ;
 test ${engine} = docker                                                 \
+&&                                                                      \
+sed --in-place                                                          \
         /criSocket:/d                                                   \
         ${config}                                                       ;
 #########################################################################
