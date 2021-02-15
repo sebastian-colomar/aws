@@ -37,7 +37,7 @@ apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
 nodeRegistration:
   kubeletExtraArgs:
-    cgroup-driver: "systemd"
+    cgroup-driver: systemd
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
 controlPlaneEndpoint: "${kube}:6443"
