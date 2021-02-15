@@ -9,9 +9,14 @@ test -n "${version_major}"	|| exit 100                             ;
 #########################################################################
 engine=cri-o								;
 OS=CentOS_8								;
+path1=/kubic:/libcontainers:/stable					;
+path2=kubic:libcontainers:stable					;
 repo_path=/etc/yum.repos.d/devel:kubic:libcontainers			;
 repo_url=https://download.opensuse.org/repositories/devel		;
 sleep=10                                                                ;
+#########################################################################
+path3=${OS}/devel:kubic:libcontainers:stable				;
+path4=${engine}:1.${version_major}					;
 #########################################################################
 while true                                                              ;
 do                                                                      \
@@ -38,9 +43,9 @@ EOF
 sudo sysctl --system							;
 #########################################################################
 sudo curl -L -o ${repo_path}:stable.repo				\
-	${repo_url}:/kubic:/libcontainers:/stable/${OS}/devel:kubic:libcontainers:stable.repo	;
-sudo curl -L -o ${repo_path}:stable:${engine}:1.${version_major}.repo	\
-	${repo_url}:kubic:libcontainers:stable:${engine}:1.${version_major}/${OS}/devel:kubic:libcontainers:stable:${engine}:1.${version_major}.repo	;
+	${repo_url}:${path1}/${path3}.repo				;
+sudo curl -L -o ${repo_path}:stable:${path4}.repo			\
+	${repo_url}:${path2}:${path4}/${path3}:${path4}.repo		;
 sudo yum update -y                                                      ;
 sudo yum install -y ${engine}						;
 sudo systemctl restart ${engine}					;
