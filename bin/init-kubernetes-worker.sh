@@ -20,6 +20,49 @@ repository=https://github.com/academiaonline/nlb                        ;
 sleep=10                                                                ;
 uuid=/tmp/$( uuidgen )                                                  ;
 #########################################################################
+echo ${InstanceMaster1} ${kube}                                         \
+|                                                                       \
+sudo tee --append /etc/hosts                                            ;
+sudo swapoff --all                                                      ;
+#########################################################################
+token_discovery="$(                                                     \
+        echo ${token_discovery}                                         \
+        |                                                               \
+        base64 --decode                                                 \
+)"                                                                      ;
+token_token="$(                                                         \
+        echo ${token_token}                                             \
+        |                                                               \
+        base64 --decode                                                 \
+)"                                                                      ;
+#########################################################################
+while true                                                              ;
+do                                                                      \
+        sudo systemctl is-enabled kubelet                               \
+        |                                                               \
+        grep enabled                                                    \
+        &&                                                              \
+        break                                                           ;
+        sleep ${sleep}                                                  ;
+done                                                                    ;
+#########################################################################
+while true                                                              ;
+do                                                                      \
+        sudo                                                            \
+                ${token_token}                                          \
+                ${token_discovery}                                      \
+                --ignore-preflight-errors all                           \
+                2>& 1                                                   \
+        |                                                               \
+        tee ${log}                                                      ;
+        grep 'This node has joined the cluster' ${log}                  \
+        &&                                                              \
+        rm --force ${log}                                               \
+        &&                                                              \
+        break                                                           ;
+        sleep ${sleep}                                                  ;
+done                                                                    ;
+#########################################################################
 while true                                                              ;
 do                                                                      \
         systemctl status docker                                         \
@@ -63,42 +106,4 @@ sudo sed --in-place                                                     \
 sudo sed --in-place                                                     \
         /127.0.0.1.*localhost/s/$/' '${kube}/                           \
         /etc/hosts                                                      ;
-#########################################################################
-token_discovery="$(                                                     \
-        echo ${token_discovery}                                         \
-        |                                                               \
-        base64 --decode                                                 \
-)"                                                                      ;
-token_token="$(                                                         \
-        echo ${token_token}                                             \
-        |                                                               \
-        base64 --decode                                                 \
-)"                                                                      ;
-#########################################################################
-while true                                                              ;
-do                                                                      \
-        sudo systemctl is-enabled kubelet                               \
-        |                                                               \
-        grep enabled                                                    \
-        &&                                                              \
-        break                                                           ;
-        sleep ${sleep}                                                  ;
-done                                                                    ;
-#########################################################################
-while true                                                              ;
-do                                                                      \
-        sudo                                                            \
-                ${token_token}                                          \
-                ${token_discovery}                                      \
-                --ignore-preflight-errors all                           \
-                2>& 1                                                   \
-        |                                                               \
-        tee ${log}                                                      ;
-        grep 'This node has joined the cluster' ${log}                  \
-        &&                                                              \
-        rm --force ${log}                                               \
-        &&                                                              \
-        break                                                           ;
-        sleep ${sleep}                                                  ;
-done                                                                    ;
 #########################################################################
