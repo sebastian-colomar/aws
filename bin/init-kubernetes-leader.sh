@@ -49,7 +49,7 @@ EOF
 #########################################################################
 test ${engine} = cri-o                                                  \
 &&                                                                      \
-newline="  criSocket: /var/run/crio/crio.sock"                          \
+newline='  criSocket: \/var\/run\/crio\/crio.sock'                      \
 &&                                                                      \
 sed --in-place "/^nodeRegistration:/s/$/${newline}/" ${config}          \
                                                                         ;
