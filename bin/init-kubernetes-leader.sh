@@ -12,6 +12,7 @@ test -n "${InstanceMaster1}"    || exit 103                             ;
 test -n "${log}"                || exit 104                             ;
 test -n "${pod_network_cidr}"   || exit 105                             ;
 #########################################################################
+config=/tmp/$( uuidgen ).yaml                                           ;
 kubeconfig=/etc/kubernetes/admin.conf                                   ;
 sleep=10                                                                ;
 #########################################################################
@@ -30,7 +31,6 @@ echo ${InstanceMaster1} ${kube}                                         \
 sudo tee --append /etc/hosts                                            ;
 sudo swapoff --all                                                      ;
 #########################################################################
-config=/tmp/$( uuidgen ).yaml                                           ;
 sudo tee ${config} 0<<EOF
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
@@ -47,7 +47,13 @@ networking:
   podSubnet: ${pod_network_cidr}
 ---
 EOF
-sed --in-place /criSocket:/s/cri-o/crio/ ${config}                      ;
+#########################################################################
+sed --in-place                                                          \
+        /criSocket:/s/cri-o/crio/g                                      \
+        ${config}                                                       ;
+sed --in-place                                                          \
+        /criSocket:/s/docker/containerd/g                               \
+        ${config}                                                       ;
 #########################################################################
 success='^Your Kubernetes control-plane has initialized successfully'   ;
 while true                                                              ;
