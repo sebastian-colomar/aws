@@ -36,6 +36,7 @@ sudo tee ${config} 0<<EOF
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
 nodeRegistration:
+  criSocket: /run/${engine}/${engine}.sock
   kubeletExtraArgs:
     cgroup-driver: systemd
 ---
@@ -46,13 +47,7 @@ networking:
   podSubnet: ${pod_network_cidr}
 ---
 EOF
-#########################################################################
-test ${engine} = cri-o                                                  \
-&&                                                                      \
-newline='  criSocket: \/var\/run\/crio\/crio.sock'                      \
-&&                                                                      \
-sed --in-place "/^nodeRegistration:/s/$/${newline}/" ${config}          \
-                                                                        ;
+sed --in-place /criSocket:/s/cri-o/crio/ ${config}                      ;
 #########################################################################
 success='^Your Kubernetes control-plane has initialized successfully'   ;
 while true                                                              ;
