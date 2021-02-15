@@ -46,6 +46,13 @@ networking:
 ---
 EOF
 #########################################################################
+test ${engine} = cri-o                                                  \
+&&                                                                      \
+newline="  criSocket: /var/run/crio/crio.sock"                          \
+&&                                                                      \
+sed --in-place "/^nodeRegistration:/s/$/${newline}/" ${config}          \
+                                                                        ;
+#########################################################################
 success='^Your Kubernetes control-plane has initialized successfully'   ;
 while true                                                              ;
 do                                                                      \
