@@ -5,8 +5,7 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${calico}"             || exit 100                             ;
-test -n "${engine}"             || exit 101                             ;
+test -n "${calico}"             || exit 101                             ;
 test -n "${kube}"               || exit 102                             ;
 test -n "${InstanceMaster1}"    || exit 103                             ;
 test -n "${log}"                || exit 104                             ;
@@ -36,7 +35,6 @@ sudo tee ${config} 0<<EOF
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
 nodeRegistration:
-  criSocket: /run/${engine}/${engine}.sock
   kubeletExtraArgs:
     cgroup-driver: systemd
 ---
@@ -47,15 +45,6 @@ networking:
   podSubnet: ${pod_network_cidr}
 ---
 EOF
-#########################################################################
-sed --in-place                                                          \
-        /criSocket:/s/cri-o/crio/g                                      \
-        ${config}                                                       ;
-test ${engine} = docker                                                 \
-&&                                                                      \
-sed --in-place                                                          \
-        /criSocket:/d                                                   \
-        ${config}                                                       ;
 #########################################################################
 success='^Your Kubernetes control-plane has initialized successfully'   ;
 while true                                                              ;
