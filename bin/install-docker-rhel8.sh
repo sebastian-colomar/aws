@@ -5,15 +5,30 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
+test -n "${log}"                || exit 100                             ;
+#########################################################################
 engine=docker                                                           ;
-repo=https://download.docker.com/linux/centos/docker-ce.repo		;
+repo=https://download.docker.com/linux/centos/docker-ce.repo            ;
 sleep=10                                                                ;
 #########################################################################
 sudo yum update -y                                                      ;
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2	;
 sudo yum-config-manager --add-repo ${repo}				;
 sudo yum update -y                                                      ;
-sudo yum install -y ${engine}-ce					;
+#########################################################################
+success='^Complete!'                                                    ;
+while true                                                              ;
+do                                                                      \
+        sudo yum install -y ${engine}-ce                                \
+                                                                        ;
+        grep                                                            \
+                "${success}"                                            \
+                ${log}                                                  \
+        &&                                                              \
+        break                                                           ;
+        sleep ${sleep}                                                  ;
+done                                                                    ;
+#########################################################################
 sudo mkdir -p /etc/${engine}						;
 sudo mkdir -p /etc/systemd/system/${engine}.service.d                   ;
 #########################################################################
