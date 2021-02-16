@@ -5,12 +5,13 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-engine=docker                                                           ;
+engine=containerd                                                       ;
 #########################################################################
 sudo apt-get update                                                     ;
-sudo apt-get install -y ${engine}.io                                    ;
+sudo apt-get install -y ${engine}                                       ;
 sudo mkdir -p /etc/${engine}						;
 sudo mkdir -p /etc/systemd/system/${engine}.service.d                   ;
+containerd config default | sudo tee /etc/containerd/config.toml	;
 #########################################################################
 sudo tee /etc/${engine}/daemon.json <<EOF
 {
