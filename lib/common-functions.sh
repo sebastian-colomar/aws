@@ -109,7 +109,7 @@ function _send_list_command_remote {					\
     ${path}/${file}                                                     \
       2>& 1                                                             \
     |                                                                   \
-    tee ${log} 								\
+    tee --append ${log} 						\
     &&                                                                  \
     rm --force --recursive ${uuid}                                      \
   "									;
