@@ -38,7 +38,7 @@ do                                                                      \
         grep running                                                    \
         &&                                                              \
         break                                                           ;
-        sleep $sleep                                                    ;
+        sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
 sudo yum update -y                                                      ;
