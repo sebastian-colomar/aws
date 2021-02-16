@@ -65,10 +65,10 @@ do                                                                      \
         sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
-#sudo sed --in-place                                                     \
-#        /${kube}/d                                                      \
-#        /etc/hosts                                                      ;
-#sudo sed --in-place                                                     \
-#        /127.0.0.1.*localhost/s/$/' '${kube}/                           \
-#        /etc/hosts                                                      ;
+sudo sed --in-place                                                     \
+        /${kube}/d                                                      \
+        /etc/hosts                                                      ;
+sudo sed --in-place                                                     \
+        /127.0.0.1.*localhost/s/$/' '${kube}/                           \
+        /etc/hosts                                                      ;
 #########################################################################
