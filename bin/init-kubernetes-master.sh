@@ -50,8 +50,6 @@ do                                                                      \
                 ${token_token}                                          \
                 ${token_discovery}                                      \
                 ${token_certificate}                                    \
-                --config                                                \
-                        ${config}                                       \
                 --ignore-preflight-errors                               \
                         all                                             \
                 2>& 1                                                   \
