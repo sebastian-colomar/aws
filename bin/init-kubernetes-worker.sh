@@ -43,7 +43,8 @@ do                                                                      \
         sudo                                                            \
                 ${token_token}                                          \
                 ${token_discovery}                                      \
-                --ignore-preflight-errors all                           \
+                --ignore-preflight-errors                               \
+                        all                                             \
                 2>& 1                                                   \
         |                                                               \
         tee ${log}                                                      ;
