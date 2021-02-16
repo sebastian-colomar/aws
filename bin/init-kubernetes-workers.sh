@@ -13,7 +13,7 @@ test -n "${stack}"		|| exit 105                             ;
 test -n "${version_major}"	|| exit 106                             ;
 test -n "${version_minor}"	|| exit 107                             ;
 #########################################################################
-branch=main								;
+branch=v3.3								;
 domain=github.com							;
 path=bin								;
 RecordSetNameKube=kube-apiserver					;
