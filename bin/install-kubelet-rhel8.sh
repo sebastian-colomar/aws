@@ -25,8 +25,8 @@ gpgkey=${yum_key} ${rpm_key}
 exclude=kubelet kubeadm kubectl
 EOF
 #########################################################################
-sudo setenforce 0							;
-sudo sed -i /^SELINUX/s/enforcing/permissive/ /etc/selinux/config	;
+#sudo setenforce 0							;
+#sudo sed -i /^SELINUX/s/enforcing/permissive/ /etc/selinux/config	;
 #########################################################################
 while true                                                              ;
 do                                                                      \
