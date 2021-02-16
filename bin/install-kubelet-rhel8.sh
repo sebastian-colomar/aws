@@ -28,6 +28,9 @@ EOF
 #sudo setenforce 0							;
 #sudo sed -i /^SELINUX/s/enforcing/permissive/ /etc/selinux/config	;
 #########################################################################
+sudo sed --in-place /swap/d /etc/fstab                                  ;
+sudo swapoff --all                                                      ;
+#########################################################################
 while true                                                              ;
 do                                                                      \
         systemctl status ${engine}                                      \
