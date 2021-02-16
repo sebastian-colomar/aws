@@ -10,7 +10,7 @@ test -n "${InstanceMaster2}"    || exit 302                             ;
 test -n "${InstanceMaster3}"    || exit 303                             ;
 test -n "${kube}"               || exit 304                             ;
 #########################################################################
-branch=docker                                                           ;
+branch=v2.4                                                             ;
 compose=etc/swarm/manifests/nlb.yaml                                    ;
 port_master=6443                                                        ;
 repository=https://github.com/academiaonline/nlb                        ;
