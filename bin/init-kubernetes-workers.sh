@@ -24,35 +24,63 @@ username=academiaonline							;
 kube=${RecordSetNameKube}.${HostedZoneName}				;
 url=${domain}/${username}/${repository}					;
 #########################################################################
-export=" 								\
-  export engine=${engine} 						\
-  export version_major=${version_major} 				\
-  export version_minor=${version_minor} 				\
-"									;
-targets=" 								\
+service=${engine}							;
+targets="								\
 	InstanceWorker1 						\
 	InstanceWorker2 						\
 	InstanceWorker3 						\
 "									;
 #########################################################################
-for service in 								\
-	${engine} 							\
-	kubelet								;
-	do 								\
-		file=install-${service}-${os}.sh			;
-		log=/tmp/${file}.log					;
-		_send_list_command_remote 				\
-			${branch} 					\
-			"${export}" 					\
-			${file} 					\
-			${log} 						\
-			${path} 					\
-			${sleep} 					\
-			${stack} 					\
-			"${targets}" 					\
-			${url} 						\
-									&
-	done								;
+file=install-${service}-${os}.sh					;
+log=/tmp/${file}.log							;
+#########################################################################
+export=" 								\
+  export log=${log}							\
+  && 									\
+  export version_major=${version_major} 				\
+"									;
+#########################################################################
+_send_list_command_remote 						\
+	${branch} 							\
+	"${export}" 							\
+	${file} 							\
+	${log} 								\
+	${path} 							\
+	${sleep} 							\
+	${stack} 							\
+	"${targets}" 							\
+	${url} 								\
+									;
+#########################################################################
+service=kubelet								;
+targets="								\
+	InstanceWorker1 						\
+	InstanceWorker2 						\
+	InstanceWorker3 						\
+"									;
+#########################################################################
+file=install-${service}-${os}.sh					;
+log=/tmp/${file}.log							;
+#########################################################################
+export=" 								\
+  export engine=${engine} 						\
+  && 									\
+  export version_major=${version_major} 				\
+  && 									\
+  export version_minor=${version_minor} 				\
+"									;
+#########################################################################
+_send_list_command_remote 						\
+	${branch} 							\
+	"${export}" 							\
+	${file} 							\
+	${log} 								\
+	${path} 							\
+	${sleep} 							\
+	${stack} 							\
+	"${targets}" 							\
+	${url} 								\
+									;
 #########################################################################
 for instance in 							\
 	InstanceMaster1 						\
@@ -114,15 +142,6 @@ token_token=$(								\
 	"								;
 )									;
 #########################################################################
-export=" 								\
-  export InstanceMaster1=${InstanceMaster1}				\
-  && 									\
-  export kube=${kube}							\
-  && 									\
-  export token_discovery=${token_discovery}				\
-  &&									\
-  export token_token=${token_token}					\
-"									;
 role=worker;
 targets="								\
 	InstanceWorker1							\
@@ -132,6 +151,16 @@ targets="								\
 #########################################################################
 file=init-${mode}-${role}.sh						;
 log=/tmp/${file}.log							;
+#########################################################################
+export=" 								\
+  export InstanceMaster1=${InstanceMaster1}				\
+  && 									\
+  export kube=${kube}							\
+  && 									\
+  export token_discovery=${token_discovery}				\
+  &&									\
+  export token_token=${token_token}					\
+"									;
 #########################################################################
 _send_list_command_remote 						\
 	${branch} 							\
