@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/sh
 #########################################################################
 #      Copyright (C) 2020        Sebastian Francisco Colomar Bauza      #
 #      SPDX-License-Identifier:  GPL-2.0-only                           #
@@ -153,13 +153,13 @@ file=init-${mode}-${role}.sh						;
 log=/tmp/${file}.log							;
 #########################################################################
 export=" 								\
-  export InstanceMaster1=${InstanceMaster1}				\
-  && 									\
-  export kube=${kube}							\
-  && 									\
-  export token_discovery=${token_discovery}				\
-  &&									\
-  export token_token=${token_token}					\
+	export InstanceMaster1=${InstanceMaster1} 			\
+	&& 								\
+	export kube=${kube} 						\
+	&& 								\
+	export token_discovery=${token_discovery} 			\
+	&& 								\
+	export token_token=${token_token} 				\
 "									;
 #########################################################################
 _send_list_command_remote 						\
@@ -214,13 +214,13 @@ file=install-${service}.sh						;
 log=/tmp/${file}.log							;
 #########################################################################
 export=" 								\
-  export InstanceMaster1=${InstanceMaster1}				\
-  && 									\
-  export InstanceMaster2=${InstanceMaster2}				\
-  && 									\
-  export InstanceMaster3=${InstanceMaster3}				\
-  && 									\
-  export kube=${kube}							\
+	export InstanceMaster1=${InstanceMaster1} 			\
+	&& 								\
+	export InstanceMaster2=${InstanceMaster2} 			\
+	&& 								\
+	export InstanceMaster3=${InstanceMaster3} 			\
+	&& 								\
+	export kube=${kube} 						\
 "									;
 #########################################################################
 _send_list_command_remote 						\
