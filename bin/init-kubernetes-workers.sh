@@ -188,6 +188,8 @@ export=" 								\
   export log=${log}							\
 "									;
 #########################################################################
+if ${engine} != ${service}						;
+then 									\
 _send_list_command_remote 						\
 	${branch} 							\
 	"${export}" 							\
@@ -199,6 +201,7 @@ _send_list_command_remote 						\
 	"${targets}" 							\
 	${url} 								\
 									;
+fi									;
 #########################################################################
 service=kube-lb								;
 targets=" 								\
