@@ -16,7 +16,6 @@ sleep=10                                                                ;
 echo ${InstanceMaster1} ${kube}                                         \
 |                                                                       \
 sudo tee --append /etc/hosts                                            ;
-sudo swapoff --all                                                      ;
 #########################################################################
 token_discovery="$(                                                     \
         echo ${token_discovery}                                         \
