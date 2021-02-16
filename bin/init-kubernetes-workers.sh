@@ -145,33 +145,41 @@ _send_list_command_remote 						\
 	${url} 								\
 									;
 #########################################################################
-export=" 								\
-  export engine=${engine} 						\
-"									;
+service=docker								;
 targets=" 								\
 	InstanceWorker1 						\
 	InstanceWorker2 						\
 	InstanceWorker3 						\
 "									;
 #########################################################################
-for service in 								\
-	docker 								\
+file=install-${service}-${os}.sh					;
+log=/tmp/${file}.log							;
+#########################################################################
+export=" 								\
+  export log=${log}							\
+"									;
+#########################################################################
+_send_list_command_remote 						\
+	${branch} 							\
+	"${export}" 							\
+	${file} 							\
+	${log} 								\
+	${path} 							\
+	${sleep} 							\
+	${stack} 							\
+	"${targets}" 							\
+	${url} 								\
 									;
-	do 								\
-		file=install-${service}-${os}.sh			;
-		log=/tmp/${file}.log					;
-		_send_list_command_remote 				\
-			${branch} 					\
-			"${export}" 					\
-			${file} 					\
-			${log} 						\
-			${path} 					\
-			${sleep} 					\
-			${stack} 					\
-			"${targets}" 					\
-			${url} 						\
-									&
-	done								;
+#########################################################################
+service=kube-lb								;
+targets=" 								\
+	InstanceWorker1 						\
+	InstanceWorker2 						\
+	InstanceWorker3 						\
+"									;
+#########################################################################
+file=install-${service}.sh						;
+log=/tmp/${file}.log							;
 #########################################################################
 export=" 								\
   export InstanceMaster1=${InstanceMaster1}				\
@@ -182,28 +190,16 @@ export=" 								\
   && 									\
   export kube=${kube}							\
 "									;
-targets=" 								\
-	InstanceWorker1 						\
-	InstanceWorker2 						\
-	InstanceWorker3 						\
-"									;
 #########################################################################
-for service in 								\
-	kube-lb								\
+_send_list_command_remote 						\
+	${branch} 							\
+	"${export}" 							\
+	${file} 							\
+	${log} 								\
+	${path} 							\
+	${sleep} 							\
+	${stack} 							\
+	"${targets}" 							\
+	${url} 								\
 									;
-	do 								\
-		file=install-${service}.sh				;
-		log=/tmp/${file}.log					;
-		_send_list_command_remote 				\
-			${branch} 					\
-			"${export}" 					\
-			${file} 					\
-			${log} 						\
-			${path} 					\
-			${sleep} 					\
-			${stack} 					\
-			"${targets}" 					\
-			${url} 						\
-									&
-	done								;
 #########################################################################
