@@ -35,9 +35,6 @@ targets=" 								\
 	InstanceMaster1 						\
 	InstanceMaster2 						\
 	InstanceMaster3 						\
-	InstanceWorker1 						\
-	InstanceWorker2 						\
-	InstanceWorker3 						\
 "									;
 #########################################################################
 for service in 								\
@@ -191,97 +188,4 @@ _send_list_command_remote 						\
 	"${targets}" 							\
 	${url} 								\
 									;
-#########################################################################
-export=" 								\
-  export InstanceMaster1=${InstanceMaster1}				\
-  && 									\
-  export kube=${kube}							\
-  && 									\
-  export token_discovery=${token_discovery}				\
-  &&									\
-  export token_token=${token_token}					\
-"									;
-role=worker;
-targets="								\
-	InstanceWorker1							\
-	InstanceWorker2							\
-	InstanceWorker3							\
-"									;
-#########################################################################
-file=init-${mode}-${role}.sh						;
-log=/tmp/${file}.log							;
-#########################################################################
-_send_list_command_remote 						\
-	${branch} 							\
-	"${export}" 							\
-	${file} 							\
-	${log} 								\
-	${path} 							\
-	${sleep} 							\
-	${stack} 							\
-	"${targets}" 							\
-	${url} 								\
-									;
-#########################################################################
-export=" 								\
-  export engine=${engine} 						\
-"									;
-targets=" 								\
-	InstanceWorker1 						\
-	InstanceWorker2 						\
-	InstanceWorker3 						\
-"									;
-#########################################################################
-for service in 								\
-	docker 								\
-									;
-	do 								\
-		file=install-${service}-${os}.sh			;
-		log=/tmp/${file}.log					;
-		_send_list_command_remote 				\
-			${branch} 					\
-			"${export}" 					\
-			${file} 					\
-			${log} 						\
-			${path} 					\
-			${sleep} 					\
-			${stack} 					\
-			"${targets}" 					\
-			${url} 						\
-									&
-	done								;
-#########################################################################
-export=" 								\
-  export InstanceMaster1=${InstanceMaster1}				\
-  && 									\
-  export InstanceMaster2=${InstanceMaster2}				\
-  && 									\
-  export InstanceMaster3=${InstanceMaster3}				\
-  && 									\
-  export kube=${kube}							\
-"									;
-targets=" 								\
-	InstanceWorker1 						\
-	InstanceWorker2 						\
-	InstanceWorker3 						\
-"									;
-#########################################################################
-for service in 								\
-	kube-lb								\
-									;
-	do 								\
-		file=install-${service}.sh				;
-		log=/tmp/${file}.log					;
-		_send_list_command_remote 				\
-			${branch} 					\
-			"${export}" 					\
-			${file} 					\
-			${log} 						\
-			${path} 					\
-			${sleep} 					\
-			${stack} 					\
-			"${targets}" 					\
-			${url} 						\
-									&
-	done								;
 #########################################################################
