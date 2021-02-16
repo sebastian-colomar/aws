@@ -18,16 +18,6 @@ echo ${InstanceMaster1} ${kube}                                         \
 |                                                                       \
 sudo tee --append /etc/hosts                                            ;
 #########################################################################
-while true                                                              ;
-do                                                                      \
-        sudo systemctl is-enabled kubelet                               \
-        |                                                               \
-        grep enabled                                                    \
-        &&                                                              \
-        break                                                           ;
-        sleep ${sleep}                                                  ;
-done                                                                    ;
-#########################################################################
 token_certificate="$(                                                   \
         echo ${token_certificate}                                       \
         |                                                               \
@@ -43,6 +33,16 @@ token_token="$(                                                         \
         |                                                               \
         base64 --decode                                                 \
 )"                                                                      ;
+#########################################################################
+while true                                                              ;
+do                                                                      \
+        sudo systemctl is-enabled kubelet                               \
+        |                                                               \
+        grep enabled                                                    \
+        &&                                                              \
+        break                                                           ;
+        sleep ${sleep}                                                  ;
+done                                                                    ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
