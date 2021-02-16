@@ -11,8 +11,8 @@ test -n "${token_certificate}"  || exit 203                             ;
 test -n "${token_discovery}"    || exit 204                             ;
 test -n "${token_token}"        || exit 205                             ;
 #########################################################################
-sleep=10                                                                ;
 log=/tmp/$( uuidgen ).log                                               ;
+sleep=10                                                                ;
 #########################################################################
 echo ${InstanceMaster1} ${kube}                                         \
 |                                                                       \
