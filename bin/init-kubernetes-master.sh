@@ -11,7 +11,6 @@ test -n "${token_certificate}"  || exit 203                             ;
 test -n "${token_discovery}"    || exit 204                             ;
 test -n "${token_token}"        || exit 205                             ;
 #########################################################################
-config=/tmp/$( uuidgen ).yaml                                           ;
 sleep=10                                                                ;
 log=/tmp/$( uuidgen ).log                                               ;
 #########################################################################
@@ -28,22 +27,6 @@ do                                                                      \
         break                                                           ;
         sleep ${sleep}                                                  ;
 done                                                                    ;
-#########################################################################
-sudo tee ${config} 0<<EOF
----
-apiVersion: kubeadm.k8s.io/v1beta2
-kind: InitConfiguration
-nodeRegistration:
-  kubeletExtraArgs:
-    cgroup-driver: systemd
----
-apiVersion: kubeadm.k8s.io/v1beta2
-controlPlaneEndpoint: "${kube}:6443"
-kind: ClusterConfiguration
-networking:
-  podSubnet: ${pod_network_cidr}
----
-EOF
 #########################################################################
 token_certificate="$(                                                   \
         echo ${token_certificate}                                       \
@@ -81,8 +64,6 @@ do                                                                      \
         break                                                           ;
         sleep ${sleep}                                                  ;
 done                                                                    ;
-#########################################################################
-rm --force ${config}                                                    ;
 #########################################################################
 #sudo sed --in-place                                                     \
 #        /${kube}/d                                                      \
