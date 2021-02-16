@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/sh
 #########################################################################
 #      Copyright (C) 2020        Sebastian Francisco Colomar Bauza      #
 #      SPDX-License-Identifier:  GPL-2.0-only                           #
@@ -115,15 +115,15 @@ file=init-${mode}-${role}.sh						;
 log=/tmp/${file}.log							;
 #########################################################################
 export=" 								\
-  export calico=${calico} 						\
-  && 									\
-  export kube=${kube}							\
-  && 									\
-  export InstanceMaster1=${InstanceMaster1} 				\
-  && 									\
-  export log=${log}							\
-  && 									\
-  export pod_network_cidr=${pod_network_cidr} 				\
+	export calico=${calico} 					\
+	&& 								\
+	export kube=${kube} 						\
+	&& 								\
+	export InstanceMaster1=${InstanceMaster1} 			\
+	&& 								\
+	export log=${log} 						\
+	&& 								\
+	export pod_network_cidr=${pod_network_cidr} 			\
 "									;
 #########################################################################
 _send_list_command_remote 						\
@@ -189,17 +189,6 @@ token_token=$(								\
 	"								;
 )									;
 #########################################################################
-export=" 								\
-  export InstanceMaster1=${InstanceMaster1}				\
-  && 									\
-  export kube=${kube}							\
-  && 									\
-  export token_certificate=${token_certificate}				\
-  &&									\
-  export token_discovery=${token_discovery}				\
-  &&									\
-  export token_token=${token_token}					\
-"									;
 role=master								;
 targets="								\
 	InstanceMaster2							\
@@ -208,6 +197,18 @@ targets="								\
 #########################################################################
 file=init-${mode}-${role}.sh						;
 log=/tmp/${file}.log							;
+#########################################################################
+export=" 								\
+	export InstanceMaster1=${InstanceMaster1} 			\
+	&& 								\
+	export kube=${kube} 						\
+	&& 								\
+	export token_certificate=${token_certificate} 			\
+	&& 								\
+	export token_discovery=${token_discovery} 			\
+	&& 								\
+	export token_token=${token_token} 				\
+"									;
 #########################################################################
 _send_list_command_remote 						\
 	${branch} 							\
