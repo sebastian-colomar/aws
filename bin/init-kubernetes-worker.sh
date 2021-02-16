@@ -5,10 +5,10 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${InstanceMaster1}"    || exit 301                             ;
-test -n "${kube}"               || exit 304                             ;
-test -n "${token_discovery}"    || exit 305                             ;
-test -n "${token_token}"        || exit 306                             ;
+test -n "${InstanceMaster1}"    || exit 201                             ;
+test -n "${kube}"               || exit 202                             ;
+test -n "${token_discovery}"    || exit 204                             ;
+test -n "${token_token}"        || exit 205                             ;
 #########################################################################
 log=/tmp/$( uuidgen ).log                                               ;
 sleep=10                                                                ;
