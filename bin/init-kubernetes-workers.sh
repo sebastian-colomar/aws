@@ -14,10 +14,8 @@ test -n "${version_major}"	|| exit 106                             ;
 test -n "${version_minor}"	|| exit 107                             ;
 #########################################################################
 branch=main								;
-calico=https://docs.projectcalico.org/v3.17/manifests/calico.yaml	;
 domain=github.com							;
 path=bin								;
-pod_network_cidr=192.168.0.0/16                                         ;
 RecordSetNameKube=kube-apiserver					;
 repository=aws								;
 sleep=10								;
@@ -32,9 +30,6 @@ export=" 								\
   export version_minor=${version_minor} 				\
 "									;
 targets=" 								\
-	InstanceMaster1 						\
-	InstanceMaster2 						\
-	InstanceMaster3 						\
 	InstanceWorker1 						\
 	InstanceWorker2 						\
 	InstanceWorker3 						\
@@ -85,47 +80,6 @@ targets="								\
 file=init-${mode}-${role}.sh						;
 log=/tmp/${file}.log							;
 #########################################################################
-export=" 								\
-  export calico=${calico} 						\
-  && 									\
-  export kube=${kube}							\
-  && 									\
-  export InstanceMaster1=${InstanceMaster1} 				\
-  && 									\
-  export log=${log}							\
-  && 									\
-  export pod_network_cidr=${pod_network_cidr} 				\
-"									;
-#########################################################################
-_send_list_command_remote 						\
-	${branch} 							\
-	"${export}" 							\
-	${file} 							\
-	${log} 								\
-	${path} 							\
-	${sleep} 							\
-	${stack} 							\
-	"${targets}" 							\
-	${url} 								\
-									;
-#########################################################################
-command="								\
-	grep --max-count 1						\
-		certificate-key						\
-		${log}							\
-"									;
-token_certificate=$(							\
-	_encode_string "						\
-		$(							\
-			_send_list_command_targets_wait 		\
-				"${command}" 				\
-				${sleep} 				\
-				${stack} 				\
-				"${targets}" 				\
-		)							\
-	"								;
-)									;
-#########################################################################
 command="								\
 	grep --max-count 1						\
 		discovery-token-ca-cert-hash				\
@@ -159,38 +113,6 @@ token_token=$(								\
 		)							\
 	"								;
 )									;
-#########################################################################
-export=" 								\
-  export InstanceMaster1=${InstanceMaster1}				\
-  && 									\
-  export kube=${kube}							\
-  && 									\
-  export token_certificate=${token_certificate}				\
-  &&									\
-  export token_discovery=${token_discovery}				\
-  &&									\
-  export token_token=${token_token}					\
-"									;
-role=master								;
-targets="								\
-	InstanceMaster2							\
-	InstanceMaster3							\
-"									;
-#########################################################################
-file=init-${mode}-${role}.sh						;
-log=/tmp/${file}.log							;
-#########################################################################
-_send_list_command_remote 						\
-	${branch} 							\
-	"${export}" 							\
-	${file} 							\
-	${log} 								\
-	${path} 							\
-	${sleep} 							\
-	${stack} 							\
-	"${targets}" 							\
-	${url} 								\
-									;
 #########################################################################
 export=" 								\
   export InstanceMaster1=${InstanceMaster1}				\
