@@ -1,8 +1,8 @@
 # aws
 
-Prepare the following configuration file and source it: [env.sh](etc/env.sh)
+Prepare the following configuration file and source it: [env.sh](etc/env.conf)
 ```bash
-source etc/env.sh
+source etc/env.conf
 ```
 ```
 aws cloudformation create-stack --stack-name ${stack} --template-body file://${location} --capabilities CAPABILITY_NAMED_IAM --parameters ParameterKey=RecordSetName,ParameterValue=${stack}
