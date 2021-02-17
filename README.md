@@ -1,10 +1,11 @@
 # aws
 
-Prepare the following configuration file and source it: env.sh (etc/aws/env.sh)
+Prepare the following configuration file and source it: [env.sh](etc/env.sh)
 ```bash
-source etc/aws/env.sh
+source etc/env.sh
 ```
 ```
+aws cloudformation create-stack --stack-name ${stack} --template-body file://${location} --capabilities CAPABILITY_NAMED_IAM --parameters ParameterKey=RecordSetName,ParameterValue=${stack}
 # WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING FURTHER
 
 chmod +x ./bin/init-orchestrator-masters.sh
