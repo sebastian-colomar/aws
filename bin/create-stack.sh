@@ -7,7 +7,6 @@ set -x                                                                  ;
 #########################################################################
 test -n "${engine}"				|| exit 101		;
 test -n "${os}"					|| exit 102		;
-test -n "${stack}"				|| exit 103		;
 test -n "${template}"				|| exit 104		;
 test -n "${version_major}"			|| exit 105		;
 test -n "${version_minor}"			|| exit 106		;
