@@ -6,22 +6,20 @@
 set -x									;
 #########################################################################
 test -n "${engine}"		|| exit 101                             ;
-test -n "${HostedZoneName}"	|| exit 102                             ;
-test -n "${mode}"		|| exit 103                             ;
-test -n "${os}"			|| exit 104                             ;
-test -n "${stack}"		|| exit 105                             ;
-test -n "${version_major}"	|| exit 106                             ;
-test -n "${version_minor}"	|| exit 107                             ;
+test -n "${mode}"		|| exit 102                             ;
+test -n "${os}"			|| exit 103                             ;
+test -n "${stack}"		|| exit 104                             ;
+test -n "${version_major}"	|| exit 105                             ;
+test -n "${version_minor}"	|| exit 106                             ;
 #########################################################################
 branch=main								;
 domain=github.com							;
 path=bin								;
-RecordSetNameKube=kube-apiserver					;
+kube=kube-apiserver							;
 repository=aws								;
 sleep=10								;
 username=academiaonline							;
 #########################################################################
-kube=${RecordSetNameKube}.${HostedZoneName}				;
 url=${domain}/${username}/${repository}					;
 #########################################################################
 service=${engine}							;
@@ -35,9 +33,9 @@ file=install-${service}-${os}.sh					;
 log=/tmp/${file}.log							;
 #########################################################################
 export=" 								\
-  export log=${log}							\
-  && 									\
-  export version_major=${version_major} 				\
+	export log=${log}						\
+	&& 								\
+	export version_major=${version_major} 				\
 "									;
 #########################################################################
 _send_list_command_remote 						\
@@ -63,11 +61,11 @@ file=install-${service}-${os}.sh					;
 log=/tmp/${file}.log							;
 #########################################################################
 export=" 								\
-  export engine=${engine} 						\
-  && 									\
-  export version_major=${version_major} 				\
-  && 									\
-  export version_minor=${version_minor} 				\
+	export engine=${engine} 					\
+	&& 								\
+	export version_major=${version_major} 				\
+	&& 								\
+	export version_minor=${version_minor} 				\
 "									;
 #########################################################################
 _send_list_command_remote 						\
@@ -94,7 +92,7 @@ do 									\
 	Name=tag:"aws:cloudformation:stack-name",Values="${stack}" 	\
 	Name=tag:"aws:cloudformation:logical-id",Values="${instance}" 	\
 			--query 					\
-	Reservations[].Instances[].PrivateIpAddress 			\
+			Reservations[].Instances[].PrivateIpAddress 	\
 			--output 					\
 				text 					\
 	)"								;
