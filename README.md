@@ -52,3 +52,18 @@ Check that the worker nodes have correctly joined the cluster running this comma
 ```bash
 watch sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
 ```
+# How to manually set up a Kubernetes cluster
+
+Download the repository in all the instances (masters and workers):
+```bash
+git clone https://github.com/academiaonline/aws && cd aws
+```
+Edit the [common configuration file](etc/env.conf) and source it in all the instances (masters and workers):
+```bash
+source etc/env.conf
+```
+Edit the [Kubernetes configuration file](etc/kubernetes.conf) and source it in the Leader instance:
+```bash
+source etc/kubernetes.conf
+```
+
