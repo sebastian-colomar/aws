@@ -8,7 +8,7 @@ Edit the [AWS configuration file](etc/aws.conf) and source it:
 ```bash
 source etc/aws.conf
 ```
-Edit the [AWS cloudformation file](etc/aws/infra-3masters-3workers-https.yaml) according to your needs and create the stack:
+Edit the [AWS cloudformation file](etc/cloudformation/infra-3masters-3workers-https.yaml) according to your needs and create the stack:
 ```bash
 source bin/create-stack.sh
 ```
