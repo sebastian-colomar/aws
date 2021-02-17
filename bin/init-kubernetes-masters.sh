@@ -35,13 +35,9 @@ file=install-${service}-${os}.sh					;
 log=/tmp/${file}.log							;
 #########################################################################
 export=" 								\
-	export engine=${engine} 					\
-	&& 								\
 	export log=${log}						\
 	&& 								\
 	export version_major=${version_major} 				\
-	&& 								\
-	export version_minor=${version_minor} 				\
 "									;
 #########################################################################
 _send_list_command_remote 						\
