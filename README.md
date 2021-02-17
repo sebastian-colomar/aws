@@ -1,8 +1,8 @@
 # aws
 
-Edit the [configuration file](etc/env.sh) and source it:
+Edit the [configuration file](etc/env.conf) and source it:
 ```bash
-source etc/env.sh
+source etc/env.conf
 ```
 Edit the [AWS cloudformation file](etc/aws/infra-3masters-3workers-https.yaml) according to your needs and create the stack:
 ```bash
