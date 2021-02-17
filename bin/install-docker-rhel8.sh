@@ -5,8 +5,6 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${log}"                || exit 100                             ;
-#########################################################################
 engine=docker                                                           ;
 repo=https://download.docker.com/linux/centos/docker-ce.repo            ;
 sleep=10                                                                ;
@@ -16,16 +14,15 @@ sudo yum install -y yum-utils device-mapper-persistent-data lvm2	;
 sudo yum-config-manager --add-repo ${repo}				;
 sudo yum update -y                                                      ;
 #########################################################################
-success='^Complete!'                                                    ;
 while true                                                              ;
 do                                                                      \
-        sudo yum install -y ${engine}-ce                                \
-                                                                        ;
-        grep                                                            \
-                "${success}"                                            \
-                ${log}                                                  \
+        yum list installed                                              \
+                ${engine}-ce                                            \
         &&                                                              \
         break                                                           ;
+        sudo yum install -y                                             \
+                ${engine}-ce                                            \
+                                                                        ;
         sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
