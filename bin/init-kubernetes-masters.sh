@@ -6,11 +6,11 @@
 set -x									;
 #########################################################################
 test -n "${engine}"		|| exit 101                             ;
-test -n "${mode}"		|| exit 103                             ;
-test -n "${os}"			|| exit 104                             ;
-test -n "${stack}"		|| exit 105                             ;
-test -n "${version_major}"	|| exit 106                             ;
-test -n "${version_minor}"	|| exit 107                             ;
+test -n "${mode}"		|| exit 102                             ;
+test -n "${os}"			|| exit 103                             ;
+test -n "${stack}"		|| exit 104                             ;
+test -n "${version_major}"	|| exit 105                             ;
+test -n "${version_minor}"	|| exit 106                             ;
 #########################################################################
 branch=main								;
 calico=https://docs.projectcalico.org/v3.17/manifests/calico.yaml	;
