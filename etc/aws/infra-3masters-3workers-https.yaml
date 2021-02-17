@@ -131,21 +131,22 @@ Parameters:
     Type: String
     
   HostedZoneName:
+#    Default: 'sebastian-colomar.es'
     Default: 'sebastian-colomar.com'
     Description: >
       The name of the hosted zone that you want to create records in.
     Type: String
 
   Identifier:
-    #Default: '31ea6050-d1a0-4e91-a37b-ed862904188c' #IRELAND #sebastian-colomar.com
+#    Default: '31ea6050-d1a0-4e91-a37b-ed862904188c' #IRELAND #sebastian-colomar.com
     Default: 'c3f3310b-f4ed-4874-8849-bd5c2cfe001f' #MUMBAI #sebastian-colomar.com
     Description: >
       The Identifier of the certificate you want to use.
     Type: String
 
   InstanceMasterImageId:
+#    Default: 'ami-0db0b3ab7df22e366' #MUMBAI #UBUNTU18
     Default: 'ami-0a9d27a9f4f5c0efc' #MUMBAI #RHEL8
-    Default: 'ami-0db0b3ab7df22e366' #MUMBAI #UBUNTU18
     Description: >
       Select AMI to use for the Cluster Master instances. 
       When it's left blank, the default AMI for your AWS region will be used. 
@@ -159,8 +160,8 @@ Parameters:
     Type: String
     
   InstanceWorkerImageId:
+#    Default: 'ami-0db0b3ab7df22e366' #MUMBAI #UBUNTU18
     Default: 'ami-0a9d27a9f4f5c0efc' #MUMBAI #RHEL8
-    Default: 'ami-0db0b3ab7df22e366' #MUMBAI #UBUNTU18
     Description: >
       Select AMI to use for the Cluster Worker instances. 
       When it's left blank, the default AMI for your AWS region will be used. 
@@ -249,6 +250,7 @@ Parameters:
     Default: myapp
     Description: >
       The name of the Record Set for service.
+      It needs to be unique in the sub-domain.
     Type: String
   
   SecurityGroupCidrIpWorker:
