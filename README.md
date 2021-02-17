@@ -1,6 +1,6 @@
 # aws
 
-Prepare the following configuration file and source it: [env.sh](etc/env.conf)
+Prepare the following configuration file and source it: [env.conf](etc/env.conf)
 ```bash
 source etc/env.conf
 ```
