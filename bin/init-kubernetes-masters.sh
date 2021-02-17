@@ -6,7 +6,6 @@
 set -x									;
 #########################################################################
 test -n "${engine}"		|| exit 101                             ;
-test -n "${HostedZoneName}"	|| exit 102                             ;
 test -n "${mode}"		|| exit 103                             ;
 test -n "${os}"			|| exit 104                             ;
 test -n "${stack}"		|| exit 105                             ;
@@ -18,12 +17,11 @@ calico=https://docs.projectcalico.org/v3.17/manifests/calico.yaml	;
 domain=github.com							;
 path=bin								;
 pod_network_cidr=192.168.0.0/16                                         ;
-RecordSetNameKube=kube-apiserver					;
+kube=kube-apiserver							;
 repository=aws								;
 sleep=10								;
 username=academiaonline							;
 #########################################################################
-kube=${RecordSetNameKube}.${HostedZoneName}				;
 url=${domain}/${username}/${repository}					;
 #########################################################################
 service=${engine}							;
@@ -37,13 +35,13 @@ file=install-${service}-${os}.sh					;
 log=/tmp/${file}.log							;
 #########################################################################
 export=" 								\
-  export engine=${engine} 						\
-  && 									\
-  export log=${log}							\
-  && 									\
-  export version_major=${version_major} 				\
-  && 									\
-  export version_minor=${version_minor} 				\
+	export engine=${engine} 					\
+	&& 								\
+	export log=${log}						\
+	&& 								\
+	export version_major=${version_major} 				\
+	&& 								\
+	export version_minor=${version_minor} 				\
 "									;
 #########################################################################
 _send_list_command_remote 						\
@@ -69,11 +67,11 @@ file=install-${service}-${os}.sh					;
 log=/tmp/${file}.log							;
 #########################################################################
 export=" 								\
-  export engine=${engine} 						\
-  && 									\
-  export version_major=${version_major} 				\
-  && 									\
-  export version_minor=${version_minor} 				\
+	export engine=${engine} 					\
+	&& 								\
+	export version_major=${version_major} 				\
+	&& 								\
+	export version_minor=${version_minor} 				\
 "									;
 #########################################################################
 _send_list_command_remote 						\
@@ -100,7 +98,7 @@ do 									\
 	Name=tag:"aws:cloudformation:stack-name",Values="${stack}" 	\
 	Name=tag:"aws:cloudformation:logical-id",Values="${instance}" 	\
 			--query 					\
-	Reservations[].Instances[].PrivateIpAddress 			\
+			Reservations[].Instances[].PrivateIpAddress 	\
 			--output 					\
 				text 					\
 	)"								;
