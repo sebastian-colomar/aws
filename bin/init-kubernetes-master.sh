@@ -57,11 +57,11 @@ do                                                                      \
         tee ${log}                                                      ;
         grep 'This node has joined the cluster' ${log}                  \
         &&                                                              \
-        rm --force ${log}                                               \
-        &&                                                              \
         break                                                           ;
         sleep ${sleep}                                                  ;
 done                                                                    ;
+#########################################################################
+rm --force ${log}                                                       ;
 #########################################################################
 sudo sed --in-place                                                     \
         /${kube}/d                                                      \
