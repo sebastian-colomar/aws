@@ -5,7 +5,27 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${location}"           || exit 101                             ;
-test -n "${stack}"              || exit 102                             ;
+test -n "${engine}"				|| exit 101		;
+test -n "${os}"					|| exit 102		;
+test -n "${stack}"				|| exit 103		;
+test -n "${template}"				|| exit 104		;
+test -n "${version_major}"			|| exit 105		;
+test -n "${version_minor}"			|| exit 106		;
 #########################################################################
-aws cloudformation create-stack --stack-name ${stack} --template-body file://${location} --capabilities CAPABILITY_NAMED_IAM --parameters ParameterKey=RecordSetName,ParameterValue=${stack}
+location=etc/aws/${template}.yaml					;
+stack=${os}-${engine}-${version_major}-${version_minor}			;
+stack=${stack}-$( date +%s | rev | cut -c1,2 )				;
+#########################################################################
+aws 									\
+	cloudformation 							\
+		create-stack 						\
+			--capabilities 					\
+				CAPABILITY_NAMED_IAM 			\
+			--parameters 					\
+		ParameterKey=RecordSetName,ParameterValue=${stack} 	\
+			--stack-name 					\
+				${stack} 				\
+			--template-body 				\
+				file://${location} 			\
+									;
+#########################################################################
