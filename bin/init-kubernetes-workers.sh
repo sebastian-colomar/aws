@@ -183,11 +183,9 @@ file=install-${service}-${os}.sh					;
 log=/tmp/${file}.log							;
 #########################################################################
 export=" 								\
-  export log=${log}							\
+  export engine=${engine}						\
 "									;
 #########################################################################
-if ${engine} != ${service}						;
-then 									\
 _send_list_command_remote 						\
 	${branch} 							\
 	"${export}" 							\
