@@ -1,4 +1,4 @@
-# aws
+# How to set up a Kubernetes or Swarm cluster in AWS:
 
 Edit the [common configuration file](etc/env.conf) and source it:
 ```bash
