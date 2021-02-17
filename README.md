@@ -12,13 +12,43 @@ Edit the [AWS cloudformation file](etc/cloudformation/infra-3masters-3workers-ht
 ```bash
 source bin/create-stack.sh
 ```
-WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING FURTHER
+Try to connect to any instance to confirm that the deployment of the stack is complete.
+
+WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING ANY FURTHER
+
+Initialize the orchestrator in the masters:
 ```bash
-chmod +x ./bin/init-orchestrator-masters.sh
-nohup ./bin/init-orchestrator-masters.sh &
-# WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING FURTHER
+script=bin/init-orchestrator-masters.sh
+chmod +x ${script}
+nohup ${script} &
+tail -f nohup.out
+```
+Open a terminal in the Leader instance and check the logs:
+```bash
+tail -f /tmp/init-kubernetes-leader.sh.log
+```
+Open a terminal in both Master instances and check the logs:
+```bash
+tail -f /tmp/init-kubernetes-master.sh.log
+```
+Check that the control plane has been successfully initialized running this command from any master instance:
+```bash
+watch sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
+```
+WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING ANY FURTHER
 
-chmod +x ./bin/init-orchestrator-workers.sh
-nohup ./bin/init-orchestrator-workers.sh &
-
+Connect the workers to the cluster:
+```bash
+script=bin/init-orchestrator-workers.sh
+chmod +x ${script}
+nohup ${script} &
+tail -f nohup.out
+```
+Open a terminal in all the worker instances and check the logs:
+```bash
+tail -f /tmp/init-kubernetes-worker.sh.log
+```
+Check that the worker nodes have correctly joined the cluster running this command from any master instance:
+```bash
+watch sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
 ```
