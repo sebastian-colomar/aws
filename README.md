@@ -8,7 +8,7 @@ Edit the [AWS configuration file](etc/aws.conf) and source it:
 ```bash
 source etc/aws.conf
 ```
-Edit the [AWS cloudformation file](etc/cloudformation/infra-3masters-3workers-https.yaml) according to your needs and create the stack:
+Edit the [AWS cloudformation file](etc/cloudformation/infra-3masters-3workers-https.yaml) according to your needs and create the stack with the following [script](bin/create-stack.sh):
 ```bash
 source bin/create-stack.sh
 ```
@@ -16,7 +16,7 @@ Try to connect to any instance to confirm that the deployment of the stack is co
 
 WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING ANY FURTHER
 
-Initialize the orchestrator in the masters:
+Initialize the orchestrator in the masters running this [script](bin/init-orchestrator-masters.sh):
 ```bash
 script=bin/init-orchestrator-masters.sh
 chmod +x ${script}
@@ -37,7 +37,7 @@ watch sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
 ```
 WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING ANY FURTHER
 
-Connect the workers to the cluster:
+Connect the workers to the cluster running this [script](bin/init-orchestrator-workers.sh):
 ```bash
 script=bin/init-orchestrator-workers.sh
 chmod +x ${script}
