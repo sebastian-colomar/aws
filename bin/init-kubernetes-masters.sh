@@ -6,20 +6,20 @@
 set -x									;
 #########################################################################
 test -n "${calico}"		|| exit 100                             ;
-test -n "${engine}"		|| exit 101                             ;
+test -n "${branch}"		|| exit 101                             ;
+test -n "${domain}"		|| exit 102                             ;
+test -n "${engine}"		|| exit 103                             ;
 test -n "${kube}"		|| exit 102                             ;
 test -n "${mode}"		|| exit 103                             ;
 test -n "${os}"			|| exit 104				;
-test -n "${stack}"		|| exit 105                             ;
+test -n "${path}"		|| exit 107                             ;
+test -n "${repository}"		|| exit 108                             ;
+test -n "${stack}"		|| exit 109                             ;
+test -n "${username}"		|| exit 110                             ;
 test -n "${version_major}"	|| exit 106                             ;
 test -n "${version_minor}"	|| exit 107                             ;
 #########################################################################
-branch=main								;
-domain=github.com							;
-path=bin								;
-repository=aws								;
 sleep=10								;
-username=academiaonline							;
 #########################################################################
 url=${domain}/${username}/${repository}					;
 #########################################################################
