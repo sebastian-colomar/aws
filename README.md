@@ -31,7 +31,6 @@ WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING ANY FURTHER
 Initialize the orchestrator in the masters running this [script](bin/init-orchestrator-masters.sh):
 ```bash
 script=bin/init-orchestrator-masters.sh
-chmod +x ${script}
 nohup ${script} &
 tail -f nohup.out
 ```
@@ -52,7 +51,6 @@ WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING ANY FURTHER
 Connect the workers to the cluster running this [script](bin/init-orchestrator-workers.sh):
 ```bash
 script=bin/init-orchestrator-workers.sh
-chmod +x ${script}
 nohup ${script} &
 tail -f nohup.out
 ```
