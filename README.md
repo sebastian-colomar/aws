@@ -100,20 +100,20 @@ log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
 ```
 Retrieve the certificate token from the log file in the leader instance:
 ```bash
-command=" grep --max-count 1 certificate-key ${log} "
-string="$( while true ; do output="$( ${command} )" ; echo "${output}" | grep -q ERROR && continue ; echo "${output}" | grep [a-zA-Z0-9] && break ; done ; )"
+token=certificate-key
+command=" grep --max-count 1 ${token} ${log} " && string="$( while true ; do output="$( ${command} )" ; echo "${output}" | grep -q ERROR && continue ; echo "${output}" | grep [a-zA-Z0-9] && break ; done ; )"
 token_certificate=$( echo -n "${string}" | sed 's/\\/ /' | base64 --wrap 0 )
 ```
 Retrieve the discovery token from the log file in the leader instance:
 ```bash
-command=" grep --max-count 1 discovery-token-ca-cert-hash ${log} "
-string="$( while true ; do output="$( ${command} )" ; echo "${output}" | grep -q ERROR && continue ; echo "${output}" | grep [a-zA-Z0-9] && break ; done ; )"
+token=discovery-token-ca-cert-hash
+command=" grep --max-count 1 ${token} ${log} " && string="$( while true ; do output="$( ${command} )" ; echo "${output}" | grep -q ERROR && continue ; echo "${output}" | grep [a-zA-Z0-9] && break ; done ; )"
 token_discovery=$( echo -n "${string}" | sed 's/\\/ /' | base64 --wrap 0 )
 ```
 Retrieve the token join command from the log file in the leader instance:
 ```bash
-command=" grep --max-count 1 kubeadm.*join ${log} "
-string="$( while true ; do output="$( ${command} )" ; echo "${output}" | grep -q ERROR && continue ; echo "${output}" | grep [a-zA-Z0-9] && break ; done ; )"
+token=kubeadm.*join
+command=" grep --max-count 1 ${token} ${log} " && string="$( while true ; do output="$( ${command} )" ; echo "${output}" | grep -q ERROR && continue ; echo "${output}" | grep [a-zA-Z0-9] && break ; done ; )"
 token_token=$( echo -n "${string}" | sed 's/\\/ /' | base64 --wrap 0 )
 ```
 Echo the necessary parameters that have been retrieved from the leader instance:
