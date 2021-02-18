@@ -66,7 +66,14 @@ git clone https://github.com/academiaonline/aws && cd aws
 Edit the [common configuration file](etc/env.conf) and source it in all the master instances:
 ```bash
 source etc/env.conf
+```
+Edit the [repository configuration file](etc/repo.conf) and source it in all the master instances:
+```bash
 source etc/repo.conf
+```
+Edit the [Kubernetes configuration file](etc/kubernetes.conf) and source it in all the master instances:
+```bash
+source etc/kubernetes.conf
 ```
 Install the container engine in all the master instances:
 ```bash
@@ -79,10 +86,6 @@ Install the kubelet in all the master instances:
 service=kubelet
 file=install-${service}-${os}.sh
 log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
-```
-Edit the [Kubernetes configuration file](etc/kubernetes.conf) and source it in the Leader instance:
-```bash
-source etc/kubernetes.conf
 ```
 Initialize the Kubernetes cluster in the leader instance:
 ```bash
