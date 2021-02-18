@@ -138,7 +138,7 @@ log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
 ```
 Run the following command from the leader instance in order to monitor the control plane:
 ```bash
-sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
+watch sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
 ```
 Wait until all the master instances have joined the Kubernetes control plane.
 ## Then configure the Worker instances
