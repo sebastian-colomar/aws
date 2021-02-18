@@ -1,5 +1,9 @@
 # How to set up a Kubernetes or Swarm cluster in AWS
 
+Download the repository in a terminal with AWS credentials already configured:
+```bash
+git clone https://github.com/academiaonline/aws && cd aws
+```
 Edit the [common configuration file](etc/env.conf) and source it:
 ```bash
 source etc/env.conf
