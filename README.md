@@ -150,7 +150,14 @@ git clone https://github.com/academiaonline/aws && cd aws
 Edit the [common configuration file](etc/env.conf) and source it in all the worker instances:
 ```bash
 source etc/env.conf
+```
+Edit the [repository configuration file](etc/repo.conf) and source it in all the worker instances:
+```bash
 source etc/repo.conf
+```
+Edit the [Kubernetes configuration file](etc/kubernetes.conf) and source it in all the worker instances:
+```bash
+source etc/kubernetes.conf
 ```
 Install the container engine in all the worker instances:
 ```bash
