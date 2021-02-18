@@ -6,18 +6,18 @@
 set -x									;
 #########################################################################
 test -n "${branch}"		|| exit 101                             ;
-test -n "${calico}"		|| exit 100                             ;
-test -n "${domain}"		|| exit 102                             ;
-test -n "${engine}"		|| exit 103                             ;
-test -n "${kube}"		|| exit 102                             ;
-test -n "${mode}"		|| exit 103                             ;
-test -n "${os}"			|| exit 104				;
-test -n "${path}"		|| exit 107                             ;
-test -n "${repository}"		|| exit 108                             ;
-test -n "${stack}"		|| exit 109                             ;
-test -n "${username}"		|| exit 110                             ;
-test -n "${version_major}"	|| exit 106                             ;
-test -n "${version_minor}"	|| exit 107                             ;
+test -n "${calico}"		|| exit 102                             ;
+test -n "${domain}"		|| exit 103                             ;
+test -n "${engine}"		|| exit 104                             ;
+test -n "${kube}"		|| exit 105                             ;
+test -n "${mode}"		|| exit 106                             ;
+test -n "${os}"			|| exit 107				;
+test -n "${path}"		|| exit 108                             ;
+test -n "${repository}"		|| exit 109                             ;
+test -n "${stack}"		|| exit 110                             ;
+test -n "${username}"		|| exit 111                             ;
+test -n "${version_major}"	|| exit 112                             ;
+test -n "${version_minor}"	|| exit 113                             ;
 #########################################################################
 sleep=10								;
 #########################################################################
