@@ -174,14 +174,22 @@ log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
 Echo the necessary parameters that have been retrieved from the leader instance:
 ```bash
 echo InstanceMaster1=${InstanceMaster1}
-echo token_certificate=${token_certificate}
 echo token_discovery=${token_discovery}
 echo token_token=${token_token}
+```
+Retreive the following information from the second master:
+```bash
+echo InstanceMaster2=$( ip route | awk /kernel/'{ print $9 }' )
+```
+Retreive the following information from the third master:
+```bash
+echo InstanceMaster3=$( ip route | awk /kernel/'{ print $9 }' )
 ```
 Export those parameters in all the worker instances:
 ```bash
 InstanceMaster1=${InstanceMaster1}
-token_certificate=${token_certificate}
+InstanceMaster2=${InstanceMaster2}
+InstanceMaster3=${InstanceMaster3}
 token_discovery=${token_discovery}
 token_token=${token_token}
 ```
