@@ -129,7 +129,7 @@ role=master
 file=init-${mode}-${role}.sh
 log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
 ```
-## Now configure the Worker instances
+## Then configure the Worker instances
 
 Download the repository in all the worker instances:
 ```bash
