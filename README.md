@@ -4,6 +4,10 @@ Download the repository in a terminal with AWS credentials already configured:
 ```bash
 git clone https://github.com/academiaonline/aws && cd aws
 ```
+Edit the [AWS configuration file](etc/aws.conf) and source it:
+```bash
+source etc/aws.conf
+```
 Edit the [common configuration file](etc/env.conf) and source it:
 ```bash
 source etc/env.conf
@@ -12,9 +16,9 @@ Edit the [Kubernetes configuration file](etc/kubernetes.conf) and source it in t
 ```bash
 source etc/kubernetes.conf
 ```
-Edit the [AWS configuration file](etc/aws.conf) and source it:
+Edit the [Github configuration file](etc/repo.conf) and source it:
 ```bash
-source etc/aws.conf
+source etc/repo.conf
 ```
 Edit the [AWS cloudformation file](etc/cloudformation/infra-3masters-3workers-https.yaml) according to your needs and create the stack with the following [script](bin/create-stack.sh):
 ```bash
