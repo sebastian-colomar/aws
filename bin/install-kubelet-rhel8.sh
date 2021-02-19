@@ -58,6 +58,7 @@ do                                                                      \
                 &&                                                      \
                 break                                                   ;
                 sudo ${command} install -y                              \
+                        --disableexcludes=kubernetes                    \
                         ${package}-1.${version_major}.${version_minor}  \
                                                                         ;
                 sleep ${sleep}                                          ;
