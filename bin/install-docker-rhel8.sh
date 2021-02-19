@@ -5,7 +5,7 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-commmand=yum                                                            ;
+command=yum                                                             ;
 engine=docker                                                           ;
 repo=https://download.docker.com/linux/centos/docker-ce.repo            ;
 sleep=10                                                                ;
