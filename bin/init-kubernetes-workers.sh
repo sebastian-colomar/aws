@@ -12,7 +12,6 @@ test -n "${kube}"		|| exit 105                             ;
 test -n "${mode}"		|| exit 106                             ;
 test -n "${os}"			|| exit 107				;
 test -n "${path}"		|| exit 108                             ;
-test -n "${port}"		|| exit 109                             ;
 test -n "${repository}"		|| exit 110                             ;
 test -n "${stack}"		|| exit 111                             ;
 test -n "${username}"		|| exit 112                             ;
