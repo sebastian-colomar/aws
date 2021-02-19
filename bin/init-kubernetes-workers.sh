@@ -144,9 +144,9 @@ token_token=$( 								\
 #########################################################################
 role=worker								;
 targets="								\
-	InstanceWorker1							\
-	InstanceWorker2							\
-	InstanceWorker3							\
+	InstanceWorker1 						\
+	InstanceWorker2 						\
+	InstanceWorker3 						\
 "									;
 #########################################################################
 file=init-${mode}-${role}.sh						;
@@ -177,7 +177,7 @@ _send_list_command_remote 						\
 									;
 #########################################################################
 service=docker								;
-targets=" 								\
+targets="								\
 	InstanceWorker1 						\
 	InstanceWorker2 						\
 	InstanceWorker3 						\
@@ -203,7 +203,7 @@ _send_list_command_remote 						\
 									;
 #########################################################################
 service=kube-lb								;
-targets=" 								\
+targets="								\
 	InstanceWorker1 						\
 	InstanceWorker2 						\
 	InstanceWorker3 						\
