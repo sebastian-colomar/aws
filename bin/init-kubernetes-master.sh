@@ -41,7 +41,7 @@ token_token="$(                                                         \
 #########################################################################
 while true                                                              ;
 do                                                                      \
-        sudo systemctl is-enabled kubelet                               \
+        systemctl is-enabled kubelet                                    \
         |                                                               \
         grep enabled                                                    \
         &&                                                              \
