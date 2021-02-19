@@ -201,7 +201,6 @@ _send_list_command_remote 						\
 	"${targets}" 							\
 	${url} 								\
 									;
-fi									;
 #########################################################################
 service=kube-lb								;
 targets=" 								\
