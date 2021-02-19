@@ -129,9 +129,11 @@ _send_list_command_remote 						\
 	${url} 								\
 									;
 #########################################################################
+token=certificate-key							;
+#########################################################################
 command="								\
 	grep --max-count 1						\
-		certificate-key						\
+		${token} 						\
 		${log}							\
 "									;
 token_certificate=$(							\
@@ -146,9 +148,11 @@ token_certificate=$(							\
 	"								;
 )									;
 #########################################################################
+token=discovery-token-ca-cert-hash					;
+#########################################################################
 command="								\
 	grep --max-count 1						\
-		discovery-token-ca-cert-hash				\
+		${token} 						\
 		${log}							\
 "									;
 token_discovery=$(							\
@@ -163,9 +167,11 @@ token_discovery=$(							\
 	"								;
 )									;
 #########################################################################
+token=kubeadm.*join							;
+#########################################################################
 command="								\
 	grep --max-count 1						\
-		kubeadm.*join						\
+		${token} 						\
 		${log}							\
 "									;
 token_token=$(								\
