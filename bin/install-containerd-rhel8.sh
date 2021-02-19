@@ -5,6 +5,7 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
+command=yum                                                             ;
 engine=containerd                                                       ;
 repo=https://download.docker.com/linux/centos/docker-ce.repo		;
 #########################################################################
@@ -22,13 +23,35 @@ net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 sudo sysctl --system							;
 #########################################################################
+sudo ${command} update -y                                               ;
+sudo ${command} install -y yum-utils device-mapper-persistent-data lvm2	;
+sudo ${command}-config-manager --add-repo ${repo}                       ;
+#########################################################################
 sudo yum update -y                                                      ;
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2	;
-sudo yum-config-manager --add-repo ${repo}				;
-sudo yum update -y                                                      ;
-sudo yum install -y ${engine}.io					;
+#########################################################################
+for package in                                                          \
+        ${engine}.io                                                    \
+                                                                        ;
+do                                                                      \
+        while true                                                      ;
+        do                                                              \
+                ${command} list                                         \
+                        installed                                       \
+                        ${package}                                      \
+                &&                                                      \
+                break                                                   ;
+                sudo ${command} install -y                              \
+                        ${package                                       \
+                                                                        ;
+                sleep ${sleep}                                          ;
+        done                                                            ;
+done                                                                    ;
+#########################################################################
 sudo mkdir -p /etc/${engine}						;
-containerd config default | sudo tee /etc/containerd/config.toml	;
+sudo mkdir -p /etc/systemd/system/${engine}.service.d                   ;
+#########################################################################
+${engine} config default | sudo tee /etc/${engine}/config.toml          ;
+#########################################################################
 sudo systemctl restart ${engine}					;
 sudo systemctl enable --now ${engine}					;
 #########################################################################
