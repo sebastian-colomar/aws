@@ -8,6 +8,7 @@ set -x                                                                  ;
 command=yum                                                             ;
 engine=containerd                                                       ;
 repo=https://download.docker.com/linux/centos/docker-ce.repo		;
+sleep=10                                                                ;
 #########################################################################
 sudo tee /etc/modules-load.d/${engine}.conf <<EOF
 overlay
