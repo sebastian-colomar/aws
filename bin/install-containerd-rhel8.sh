@@ -27,7 +27,7 @@ sudo ${command} update -y                                               ;
 sudo ${command} install -y yum-utils device-mapper-persistent-data lvm2	;
 sudo ${command}-config-manager --add-repo ${repo}                       ;
 #########################################################################
-sudo yum update -y                                                      ;
+sudo ${command} update -y                                               ;
 #########################################################################
 for package in                                                          \
         ${engine}.io                                                    \
