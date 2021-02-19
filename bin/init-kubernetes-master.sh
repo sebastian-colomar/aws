@@ -5,12 +5,12 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${InstanceMaster1}"    || exit 201                             ;
-test -n "${kube}"               || exit 202                             ;
-test -n "${log}"                || exit 203                             ;
-test -n "${token_certificate}"  || exit 204                             ;
-test -n "${token_discovery}"    || exit 205                             ;
-test -n "${token_token}"        || exit 206                             ;
+test -n "${InstanceMaster1}"    || exit 101                             ;
+test -n "${kube}"               || exit 102                             ;
+test -n "${log}"                || exit 103                             ;
+test -n "${token_certificate}"  || exit 104                             ;
+test -n "${token_discovery}"    || exit 105                             ;
+test -n "${token_token}"        || exit 106                             ;
 #########################################################################
 file=/etc/hosts                                                         ;
 pattern=127.0.0.1.*localhost                                            ;
