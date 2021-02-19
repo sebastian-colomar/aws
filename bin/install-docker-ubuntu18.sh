@@ -12,7 +12,7 @@ sleep=10                                                                ;
 sudo ${command} update -y                                               ;
 #########################################################################
 for package in                                                          \
-        {engine}.io                                                     \
+        ${engine}.io                                                    \
                                                                         ;
 do                                                                      \
         while true                                                      ;
