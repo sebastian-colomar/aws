@@ -39,15 +39,14 @@ sudo tee ${config} 0<<EOF
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
+localAPIEndpoint:
+  bindPort: ${port}
 nodeRegistration:
   kubeletExtraArgs:
     cgroup-driver: systemd
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
-apiServer:
-  extraArgs:
-    bind-port: "${port}"
 controlPlaneEndpoint: "${kube}:${port}"
 networking:
   podSubnet: ${pod_network_cidr}
