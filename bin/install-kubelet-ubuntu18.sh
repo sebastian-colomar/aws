@@ -44,6 +44,8 @@ do                                                                      \
         do                                                              \
                 ${command} list                                         \
                         --installed                                     \
+                |                                                       \
+                grep                                                    \
                         ${package}.*1.${version_major}.${version_minor} \
                 &&                                                      \
                 break                                                   ;
