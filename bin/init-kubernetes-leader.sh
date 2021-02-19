@@ -44,8 +44,11 @@ nodeRegistration:
     cgroup-driver: systemd
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
-controlPlaneEndpoint: "${kube}:${port}"
 kind: ClusterConfiguration
+apiServer:
+  extraArgs:
+    bind-port: ${port}
+controlPlaneEndpoint: "${kube}:${port}"
 networking:
   podSubnet: ${pod_network_cidr}
 ---
