@@ -177,37 +177,3 @@ _send_list_command_remote                                               \
         ${url}                                                          \
                                                                         ;
 #########################################################################
-service=kube-lb								;
-targets="                                                               \
-        InstanceWorker1                                                 \
-        InstanceWorker2                                                 \
-        InstanceWorker3                                                 \
-"									;
-#########################################################################
-file=install-${service}.sh						;
-log=/tmp/${file}.log							;
-#########################################################################
-export="                                                                \
-        export InstanceMaster1=${InstanceMaster1}                       \
-        &&                                                              \
-        export InstanceMaster2=${InstanceMaster2}                       \
-        &&                                                              \
-        export InstanceMaster3=${InstanceMaster3}                       \
-        &&                                                              \
-        export kube=${kube}                                             \
-        &&                                                              \
-        export port=${port}                                             \
-"                                                                       ;
-#########################################################################
-_send_list_command_remote                                               \
-        ${branch}                                                       \
-        "${export}"                                                     \
-        ${file}                                                         \
-        ${log}                                                          \
-        ${path}                                                         \
-        ${sleep}                                                        \
-        ${stack}                                                        \
-        "${targets}"                                                    \
-        ${url}                                                          \
-                                                                        ;
-#########################################################################
