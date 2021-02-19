@@ -7,16 +7,20 @@ set -x                                                                  ;
 #########################################################################
 test -n "${InstanceMaster1}"    || exit 201                             ;
 test -n "${kube}"               || exit 202                             ;
-test -n "${token_certificate}"  || exit 203                             ;
-test -n "${token_discovery}"    || exit 204                             ;
-test -n "${token_token}"        || exit 205                             ;
+test -n "${log}"                || exit 203                             ;
+test -n "${token_certificate}"  || exit 204                             ;
+test -n "${token_discovery}"    || exit 205                             ;
+test -n "${token_token}"        || exit 206                             ;
 #########################################################################
-log=/tmp/$( uuidgen ).log                                               ;
+file=/etc/hosts                                                         ;
 sleep=10                                                                ;
+success='This node has joined the cluster'                              ;
 #########################################################################
+grep ${InstanceMaster1}\ ${kube} ${file}                                \
+||                                                                      \
 echo ${InstanceMaster1} ${kube}                                         \
 |                                                                       \
-sudo tee --append /etc/hosts                                            ;
+sudo tee --append ${file}                                               ;
 #########################################################################
 token_certificate="$(                                                   \
         echo ${token_certificate}                                       \
@@ -46,18 +50,18 @@ done                                                                    ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
-        sudo                                                            \
-                ${token_token}                                          \
-                ${token_discovery}                                      \
-                ${token_certificate}                                    \
-                --ignore-preflight-errors                               \
-                        all                                             \
-                2>& 1                                                   \
-        |                                                               \
-        tee ${log}                                                      ;
-        grep 'This node has joined the cluster' ${log}                  \
+        grep                                                            \
+                "${success}"                                            \
+                ${log}                                                  \
         &&                                                              \
         break                                                           ;
+        sudo                                                            \
+                ${token_token}                                          \
+                        ${token_discovery}                              \
+                        ${token_certificate}                            \
+                        --ignore-preflight-errors                       \
+                                all                                     \
+                                                                        ;
         sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
