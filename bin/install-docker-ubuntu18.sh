@@ -23,7 +23,7 @@ do                                                                      \
                 break                                                   ;
                 sudo ${command} install -y                              \
                         --allow-downgrades                              \
-                        ${package                                       \
+                        ${package}                                      \
                                                                         ;
                 sleep ${sleep}                                          ;
         done                                                            ;
