@@ -111,6 +111,8 @@ export=" 								\
 	&& 								\
 	export InstanceMaster1=${InstanceMaster1} 			\
 	&& 								\
+	export kube=${kube} 						\
+	&& 								\
 	export log=${log} 						\
 	&& 								\
 	export pod_network_cidr=${pod_network_cidr} 			\
