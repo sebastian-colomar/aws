@@ -176,32 +176,6 @@ _send_list_command_remote                                               \
         ${url}                                                          \
                                                                         ;
 #########################################################################
-service=docker								;
-targets="                                                               \
-        InstanceWorker1                                                 \
-        InstanceWorker2                                                 \
-        InstanceWorker3                                                 \
-"									;
-#########################################################################
-file=install-${service}-${os}.sh					;
-log=/tmp/${file}.log							;
-#########################################################################
-export="                                                                \
-        export engine=${engine}                                         \
-"									;
-#########################################################################
-_send_list_command_remote                                               \
-        ${branch}                                                       \
-        "${export}"                                                     \
-        ${file}                                                         \
-        ${log}                                                          \
-        ${path}                                                         \
-        ${sleep}                                                        \
-        ${stack}                                                        \
-        "${targets}"                                                    \
-        ${url}                                                          \
-                                                                        ;
-#########################################################################
 service=kube-lb								;
 targets="                                                               \
         InstanceWorker1                                                 \
