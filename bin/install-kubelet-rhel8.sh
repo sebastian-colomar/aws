@@ -10,6 +10,7 @@ test -n "${version_major}"	|| exit 110                             ;
 test -n "${version_minor}"	|| exit 111                             ;
 #########################################################################
 baseurl=https://packages.cloud.google.com				;
+command=yum                                                             ;
 rpm_key=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg	;
 sleep=10                                                                ;
 yum_key=https://packages.cloud.google.com/yum/doc/yum-key.gpg		;
@@ -41,42 +42,26 @@ do                                                                      \
         sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
-sudo yum update -y                                                      ;
+sudo ${command} update -y                                               ;
 #########################################################################
-while true                                                              ;
-do                                                                      \
-        yum list installed                                              \
-                kubeadm-1.${version_major}.${version_minor}             \
-        &&                                                              \
-        break                                                           ;
-        sudo yum install -y                                             \
-                kubeadm-1.${version_major}.${version_minor}             \
+for package in                                                          \
+        kubeadm                                                         \
+        kubectl                                                         \
+        kubelet                                                         \
                                                                         ;
-        sleep ${sleep}                                                  ;
-done                                                                    ;
-#########################################################################
-while true                                                              ;
 do                                                                      \
-        yum list installed                                              \
-                kubectl-1.${version_major}.${version_minor}             \
-        &&                                                              \
-        break                                                           ;
-        sudo yum install -y                                             \
-                kubectl-1.${version_major}.${version_minor}             \
+        while true                                                      ;
+        do                                                              \
+                ${command} list                                         \
+                        installed                                       \
+                        ${package}-1.${version_major}.${version_minor}  \
+                &&                                                      \
+                break                                                   ;
+                sudo ${command} install -y                              \
+                        ${package}-1.${version_major}.${version_minor}  \
                                                                         ;
-        sleep ${sleep}                                                  ;
-done                                                                    ;
-#########################################################################
-while true                                                              ;
-do                                                                      \
-        yum list installed                                              \
-                kubelet-1.${version_major}.${version_minor}             \
-        &&                                                              \
-        break                                                           ;
-        sudo yum install -y                                             \
-                kubelet-1.${version_major}.${version_minor}             \
-                                                                        ;
-        sleep ${sleep}                                                  ;
+                sleep ${sleep}                                          ;
+        done                                                            ;
 done                                                                    ;
 #########################################################################
 sudo systemctl enable --now kubelet                                     ;
