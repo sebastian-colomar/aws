@@ -9,7 +9,7 @@ command=apt                                                             ;
 engine=docker                                                           ;
 sleep=10                                                                ;
 #########################################################################
-sudo {command} update -y                                                ;
+sudo ${command} update -y                                               ;
 #########################################################################
 for package in                                                          \
         {engine}.io                                                     \
