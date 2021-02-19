@@ -47,7 +47,7 @@ apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 apiServer:
   extraArgs:
-    bind-port: ${port}
+    bind-port: "${port}"
 controlPlaneEndpoint: "${kube}:${port}"
 networking:
   podSubnet: ${pod_network_cidr}
