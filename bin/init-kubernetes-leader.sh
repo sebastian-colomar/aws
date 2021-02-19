@@ -26,7 +26,7 @@ sudo tee --append ${file}                                               ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
-        sudo systemctl is-enabled kubelet                               \
+        systemctl is-enabled kubelet                                    \
         |                                                               \
         grep enabled                                                    \
         &&                                                              \
