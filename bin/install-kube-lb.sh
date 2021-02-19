@@ -12,6 +12,8 @@ test -n "${kube}"               || exit 304                             ;
 #########################################################################
 branch=docker                                                           ;
 compose=etc/swarm/manifests/nlb.yaml                                    ;
+file=/etc/hosts                                                         ;
+pattern=127.0.0.1.*localhost                                            ;
 port_master=6443                                                        ;
 repository=https://github.com/academiaonline/nlb                        ;
 sleep=10                                                                ;
@@ -54,10 +56,14 @@ do                                                                      \
 done                                                                    ;
 sudo rm --recursive --force /run/secrets /run/configs                   ;
 #########################################################################
+grep ${pattern}.*${kube} ${file}                                        \
+||                                                                      \
 sudo sed --in-place                                                     \
         /${kube}/d                                                      \
-        /etc/hosts                                                      ;
+        ${file}                                                         \
+&&                                                                      \
 sudo sed --in-place                                                     \
-        /127.0.0.1.*localhost/s/$/' '${kube}/                           \
-        /etc/hosts                                                      ;
+        /${pattern}/s/$/' '${kube}/                                     \
+        ${file}                                                         \
+                                                                        ;
 #########################################################################
