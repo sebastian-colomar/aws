@@ -6,17 +6,17 @@
 set -x									;
 #########################################################################
 test -n "${branch}"		|| exit 101                             ;
-test -n "${domain}"		|| exit 102                             ;
-test -n "${engine}"		|| exit 103                             ;
-test -n "${kube}"		|| exit 104                             ;
-test -n "${mode}"		|| exit 105                             ;
-test -n "${os}"			|| exit 106                             ;
-test -n "${path}"		|| exit 107                             ;
-test -n "${repository}"		|| exit 108                             ;
-test -n "${stack}"		|| exit 109                             ;
-test -n "${username}"		|| exit 110                             ;
-test -n "${version_major}"	|| exit 111                             ;
-test -n "${version_minor}"	|| exit 112                             ;
+test -n "${domain}"		|| exit 103                             ;
+test -n "${engine}"		|| exit 104                             ;
+test -n "${kube}"		|| exit 105                             ;
+test -n "${mode}"		|| exit 106                             ;
+test -n "${os}"			|| exit 107                             ;
+test -n "${path}"		|| exit 108                             ;
+test -n "${repository}"		|| exit 109                             ;
+test -n "${stack}"		|| exit 110                             ;
+test -n "${username}"		|| exit 111                             ;
+test -n "${version_major}"	|| exit 112                             ;
+test -n "${version_minor}"	|| exit 113                             ;
 #########################################################################
 sleep=10								;
 #########################################################################
@@ -138,7 +138,7 @@ token_token=$(								\
 	"								;
 )									;
 #########################################################################
-role=worker;
+role=worker								;
 targets="								\
 	InstanceWorker1							\
 	InstanceWorker2							\
