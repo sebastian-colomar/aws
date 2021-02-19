@@ -49,7 +49,7 @@ do                                                                      \
                 break                                                   ;
                 sudo ${command} install -y                              \
                         --allow-downgrades                              \
-                        ${package=-1.${version_major}.${version_minor}  \
+                        ${package=1.${version_major}.${version_minor}   \
                                                                         ;
                 sleep ${sleep}                                          ;
         done                                                            ;
