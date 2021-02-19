@@ -19,6 +19,8 @@ do                                                                      \
         do                                                              \
                 ${command} list                                         \
                         --installed                                     \
+                |                                                       \
+                grep                                                    \
                         ${package}                                      \
                 &&                                                      \
                 break                                                   ;
