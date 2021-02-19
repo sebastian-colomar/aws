@@ -194,6 +194,8 @@ export=" 								\
 	&& 								\
 	export kube=${kube} 						\
 	&& 								\
+	export log=${log} 						\
+	&& 								\
 	export token_certificate=${token_certificate} 			\
 	&& 								\
 	export token_discovery=${token_discovery} 			\
