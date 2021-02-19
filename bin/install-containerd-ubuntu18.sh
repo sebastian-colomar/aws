@@ -18,7 +18,7 @@ do                                                                      \
         while true                                                      ;
         do                                                              \
                 ${command} list                                         \
-                        installed                                       \
+                        --installed                                     \
                         ${package}                                      \
                 &&                                                      \
                 break                                                   ;
