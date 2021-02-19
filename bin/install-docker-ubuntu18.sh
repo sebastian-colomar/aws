@@ -5,10 +5,29 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
+command=apt                                                             ;
 engine=docker                                                           ;
 #########################################################################
-sudo apt-get update                                                     ;
-sudo apt-get install -y ${engine}.io                                    ;
+sudo {command} update -y                                                ;
+#########################################################################
+for package in                                                          \
+        {engine}.io                                                     \
+                                                                        ;
+do                                                                      \
+        while true                                                      ;
+        do                                                              \
+                ${command} list                                         \
+                        --installed                                     \
+                        ${package}                                      \
+                &&                                                      \
+                break                                                   ;
+                sudo ${command} install -y                              \
+                        --allow-downgrades                              \
+                        ${package                                       \
+                                                                        ;
+                sleep ${sleep}                                          ;
+        done                                                            ;
+done                                                                    ;
 #########################################################################
 sudo mkdir -p /etc/${engine}						;
 sudo mkdir -p /etc/systemd/system/${engine}.service.d                   ;
