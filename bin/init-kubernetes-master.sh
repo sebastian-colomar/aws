@@ -14,7 +14,7 @@ test -n "${token_token}"        || exit 206                             ;
 #########################################################################
 file=/etc/hosts                                                         ;
 sleep=10                                                                ;
-success='This node has joined the cluster'                              ;
+success='^This node has joined the cluster'                             ;
 #########################################################################
 grep ${InstanceMaster1}\ ${kube} ${file}                                \
 ||                                                                      \
