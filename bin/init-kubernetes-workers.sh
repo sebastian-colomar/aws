@@ -111,7 +111,7 @@ command="								\
 		${token} 						\
 		${log}							\
 "									;
-token_discovery=$(							\
+token_discovery=$( 							\
 	_encode_string "						\
 		$(							\
 			_send_list_command_targets_wait 		\
@@ -130,7 +130,7 @@ command="								\
 		${token} 						\
 		${log}							\
 "									;
-token_token=$(								\
+token_token=$( 								\
 	_encode_string "						\
 		$(							\
 			_send_list_command_targets_wait 		\
