@@ -5,14 +5,33 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
+command=apt                                                             ;
 engine=containerd                                                       ;
 #########################################################################
-sudo apt-get update                                                     ;
-sudo apt-get install -y ${engine}                                       ;
+sudo ${command} update -y                                               ;
+#########################################################################
+for package in                                                          \
+        ${engine}                                                       \
+                                                                        ;
+do                                                                      \
+        while true                                                      ;
+        do                                                              \
+                ${command} list                                         \
+                        installed                                       \
+                        ${package}                                      \
+                &&                                                      \
+                break                                                   ;
+                sudo ${command} install -y                              \
+                        ${package                                       \
+                                                                        ;
+                sleep ${sleep}                                          ;
+        done                                                            ;
+done                                                                    ;
 #########################################################################
 sudo mkdir -p /etc/${engine}						;
 sudo mkdir -p /etc/systemd/system/${engine}.service.d                   ;
-containerd config default | sudo tee /etc/containerd/config.toml	;
+#########################################################################
+${engine} config default | sudo tee /etc/${engine}/config.toml          ;
 #########################################################################
 sudo systemctl restart ${engine}					;
 sudo systemctl enable --now ${engine}					;
