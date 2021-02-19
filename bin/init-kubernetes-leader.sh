@@ -12,8 +12,10 @@ test -n "${log}"                || exit 104                             ;
 test -n "${pod_network_cidr}"   || exit 105                             ;
 #########################################################################
 config=/tmp/$( uuidgen ).yaml                                           ;
+file=/etc/hosts                                                         ;
 kubeconfig=/etc/kubernetes/admin.conf                                   ;
 sleep=10                                                                ;
+success='^Your Kubernetes control-plane has initialized successfully'   ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
@@ -25,10 +27,11 @@ do                                                                      \
         sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
+grep ${InstanceMaster1}\ ${kube} ${file}                                \
+||                                                                      \
 echo ${InstanceMaster1} ${kube}                                         \
 |                                                                       \
-sudo tee --append /etc/hosts                                            ;
-sudo swapoff --all                                                      ;
+sudo tee --append ${file}                                               ;
 #########################################################################
 sudo tee ${config} 0<<EOF
 ---
@@ -46,9 +49,13 @@ networking:
 ---
 EOF
 #########################################################################
-success='^Your Kubernetes control-plane has initialized successfully'   ;
 while true                                                              ;
 do                                                                      \
+        grep                                                            \
+                "${success}"                                            \
+                ${log}                                                  \
+        &&                                                              \
+        break                                                           ;
         sudo kubeadm init                                               \
                 --config                                                \
                         ${config}                                       \
@@ -56,11 +63,6 @@ do                                                                      \
                         all                                             \
                 --upload-certs                                          \
                                                                         ;
-        grep                                                            \
-                "${success}"                                            \
-                ${log}                                                  \
-        &&                                                              \
-        break                                                           ;
         sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
