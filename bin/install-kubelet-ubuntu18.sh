@@ -9,6 +9,7 @@ test -n "${engine}"		|| exit 100                             ;
 test -n "${version_major}"	|| exit 110                             ;
 test -n "${version_minor}"	|| exit 111                             ;
 #########################################################################
+command=apt                                                             ;
 sleep=10                                                                ;
 #########################################################################
 sudo sed --in-place /swap/d /etc/fstab                                  ;
@@ -30,11 +31,29 @@ sudo apt-key add -                                                      ;
 echo deb http://apt.kubernetes.io/ kubernetes-xenial main               \
 |                                                                       \
 sudo tee -a /etc/apt/sources.list.d/kubernetes.list                     ;
-sudo apt-get update                                                     ;
-sudo apt-get install -y --allow-downgrades                              \
-        kubeadm=1.${version_major}.${version_minor}                     \
-        kubectl=1.${version_major}.${version_minor}                     \
-        kubelet=1.${version_major}.${version_minor}                     \
+#########################################################################
+sudo ${command} update -y                                               ;
+#########################################################################
+for package in                                                          \
+        kubeadm                                                         \
+        kubectl                                                         \
+        kubelet                                                         \
                                                                         ;
+do                                                                      \
+        while true                                                      ;
+        do                                                              \
+                ${command} list                                         \
+                        --installed                                     \
+                        ${package}.*1.${version_major}.${version_minor} \
+                &&                                                      \
+                break                                                   ;
+                sudo ${command} install -y                              \
+                        --allow-downgrades                              \
+                        ${package=-1.${version_major}.${version_minor}  \
+                                                                        ;
+                sleep ${sleep}                                          ;
+        done                                                            ;
+done                                                                    ;
+#########################################################################
 sudo systemctl enable --now kubelet                                     ;
 #########################################################################
