@@ -56,12 +56,13 @@ do                                                                      \
                 ${log}                                                  \
         &&                                                              \
         break                                                           ;
-        sudo kubeadm init                                               \
-                --config                                                \
-                        ${config}                                       \
-                --ignore-preflight-errors                               \
-                        all                                             \
-                --upload-certs                                          \
+        sudo                                                            \
+                kubeadm init                                            \
+                        --config                                        \
+                                ${config}                               \
+                        --ignore-preflight-errors                       \
+                                all                                     \
+                        --upload-certs                                  \
                                                                         ;
         sleep ${sleep}                                                  ;
 done                                                                    ;
