@@ -5,25 +5,33 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
+commmand=yum                                                            ;
 engine=docker                                                           ;
 repo=https://download.docker.com/linux/centos/docker-ce.repo            ;
 sleep=10                                                                ;
 #########################################################################
-sudo yum update -y                                                      ;
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2	;
-sudo yum-config-manager --add-repo ${repo}				;
-sudo yum update -y                                                      ;
+sudo ${command} update -y                                               ;
+sudo ${command} install -y yum-utils device-mapper-persistent-data lvm2	;
+sudo ${command}-config-manager --add-repo ${repo}                       ;
 #########################################################################
-while true                                                              ;
-do                                                                      \
-        yum list installed                                              \
-                ${engine}-ce                                            \
-        &&                                                              \
-        break                                                           ;
-        sudo yum install -y                                             \
-                ${engine}-ce                                            \
+sudo ${command} update -y                                               ;
+#########################################################################
+for package in                                                          \
+        ${engine}-ce                                                    \
                                                                         ;
-        sleep ${sleep}                                                  ;
+do                                                                      \
+        while true                                                      ;
+        do                                                              \
+                ${command} list                                         \
+                        installed                                       \
+                        ${package}                                      \
+                &&                                                      \
+                break                                                   ;
+                sudo ${command} install -y                              \
+                        ${package                                       \
+                                                                        ;
+                sleep ${sleep}                                          ;
+        done                                                            ;
 done                                                                    ;
 #########################################################################
 sudo mkdir -p /etc/${engine}						;
