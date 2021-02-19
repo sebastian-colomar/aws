@@ -41,7 +41,7 @@ do                                                                      \
                 &&                                                      \
                 break                                                   ;
                 sudo ${command} install -y                              \
-                        ${package                                       \
+                        ${package}                                      \
                                                                         ;
                 sleep ${sleep}                                          ;
         done                                                            ;
