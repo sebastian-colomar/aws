@@ -42,10 +42,42 @@ do                                                                      \
 done                                                                    ;
 #########################################################################
 sudo yum update -y                                                      ;
-sudo yum install -y --disableexcludes=kubernetes                        \
-        kubeadm-1.${version_major}.${version_minor}                     \
-        kubectl-1.${version_major}.${version_minor}                     \
-        kubelet-1.${version_major}.${version_minor}                     \
+#########################################################################
+while true                                                              ;
+do                                                                      \
+        yum list installed                                              \
+                kubeadm-1.${version_major}.${version_minor}             \
+        &&                                                              \
+        break                                                           ;
+        sudo yum install -y                                             \
+                kubeadm-1.${version_major}.${version_minor}             \
                                                                         ;
+        sleep ${sleep}                                                  ;
+done                                                                    ;
+#########################################################################
+while true                                                              ;
+do                                                                      \
+        yum list installed                                              \
+                kubectl-1.${version_major}.${version_minor}             \
+        &&                                                              \
+        break                                                           ;
+        sudo yum install -y                                             \
+                kubectl-1.${version_major}.${version_minor}             \
+                                                                        ;
+        sleep ${sleep}                                                  ;
+done                                                                    ;
+#########################################################################
+while true                                                              ;
+do                                                                      \
+        yum list installed                                              \
+                kubelet-1.${version_major}.${version_minor}             \
+        &&                                                              \
+        break                                                           ;
+        sudo yum install -y                                             \
+                kubelet-1.${version_major}.${version_minor}             \
+                                                                        ;
+        sleep ${sleep}                                                  ;
+done                                                                    ;
+#########################################################################
 sudo systemctl enable --now kubelet                                     ;
 #########################################################################
