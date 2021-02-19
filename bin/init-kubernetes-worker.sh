@@ -5,11 +5,11 @@
 #########################################################################
 set -x                                                                  ;
 #########################################################################
-test -n "${InstanceMaster1}"    || exit 201                             ;
-test -n "${kube}"               || exit 202                             ;
-test -n "${log}"                || exit 203                             ;
-test -n "${token_discovery}"    || exit 204                             ;
-test -n "${token_token}"        || exit 205                             ;
+test -n "${InstanceMaster1}"    || exit 101                             ;
+test -n "${kube}"               || exit 102                             ;
+test -n "${log}"                || exit 103                             ;
+test -n "${token_discovery}"    || exit 105                             ;
+test -n "${token_token}"        || exit 106                             ;
 #########################################################################
 file=/etc/hosts                                                         ;
 sleep=10                                                                ;
