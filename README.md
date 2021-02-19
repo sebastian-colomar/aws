@@ -95,7 +95,7 @@ log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
 ```
 Initialize the Kubernetes cluster in the leader instance:
 ```bash
-InstanceMaster1=$( ip route | awk /kernel/'{ print $9 }' )
+InstanceMaster1=$( ip route | awk '/kernel/ && ! /docker0/ { print $9 }' )
 role=leader
 file=init-${mode}-${role}.sh
 log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
@@ -181,11 +181,11 @@ echo token_token=${token_token}
 ```
 Retreive the following information from the second master:
 ```bash
-echo InstanceMaster2=$( ip route | awk /kernel/'{ print $9 }' )
+echo InstanceMaster2=$( ip route | awk '/kernel/ && ! /docker0/ { print $9 }' )
 ```
 Retreive the following information from the third master:
 ```bash
-echo InstanceMaster3=$( ip route | awk /kernel/'{ print $9 }' )
+echo InstanceMaster3=$( ip route | awk '/kernel/ && ! /docker0/ { print $9 }' )
 ```
 Export those parameters in all the worker instances:
 ```bash
