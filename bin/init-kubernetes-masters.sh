@@ -13,11 +13,12 @@ test -n "${kube}"		|| exit 105                             ;
 test -n "${mode}"		|| exit 106                             ;
 test -n "${os}"			|| exit 107				;
 test -n "${path}"		|| exit 108                             ;
-test -n "${repository}"		|| exit 109                             ;
-test -n "${stack}"		|| exit 110                             ;
-test -n "${username}"		|| exit 111                             ;
-test -n "${version_major}"	|| exit 112                             ;
-test -n "${version_minor}"	|| exit 113                             ;
+test -n "${port}"		|| exit 109                             ;
+test -n "${repository}"		|| exit 110                             ;
+test -n "${stack}"		|| exit 111                             ;
+test -n "${username}"		|| exit 112                             ;
+test -n "${version_major}"	|| exit 113                             ;
+test -n "${version_minor}"	|| exit 114                             ;
 #########################################################################
 sleep=10								;
 #########################################################################
@@ -108,13 +109,13 @@ log=/tmp/${file}.log							;
 export=" 								\
 	export calico=${calico} 					\
 	&& 								\
-	export kube=${kube} 						\
-	&& 								\
 	export InstanceMaster1=${InstanceMaster1} 			\
 	&& 								\
 	export log=${log} 						\
 	&& 								\
 	export pod_network_cidr=${pod_network_cidr} 			\
+	&& 								\
+	export port=${port} 						\
 "									;
 #########################################################################
 _send_list_command_remote 						\
