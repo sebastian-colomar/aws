@@ -7,7 +7,7 @@ set -x                                                                  ;
 #########################################################################
 command=yum                                                             ;
 engine=docker                                                           ;
-repo=https://download.docker.com/linux/centos/docker-ce.repo            ;
+repo=https://download.docker.com/linux/centos/docker-ce.repo		;
 sleep=10                                                                ;
 #########################################################################
 sudo ${command} update -y                                               ;
