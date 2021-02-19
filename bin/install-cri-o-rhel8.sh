@@ -7,6 +7,7 @@ set -x                                                                  ;
 #########################################################################
 test -n "${version_major}"	|| exit 100                             ;
 #########################################################################
+command=yum                                                             ;
 engine=cri-o								;
 OS=CentOS_8								;
 path1=/kubic:/libcontainers:/stable					;
@@ -36,8 +37,27 @@ sudo curl -L -o ${repo_path}:stable.repo				\
 	${repo_url}:${path1}/${path3}.repo				;
 sudo curl -L -o ${repo_path}:stable:${path4}.repo			\
 	${repo_url}:${path2}:${path4}/${path3}:${path4}.repo		;
-sudo yum update -y                                                      ;
-sudo yum install -y ${engine}						;
+#########################################################################
+sudo ${command} update -y                                               ;
+#########################################################################
+for package in                                                          \
+        ${engine} 							\
+                                                                        ;
+do                                                                      \
+        while true                                                      ;
+        do                                                              \
+                ${command} list                                         \
+                        installed                                       \
+                        ${package}                                      \
+                &&                                                      \
+                break                                                   ;
+                sudo ${command} install -y                              \
+                        ${package}                                      \
+                                                                        ;
+                sleep ${sleep}                                          ;
+        done                                                            ;
+done                                                                    ;
+#########################################################################
 sudo systemctl restart ${engine}					;
 sudo systemctl enable --now ${engine}					;
 #########################################################################
