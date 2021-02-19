@@ -10,6 +10,7 @@ test -n "${InstanceMaster1}"    || exit 101                             ;
 test -n "${kube}"               || exit 102                             ;
 test -n "${log}"                || exit 103                             ;
 test -n "${pod_network_cidr}"   || exit 104                             ;
+test -n "${port}"               || exit 105                             ;
 #########################################################################
 config=/tmp/$( uuidgen ).yaml                                           ;
 file=/etc/hosts                                                         ;
@@ -43,7 +44,7 @@ nodeRegistration:
     cgroup-driver: systemd
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
-controlPlaneEndpoint: "${kube}:6443"
+controlPlaneEndpoint: "${kube}:${port}"
 kind: ClusterConfiguration
 networking:
   podSubnet: ${pod_network_cidr}
