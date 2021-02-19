@@ -79,9 +79,11 @@ sudo kubectl apply                                                      \
 while true                                                              ;
 do                                                                      \
         sudo                                                            \
-        kubectl get no                                                  \
-        --kubeconfig                                                    \
-                ${kubeconfig}                                           \
+                kubectl                                                 \
+                        --kubeconfig                                    \
+                                ${kubeconfig}                           \
+                        get                                             \
+                                no                                      \
         |                                                               \
         grep Ready                                                      \
         |                                                               \
