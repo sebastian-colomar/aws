@@ -10,7 +10,7 @@ test -n "${domain}"		|| exit 103                             ;
 test -n "${engine}"		|| exit 104                             ;
 test -n "${kube}"		|| exit 105                             ;
 test -n "${mode}"		|| exit 106                             ;
-test -n "${os}"			|| exit 107                             ;
+test -n "${os}"			|| exit 107				;
 test -n "${path}"		|| exit 108                             ;
 test -n "${repository}"		|| exit 109                             ;
 test -n "${stack}"		|| exit 110                             ;
