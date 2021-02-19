@@ -107,7 +107,7 @@ log=/tmp/${file}.log							;
 token=discovery-token-ca-cert-hash					;
 #########################################################################
 command="								\
-	grep --max-count 1						\
+	grep --max-count 1 						\
 		${token} 						\
 		${log}							\
 "									;
@@ -126,7 +126,7 @@ token_discovery=$(							\
 token=kubeadm.*join							;
 #########################################################################
 command="								\
-	grep --max-count 1						\
+	grep --max-count 1 						\
 		${token} 						\
 		${log}							\
 "									;
