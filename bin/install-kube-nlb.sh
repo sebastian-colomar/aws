@@ -57,10 +57,14 @@ do                                                                      \
 done                                                                    ;
 sudo rm --recursive --force /run/secrets /run/configs                   ;
 #########################################################################
+grep ${pattern}.*${kube} ${file}                                        \
+||                                                                      \
 sudo sed --in-place                                                     \
-        /${InstanceMaster1}.*${kube}/d                                  \
-        ${file}                                                         ;
+        /${kube}/d                                                      \
+        ${file}                                                         \
+&&                                                                      \
 sudo sed --in-place                                                     \
         '/${pattern}/s/$/ ${kube}/'                                     \
-        ${file}                                                         ;
+        ${file}                                                         \
+                                                                        ;
 #########################################################################
