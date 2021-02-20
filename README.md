@@ -1,4 +1,4 @@
-# How to set up a Kubernetes or Swarm cluster in AWS
+# How to set up a Kubernetes cluster in AWS
 
 Download the repository in a terminal with AWS credentials already configured:
 ```bash
