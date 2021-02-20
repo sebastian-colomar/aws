@@ -8,6 +8,7 @@ set -x									;
 test -n "${branch}"		|| exit 101                             ;
 test -n "${domain}"		|| exit 103                             ;
 test -n "${kube}"		|| exit 105                             ;
+test -n "${os}"			|| exit 106                             ;
 test -n "${path}"		|| exit 108                             ;
 test -n "${port}"		|| exit 109                             ;
 test -n "${repository}"		|| exit 110                             ;
@@ -50,9 +51,27 @@ do 									\
         )"								;
 done									;
 #########################################################################
-service=kube-lb								;
+service=docker 								;
 targets="                                                               \
-        InstanceMaster1                                                 \
+        InstanceWorker1                                                 \
+        InstanceWorker2                                                 \
+        InstanceWorker3                                                 \
+"									;
+#########################################################################
+file=install-${service}-${os}.sh					;
+log=/tmp/${file}.log							;
+#########################################################################
+export="                                                                \
+        export kube=${kube}                                             \
+"                                                                       ;
+#########################################################################
+__send_list_command_remote						;
+#########################################################################
+service=kube-nlb							;
+targets="                                                               \
+        InstanceWorker1                                                 \
+        InstanceWorker2                                                 \
+        InstanceWorker3                                                 \
 "									;
 #########################################################################
 file=install-${service}.sh						;
@@ -68,22 +87,6 @@ export="                                                                \
         export kube=${kube}                                             \
         &&                                                              \
         export port=${port}                                             \
-"                                                                       ;
-#########################################################################
-__send_list_command_remote						;
-#########################################################################
-service=kube-lb-localhost						;
-targets="                                                               \
-        InstanceWorker1                                                 \
-        InstanceWorker2                                                 \
-        InstanceWorker3                                                 \
-"									;
-#########################################################################
-file=install-${service}.sh						;
-log=/tmp/${file}.log							;
-#########################################################################
-export="                                                                \
-        export kube=${kube}                                             \
 "                                                                       ;
 #########################################################################
 __send_list_command_remote						;
