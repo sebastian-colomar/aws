@@ -8,8 +8,7 @@ set -x                                                                  ;
 test -n "${InstanceMaster1}"    || exit 301                             ;
 test -n "${InstanceMaster2}"    || exit 302                             ;
 test -n "${InstanceMaster3}"    || exit 303                             ;
-test -n "${kube}"               || exit 304                             ;
-test -n "${port}"               || exit 305                             ;
+test -n "${port}"               || exit 304                             ;
 #########################################################################
 branch=docker                                                           ;
 compose=etc/kubernetes/manifests/nlb-hostport.yaml                      ;
