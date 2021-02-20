@@ -55,7 +55,8 @@ sudo kubectl                                                            \
 sudo kubectl                                                            \
         --kubeconfig ${kubeconfig}                                      \
         --namespace ${namespace}                                        \
-        apply --filename ${compose}                                     ;
+        apply --filename                                                \
+        ${uuid}/${compose}                                              ;
 #########################################################################
 rm --recursive --force ${uuid}                                          ;
 #########################################################################
@@ -64,7 +65,7 @@ do                                                                      \
         sudo kubectl                                                    \
                 --kubeconfig ${kubeconfig}                              \
                 --namespace ${namespace}                                \
-                get ds ${namespace}                                     \
+                get po ${namespace}                                     \
         |                                                               \
         grep '\([0-9]\)/\1'                                             \
         &&                                                              \
