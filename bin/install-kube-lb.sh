@@ -12,11 +12,9 @@ test -n "${kube}"               || exit 304                             ;
 test -n "${port}"               || exit 305                             ;
 #########################################################################
 branch=docker                                                           ;
-compose=etc/kubernetes/manifests/nlb.yaml                               ;
-file=/etc/hosts                                                         ;
+compose=etc/kubernetes/manifests/nlb-hostport.yaml                      ;
 kubeconfig=/etc/kubernetes/admin.conf                                   ;
 namespace=kube-lb                                                       ;
-pattern=127.0.0.1.*localhost                                            ;
 repository=https://github.com/academiaonline/nlb                        ;
 sleep=10                                                                ;
 uuid=/tmp/$( uuidgen )                                                  ;
@@ -49,6 +47,8 @@ sed --in-place s/port2/${port}/                                         \
         ${uuid}/${compose}                                              ;
 sed --in-place s/port3/${port}/                                         \
         ${uuid}/${compose}                                              ;
+sed --in-place s/hostPort:.*$/hostPort:\ ${port}/                       \
+        ${uuid}/${compose}                                              ;
 #########################################################################
 sudo kubectl                                                            \
         --kubeconfig ${kubeconfig}                                      \
@@ -72,15 +72,4 @@ do                                                                      \
         break                                                           ;
         sleep ${sleep}                                                  ;
 done                                                                    ;
-#########################################################################
-grep ${pattern}.*${kube} ${file}                                        \
-||                                                                      \
-sudo sed --in-place                                                     \
-        /${kube}/d                                                      \
-        ${file}                                                         \
-&&                                                                      \
-sudo sed --in-place                                                     \
-        '/${pattern}/s/$/ ${kube}/'                                     \
-        ${file}                                                         \
-                                                                        ;
 #########################################################################
