@@ -39,8 +39,8 @@ sudo tee ${config} 0<<EOF
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
-localAPIEndpoint:
-  bindPort: ${port}
+#localAPIEndpoint:
+#  bindPort: ${port}
 nodeRegistration:
   kubeletExtraArgs:
     cgroup-driver: systemd
