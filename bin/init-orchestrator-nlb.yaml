@@ -14,6 +14,20 @@ test -n "${repository}"		|| exit 110                             ;
 test -n "${stack}"		|| exit 111                             ;
 test -n "${username}"		|| exit 112                             ;
 #########################################################################
+function __send_list_command_remote { 					\
+	_send_list_command_remote                                       \
+		${branch}                                               \
+		"${export}"                                             \
+		${file}                                                 \
+		${log}                                                  \
+		${path}                                                 \
+		${sleep}                                                \
+		${stack}                                                \
+		"${targets}"                                            \
+		${url}                                                  \
+                                                                        ;
+}
+#########################################################################
 sleep=10								;
 #########################################################################
 url=${domain}/${username}/${repository}					;
@@ -56,15 +70,21 @@ export="                                                                \
         export port=${port}                                             \
 "                                                                       ;
 #########################################################################
-_send_list_command_remote                                               \
-        ${branch}                                                       \
-        "${export}"                                                     \
-        ${file}                                                         \
-        ${log}                                                          \
-        ${path}                                                         \
-        ${sleep}                                                        \
-        ${stack}                                                        \
-        "${targets}"                                                    \
-        ${url}                                                          \
-                                                                        ;
+__send_list_command_remote						;
+#########################################################################
+service=kube-lb-localhost						;
+targets="                                                               \
+        InstanceWorker1                                                 \
+        InstanceWorker2                                                 \
+        InstanceWorker3                                                 \
+"									;
+#########################################################################
+file=install-${service}.sh						;
+log=/tmp/${file}.log							;
+#########################################################################
+export="                                                                \
+        export kube=${kube}                                             \
+"                                                                       ;
+#########################################################################
+__send_list_command_remote						;
 #########################################################################
