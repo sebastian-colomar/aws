@@ -36,9 +36,9 @@ git clone                                                               \
         ${uuid}                                                         ;
 sed --in-place s/worker/manager/                                        \
         ${uuid}/${compose}                                              ;
-sed --in-place s/port_master/${port_master}/                            \
+sed --in-place s/port_master/${port}/                                   \
         ${uuid}/${compose}                                              ;
-sed --in-place s/port_master/${port_master}/                            \
+sed --in-place s/port_master/${port}/                                   \
         ${uuid}/run/secrets/etc/nginx/conf.d/default.conf               ;
 sed --in-place s/ip_master1/${InstanceMaster1}/                         \
         ${uuid}/run/secrets/etc/nginx/conf.d/default.conf               ;
