@@ -62,6 +62,14 @@ Check that the worker nodes have correctly joined the cluster running this comma
 ```bash
 watch sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
 ```
+WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING ANY FURTHER
+
+Create a network load balancer for the Kubernetes API server running this [script](bin/init-orchestrator-nlb.sh):
+```bash
+script=bin/init-orchestrator-nlb.sh
+nohup ${script} &
+tail -f nohup.out
+```
 # How to manually set up a Kubernetes cluster
 
 ## First configure the Master instances
