@@ -209,7 +209,7 @@ log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
 ```
 Install the load balancer for the Kubernetes API server in all the worker instances:
 ```bash
-service=kube-lb
+service=kube-nlb
 file=install-${service}.sh
 log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
 ```
