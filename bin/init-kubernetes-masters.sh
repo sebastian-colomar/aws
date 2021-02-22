@@ -20,6 +20,20 @@ test -n "${username}"		|| exit 112                             ;
 test -n "${version_major}"	|| exit 113                             ;
 test -n "${version_minor}"	|| exit 114                             ;
 #########################################################################
+function __send_list_command_remote { 					\
+	_send_list_command_remote                                       \
+		${branch}                                               \
+		"${export}"                                             \
+		${file}                                                 \
+		${log}                                                  \
+		${path}                                                 \
+		${sleep}                                                \
+		${stack}                                                \
+		"${targets}"                                            \
+		${url}                                                  \
+                                                                        ;
+}
+#########################################################################
 sleep=10								;
 #########################################################################
 url=${domain}/${username}/${repository}					;
@@ -38,18 +52,9 @@ export=" 								\
 	export version_major=${version_major} 				\
 "									;
 #########################################################################
-_send_list_command_remote 						\
-	${branch} 							\
-	"${export}" 							\
-	${file} 							\
-	${log} 								\
-	${path} 							\
-	${sleep} 							\
-	${stack} 							\
-	"${targets}" 							\
-	${url} 								\
-									;
+__send_list_command_remote						;
 #########################################################################
+
 service=kubelet								;
 targets="								\
 	InstanceMaster1 						\
@@ -68,18 +73,9 @@ export=" 								\
 	export version_minor=${version_minor} 				\
 "									;
 #########################################################################
-_send_list_command_remote 						\
-	${branch} 							\
-	"${export}" 							\
-	${file} 							\
-	${log} 								\
-	${path} 							\
-	${sleep} 							\
-	${stack} 							\
-	"${targets}" 							\
-	${url} 								\
-									;
+__send_list_command_remote						;
 #########################################################################
+
 for instance in 							\
 	InstanceMaster1 						\
 	InstanceMaster2 						\
@@ -120,17 +116,7 @@ export=" 								\
 	export port=${port} 						\
 "									;
 #########################################################################
-_send_list_command_remote 						\
-	${branch} 							\
-	"${export}" 							\
-	${file} 							\
-	${log} 								\
-	${path} 							\
-	${sleep} 							\
-	${stack} 							\
-	"${targets}" 							\
-	${url} 								\
-									;
+__send_list_command_remote						;
 #########################################################################
 token=certificate-key							;
 #########################################################################
@@ -212,15 +198,19 @@ export=" 								\
 	export token_token=${token_token} 				\
 "									;
 #########################################################################
-_send_list_command_remote 						\
-	${branch} 							\
-	"${export}" 							\
-	${file} 							\
-	${log} 								\
-	${path} 							\
-	${sleep} 							\
-	${stack} 							\
-	"${targets}" 							\
-	${url} 								\
-									;
+__send_list_command_remote						;
+#########################################################################
+role=wait								;
+targets="								\
+	InstanceMaster1							\
+"									;
+#########################################################################
+file=init-${mode}-${role}.sh						;
+log=/tmp/${file}.log							;
+#########################################################################
+export=" 								\
+	export InstanceMaster1=${InstanceMaster1} 			\
+"									;
+#########################################################################
+__send_list_command_remote						;
 #########################################################################
