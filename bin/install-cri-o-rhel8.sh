@@ -33,10 +33,10 @@ net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 sudo sysctl --system							;
 #########################################################################
-sudo curl -L -o ${repo_path}:stable.repo				\
-	${repo_url}:${path1}/${path3}.repo				;
-sudo curl -L -o ${repo_path}:stable:${path4}.repo			\
-	${repo_url}:${path2}:${path4}/${path3}:${path4}.repo		;
+sudo curl -L -o ${repo_path}:stable.repo                                \
+        ${repo_url}:${path1}/${path3}.repo                              ;
+sudo curl -L -o ${repo_path}:stable:${path4}.repo                       \
+        ${repo_url}:${path2}:${path4}/${path3}:${path4}.repo            ;
 #########################################################################
 sudo ${command} update -y                                               ;
 #########################################################################
