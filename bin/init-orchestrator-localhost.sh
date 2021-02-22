@@ -1,4 +1,3 @@
-
 #!/bin/sh
 #########################################################################
 #      Copyright (C) 2020        Sebastian Francisco Colomar Bauza      #
