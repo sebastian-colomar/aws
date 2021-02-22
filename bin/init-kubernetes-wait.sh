@@ -15,7 +15,6 @@ test ${role} = worker && pattern=none                                   ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
-        sleep ${sleep}                                                  ;
         sudo                                                            \
                 kubectl                                                 \
                         --kubeconfig                                    \
@@ -26,10 +25,9 @@ do                                                                      \
         |                                                               \
         grep Ready.*${pattern}                                          \
         |                                                               \
-        grep NotReady                                                   \
+        grep --invert-match NotReady                                    \
         &&                                                              \
-        continue                                                        \
-        ||                                                              \
         break                                                           ;
+        sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
