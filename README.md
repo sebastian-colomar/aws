@@ -64,9 +64,9 @@ watch sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
 ```
 WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING ANY FURTHER
 
-Create a network load balancer for the Kubernetes API server running this [script](bin/init-orchestrator-nlb.sh):
+Remove the entry in the hosts file for the Kubernetes API server running this [script](bin/init-orchestrator-hosts.sh):
 ```bash
-script=bin/init-orchestrator-nlb.sh
+script=bin/init-orchestrator-hosts.sh
 nohup ${script} &
 tail -f nohup.out
 ```
@@ -209,16 +209,10 @@ role=worker
 file=init-${mode}-${role}.sh
 log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
 ```
-Install the docker engine in all the worker instances:
+Remove the entry in the hosts file for the Kubernetes API server in all the worker instances:
 ```bash
-service=docker
-file=install-${service}-${os}.sh
-log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
-```
-Install the load balancer for the Kubernetes API server in all the worker instances:
-```bash
-service=kube-nlb
-file=install-${service}.sh
+role=worker-hosts
+file=init-${mode}-${role}.sh
 log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
 ```
 
