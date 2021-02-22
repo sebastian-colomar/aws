@@ -15,6 +15,7 @@ test ${role} = worker && pattern=none                                   ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
+        sleep ${sleep}                                                  ;
         sudo                                                            \
                 kubectl                                                 \
                         --kubeconfig                                    \
@@ -25,9 +26,12 @@ do                                                                      \
         |                                                               \
         grep Ready.*${pattern}                                          \
         |                                                               \
-        grep --invert-match NotReady                                    \
+        grep NotReady                                                   \
         &&                                                              \
+        continue                                                        \
+        ||                                                              \
         break                                                           ;
-        sleep ${sleep}                                                  ;
 done                                                                    ;
+#########################################################################
+echo "All ${role} nodes have joined the cluster"                        ;
 #########################################################################
