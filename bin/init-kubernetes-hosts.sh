@@ -32,7 +32,7 @@ sleep=10								;
 #########################################################################
 url=${domain}/${username}/${repository}					;
 #########################################################################
-role=worker-localhost                                                   ;
+role=worker-hosts                                                       ;
 targets="                                                               \
         InstanceWorker1                                                 \
         InstanceWorker2                                                 \
