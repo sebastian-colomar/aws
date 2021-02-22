@@ -10,18 +10,21 @@ sleep=10                                                                ;
 #########################################################################
 while true                                                              ;
 do                                                                      \
+        sleep ${sleep}                                                  ;
         sudo                                                            \
                 kubectl                                                 \
                         --kubeconfig                                    \
                                 ${kubeconfig}                           \
                         get                                             \
+                                --no-headers                            \
                                 no                                      \
         |                                                               \
         grep Ready                                                      \
         |                                                               \
-        grep --invert-match NotReady                                    \
+        grep NotReady                                                   \
         &&                                                              \
+        continue                                                        \
+        ||                                                              \
         break                                                           ;
-        sleep ${sleep}                                                  ;
 done                                                                    ;
 #########################################################################
