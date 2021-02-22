@@ -7,6 +7,16 @@ set -x                                                                  ;
 #########################################################################
 test -n "${role}" || exit 100                                           ;
 #########################################################################
+function __check {                                                      \
+        sudo                                                            \
+                kubectl                                                 \
+                        --kubeconfig                                    \
+                                ${kubeconfig}                           \
+                        get                                             \
+                                --no-headers                            \
+                                no                                      \
+}                                                                       ;
+#########################################################################
 kubeconfig=/etc/kubernetes/admin.conf                                   ;
 sleep=10                                                                ;
 #########################################################################
@@ -16,20 +26,15 @@ test ${role} = worker && pattern=none                                   ;
 while true                                                              ;
 do                                                                      \
         sleep ${sleep}                                                  ;
-        sudo                                                            \
-                kubectl                                                 \
-                        --kubeconfig                                    \
-                                ${kubeconfig}                           \
-                        get                                             \
-                                --no-headers                            \
-                                no                                      \
+        __check                                                         \
+        |                                                               \
+        grep NotReady.*${pattern}                                       \
+        &&                                                              \
+        continue                                                        ;
+        __check                                                         \
         |                                                               \
         grep Ready.*${pattern}                                          \
-        |                                                               \
-        grep NotReady                                                   \
         &&                                                              \
-        continue                                                        \
-        ||                                                              \
         break                                                           ;
 done                                                                    ;
 #########################################################################
