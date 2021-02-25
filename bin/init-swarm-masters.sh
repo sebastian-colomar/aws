@@ -53,6 +53,22 @@ export=" 								\
 #########################################################################
 __send_list_command_remote						;
 #########################################################################
+for instance in                                                         \
+        InstanceMaster1                                                 \
+                                                                        ;
+do                                                                      \
+        eval ${instance}="$(                                            \
+                aws ec2 describe-instances                              \
+                        --filters                                       \
+        Name=tag:"aws:cloudformation:stack-name",Values="${stack}"      \
+        Name=tag:"aws:cloudformation:logical-id",Values="${instance}"   \
+                        --query                                         \
+                        Reservations[].Instances[].PrivateIpAddress     \
+                        --output                                        \
+                                text                                    \
+        )"                                                              ;
+done                                                                    ;
+#########################################################################
 role=leader								;
 targets="								\
 	InstanceMaster1							\
