@@ -16,4 +16,5 @@ region=$( 								\
 path=amazon-ssm-${region}/latest/linux_amd64/amazon-ssm-agent.rpm	;
 sudo yum install -y 							\
 	https://s3.${region}.amazonaws.com/${path}			;
+sudo systemctl enable --now amazon-ssm-agent				;
 #########################################################################
