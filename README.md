@@ -103,7 +103,7 @@ log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
 ```
 Initialize the Kubernetes cluster in the leader instance:
 ```bash
-InstanceMaster1=$( ip route | awk '/kernel/ && ! /docker0/ { print $9 }' )
+InstanceMaster1=$( ip route | awk '/eth0.*kernel/ && ! /docker0/ { print $9 }' )
 role=leader
 file=init-${mode}-${role}.sh
 log=/tmp/${file}.log && source ${path}/${file} 2>& 1 | tee --append ${log}
