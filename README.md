@@ -1,4 +1,4 @@
-# How to set up a Kubernetes cluster in AWS
+# How to set up a Kubernetes or Swarm cluster in AWS
 
 Download the repository in a terminal with AWS credentials already configured:
 ```bash
@@ -36,15 +36,16 @@ tail -f nohup.out
 ```
 Open a terminal in the Leader instance and check the logs:
 ```bash
-tail -f /tmp/init-kubernetes-leader.sh.log
+tail -f /tmp/init-${mode}-leader.sh.log
 ```
 Open a terminal in both Master instances and check the logs:
 ```bash
-tail -f /tmp/init-kubernetes-master.sh.log
+tail -f /tmp/init-${mode}-master.sh.log
 ```
 Check that the control plane has been successfully initialized running this command from any master instance:
 ```bash
-watch sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
+test ${mode}=kubernetes && watch sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
+test ${mode}=swarm && watch sudo docker node ls
 ```
 WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING ANY FURTHER
 
@@ -56,11 +57,12 @@ tail -f nohup.out
 ```
 Open a terminal in all the worker instances and check the logs:
 ```bash
-tail -f /tmp/init-kubernetes-worker.sh.log
+tail -f /tmp/init-${mode}-worker.sh.log
 ```
 Check that the worker nodes have correctly joined the cluster running this command from any master instance:
 ```bash
-watch sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
+test ${mode}=kubernetes && watch sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get no
+test ${mode}=swarm && watch sudo docker node ls
 ```
 WAIT UNTIL THE DEPLOYMENT IS STABLE BEFORE PROCEEDING ANY FURTHER
 
