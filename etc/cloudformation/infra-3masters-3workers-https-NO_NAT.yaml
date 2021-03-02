@@ -358,6 +358,9 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceMasterImageId
       InstanceType: !Ref InstanceMasterInstanceType
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
       PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster1
       SecurityGroupIds:
         - !GetAtt VPC.DefaultSecurityGroup
@@ -378,6 +381,9 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceMasterImageId
       InstanceType: !Ref InstanceMasterInstanceType
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
       PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster2
       SecurityGroupIds:
         - !GetAtt VPC.DefaultSecurityGroup
@@ -398,6 +404,9 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceMasterImageId
       InstanceType: !Ref InstanceMasterInstanceType
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
       PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster3
       SecurityGroupIds:
         - !GetAtt VPC.DefaultSecurityGroup
@@ -423,6 +432,9 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceWorkerImageId
       InstanceType: !Ref InstanceWorkerInstanceType
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
       SubnetId: !Ref SubnetPublic1
       UserData:
         "Fn::Base64":
@@ -440,6 +452,9 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceWorkerImageId
       InstanceType: !Ref InstanceWorkerInstanceType
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
       SubnetId: !Ref SubnetPublic2
       UserData:
         "Fn::Base64":
@@ -457,6 +472,9 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceWorkerImageId
       InstanceType: !Ref InstanceWorkerInstanceType
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
       SubnetId: !Ref SubnetPublic3
       UserData:
         "Fn::Base64":
