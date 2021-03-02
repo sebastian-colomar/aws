@@ -197,13 +197,13 @@ Parameters:
     Type: String
     
   NodeInstallUrlFileMaster:
-    Default: bin/install-ssm-rhel8.sh
+    Default: bin/install-ssm-rhel.sh
     Description: >
       The name of the script for the common install of the Master nodes.
     Type: String
     
   NodeInstallUrlFileWorker:
-    Default: bin/install-ssm-rhel8.sh
+    Default: bin/install-ssm-rhel.sh
     Description: >
       The name of the script for the common install of the Worker nodes.
     Type: String
