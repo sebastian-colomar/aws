@@ -354,6 +354,7 @@ Parameters:
 Resources:
 
   InstanceMaster1:
+    DependsOn: [VPCGatewayAttachment]  
     Properties:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceMasterImageId
@@ -377,6 +378,7 @@ Resources:
     Type: AWS::EC2::Instance
             
   InstanceMaster2:
+    DependsOn: [VPCGatewayAttachment]  
     Properties:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceMasterImageId
@@ -400,6 +402,7 @@ Resources:
     Type: AWS::EC2::Instance
             
   InstanceMaster3:
+    DependsOn: [VPCGatewayAttachment]  
     Properties:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceMasterImageId
@@ -428,6 +431,7 @@ Resources:
     Type: AWS::IAM::InstanceProfile
 
   InstanceWorker1:
+    DependsOn: [VPCGatewayAttachment]  
     Properties:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceWorkerImageId
@@ -450,6 +454,7 @@ Resources:
     Type: AWS::EC2::Instance
 
   InstanceWorker2:
+    DependsOn: [VPCGatewayAttachment]  
     Properties:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceWorkerImageId
@@ -472,6 +477,7 @@ Resources:
     Type: AWS::EC2::Instance
 
   InstanceWorker3:
+    DependsOn: [VPCGatewayAttachment]  
     Properties:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceWorkerImageId
