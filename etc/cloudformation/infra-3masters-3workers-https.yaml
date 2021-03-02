@@ -49,7 +49,7 @@ Metadata:
           - PrivateIpAddressInstanceMaster3
           - ProtocolListenerWorker
           - ProtocolTargetGroupWorker
-          - RecordSetName
+          - RecordSetNameWorker
           - SecurityGroupCidrIpWorker
           - SubnetCidrBlockPrivate1
           - SubnetCidrBlockPrivate2
@@ -103,8 +103,8 @@ Metadata:
         default: The protocol for Listener Worker
       ProtocolTargetGroupWorker:
         default: The internal protocol for Target Group Worker
-      RecordSetName:
-        default: The name of the Record Set for service
+      RecordSetNameWorker:
+        default: The name of the Record Set for Worker service
       SecurityGroupCidrIpWorker:
         default: Allowed CIDR for ALB Cluster Worker Access
       SubnetCidrBlockPrivate1:
@@ -250,10 +250,10 @@ Parameters:
       The internal protocol for Target Group Worker.
     Type: String
 
-  RecordSetName:
+  RecordSetNameWorker:
     Default: myapp
     Description: >
-      The name of the Record Set for service.
+      The name of the Record Set for Worker service.
       It needs to be unique in the sub-domain.
     Type: String
   
@@ -499,13 +499,13 @@ Resources:
       SubnetId: !Ref SubnetPublic3
     Type: AWS::EC2::NatGateway
 
-  RecordSet:
+  RecordSetWorker:
     Properties: 
       AliasTarget: 
         DNSName: !GetAtt LoadBalancerWorker.DNSName
         HostedZoneId: !GetAtt LoadBalancerWorker.CanonicalHostedZoneID
       HostedZoneName: !Sub '${HostedZoneName}.'
-      Name: !Sub '${RecordSetName}.${HostedZoneName}'
+      Name: !Sub '${RecordSetNameWorker}.${HostedZoneName}'
       Type: A
     Type: AWS::Route53::RecordSet
       
