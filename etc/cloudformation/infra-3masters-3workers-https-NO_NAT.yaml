@@ -361,10 +361,12 @@ Resources:
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
           DeviceIndex: 0
+#          GroupSet:
+#            - !GetAtt VPC.DefaultSecurityGroup
+          SubnetId: !Ref SubnetPublic1
       PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster1
       SecurityGroupIds:
         - !GetAtt VPC.DefaultSecurityGroup
-      SubnetId: !Ref SubnetPublic1
       UserData:
         "Fn::Base64":
           !Sub |
@@ -384,10 +386,12 @@ Resources:
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
           DeviceIndex: 0
+#          GroupSet:
+#            - !GetAtt VPC.DefaultSecurityGroup
+          SubnetId: !Ref SubnetPublic2
       PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster2
       SecurityGroupIds:
         - !GetAtt VPC.DefaultSecurityGroup
-      SubnetId: !Ref SubnetPublic2
       UserData:
         "Fn::Base64":
           !Sub |
@@ -407,10 +411,12 @@ Resources:
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
           DeviceIndex: 0
+#          GroupSet:
+#            - !GetAtt VPC.DefaultSecurityGroup
+          SubnetId: !Ref SubnetPublic3
       PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster3
       SecurityGroupIds:
         - !GetAtt VPC.DefaultSecurityGroup
-      SubnetId: !Ref SubnetPublic3
       UserData:
         "Fn::Base64":
           !Sub |
@@ -435,7 +441,11 @@ Resources:
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
           DeviceIndex: 0
-      SubnetId: !Ref SubnetPublic1
+#          GroupSet:
+#            - !GetAtt VPC.DefaultSecurityGroup
+          SubnetId: !Ref SubnetPublic1
+      SecurityGroupIds:
+        - !GetAtt VPC.DefaultSecurityGroup
       UserData:
         "Fn::Base64":
           !Sub |
@@ -455,7 +465,11 @@ Resources:
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
           DeviceIndex: 0
-      SubnetId: !Ref SubnetPublic2
+#          GroupSet:
+#            - !GetAtt VPC.DefaultSecurityGroup
+          SubnetId: !Ref SubnetPublic2
+      SecurityGroupIds:
+        - !GetAtt VPC.DefaultSecurityGroup
       UserData:
         "Fn::Base64":
           !Sub |
@@ -475,7 +489,11 @@ Resources:
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
           DeviceIndex: 0
-      SubnetId: !Ref SubnetPublic3
+#          GroupSet:
+#            - !GetAtt VPC.DefaultSecurityGroup
+          SubnetId: !Ref SubnetPublic3
+      SecurityGroupIds:
+        - !GetAtt VPC.DefaultSecurityGroup
       UserData:
         "Fn::Base64":
           !Sub |
