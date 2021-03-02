@@ -22,7 +22,7 @@ aws 									\
 			--capabilities 					\
 				CAPABILITY_NAMED_IAM 			\
 			--parameters 					\
-		ParameterKey=RecordSetName,ParameterValue=${stack} 	\
+		ParameterKey=RecordSetNameWorker,ParameterValue=${stack}\
 			--stack-name 					\
 				${stack} 				\
 			--template-body 				\
