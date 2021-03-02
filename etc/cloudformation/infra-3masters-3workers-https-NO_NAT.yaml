@@ -353,19 +353,51 @@ Parameters:
 #============================================================
 Resources:
 
+  EIPMaster1:
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref InstanceMaster1
+    Type: AWS::EC2::EIP
+
+  EIPMaster2:
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref InstanceMaster2
+    Type: AWS::EC2::EIP
+
+  EIPMaster3:
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref InstanceMaster3
+    Type: AWS::EC2::EIP
+
+  EIPWorker1:
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref InstanceWorker1
+    Type: AWS::EC2::EIP
+
+  EIPWorker2:
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref InstanceWorker2
+    Type: AWS::EC2::EIP
+
+  EIPWorker3:
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref InstanceWorker3
+    Type: AWS::EC2::EIP
+
   InstanceMaster1:
-    DependsOn: [VPCGatewayAttachment]  
     Properties:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceMasterImageId
       InstanceType: !Ref InstanceMasterInstanceType
-      NetworkInterfaces:
-        - AssociatePublicIpAddress: true
-          DeviceIndex: 0
-          GroupSet:
-            - !GetAtt VPC.DefaultSecurityGroup
-          PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster1
-          SubnetId: !Ref SubnetPublic1
+      PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster1
+      SecurityGroupIds:
+        - !GetAtt VPC.DefaultSecurityGroup
+      SubnetId: !Ref SubnetPublic1
       UserData:
         "Fn::Base64":
           !Sub |
@@ -378,18 +410,14 @@ Resources:
     Type: AWS::EC2::Instance
             
   InstanceMaster2:
-    DependsOn: [VPCGatewayAttachment]  
     Properties:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceMasterImageId
       InstanceType: !Ref InstanceMasterInstanceType
-      NetworkInterfaces:
-        - AssociatePublicIpAddress: true
-          DeviceIndex: 0
-          GroupSet:
-            - !GetAtt VPC.DefaultSecurityGroup
-          PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster2
-          SubnetId: !Ref SubnetPublic2
+      PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster2
+      SecurityGroupIds:
+        - !GetAtt VPC.DefaultSecurityGroup
+      SubnetId: !Ref SubnetPublic2
       UserData:
         "Fn::Base64":
           !Sub |
@@ -407,13 +435,10 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceMasterImageId
       InstanceType: !Ref InstanceMasterInstanceType
-      NetworkInterfaces:
-        - AssociatePublicIpAddress: true
-          DeviceIndex: 0
-          GroupSet:
-            - !GetAtt VPC.DefaultSecurityGroup
-          PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster3
-          SubnetId: !Ref SubnetPublic3
+      PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster3
+      SecurityGroupIds:
+        - !GetAtt VPC.DefaultSecurityGroup
+      SubnetId: !Ref SubnetPublic3
       UserData:
         "Fn::Base64":
           !Sub |
@@ -436,12 +461,9 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceWorkerImageId
       InstanceType: !Ref InstanceWorkerInstanceType
-      NetworkInterfaces:
-        - AssociatePublicIpAddress: true
-          DeviceIndex: 0
-          GroupSet:
-            - !GetAtt VPC.DefaultSecurityGroup
-          SubnetId: !Ref SubnetPublic1
+      SecurityGroupIds:
+        - !GetAtt VPC.DefaultSecurityGroup
+      SubnetId: !Ref SubnetPublic1
       UserData:
         "Fn::Base64":
           !Sub |
@@ -459,12 +481,9 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceWorkerImageId
       InstanceType: !Ref InstanceWorkerInstanceType
-      NetworkInterfaces:
-        - AssociatePublicIpAddress: true
-          DeviceIndex: 0
-          GroupSet:
-            - !GetAtt VPC.DefaultSecurityGroup
-          SubnetId: !Ref SubnetPublic2
+      SecurityGroupIds:
+        - !GetAtt VPC.DefaultSecurityGroup
+      SubnetId: !Ref SubnetPublic2
       UserData:
         "Fn::Base64":
           !Sub |
@@ -482,12 +501,9 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceWorkerImageId
       InstanceType: !Ref InstanceWorkerInstanceType
-      NetworkInterfaces:
-        - AssociatePublicIpAddress: true
-          DeviceIndex: 0
-          GroupSet:
-            - !GetAtt VPC.DefaultSecurityGroup
-          SubnetId: !Ref SubnetPublic3
+      SecurityGroupIds:
+        - !GetAtt VPC.DefaultSecurityGroup
+      SubnetId: !Ref SubnetPublic3
       UserData:
         "Fn::Base64":
           !Sub |
