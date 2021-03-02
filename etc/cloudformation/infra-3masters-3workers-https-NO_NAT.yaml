@@ -55,7 +55,6 @@ Metadata:
           - ProtocolListenerWorker
           - ProtocolTargetGroupMaster
           - ProtocolTargetGroupWorker
-          - RecordSetNameMaster
           - RecordSetNameWorker
           - SecurityGroupCidrIpMaster
           - SecurityGroupCidrIpWorker
@@ -120,8 +119,6 @@ Metadata:
         default: The internal protocol for Target Group Master
       ProtocolTargetGroupWorker:
         default: The internal protocol for Target Group Worker
-      RecordSetNameMaster:
-        default: The name of the Record Set for Master service
       RecordSetNameWorker:
         default: The name of the Record Set for Worker service
       SecurityGroupCidrIpMaster:
@@ -301,13 +298,6 @@ Parameters:
       The internal protocol for Target Group Worker.
     Type: String
 
-  RecordSetNameMaster:
-    Default: myapp-master
-    Description: >
-      The name of the Record Set for service.
-      It needs to be unique in the sub-domain.
-    Type: String
-  
   RecordSetNameWorker:
     Default: myapp-worker
     Description: >
@@ -482,21 +472,6 @@ Resources:
   InternetGateway:
     Type: AWS::EC2::InternetGateway
 
-  ListenerMaster:
-    Properties: 
-      Certificates:
-        - CertificateArn: !Sub 'arn:aws:acm:${AWS::Region}:${AWS::AccountId}:certificate/${Identifier}'
-      DefaultActions: 
-        - ForwardConfig:
-            TargetGroups:
-            - TargetGroupArn: !Ref TargetGroupMaster
-              Weight: 1
-          Type: forward
-      LoadBalancerArn: !Ref LoadBalancerMaster
-      Port: !Ref PortListenerMaster
-      Protocol: !Ref ProtocolListenerMaster
-    Type: AWS::ElasticLoadBalancingV2::Listener
- 
   ListenerWorker:
     Properties: 
       Certificates:
@@ -512,17 +487,6 @@ Resources:
       Protocol: !Ref ProtocolListenerWorker
     Type: AWS::ElasticLoadBalancingV2::Listener
  
-  LoadBalancerMaster:
-    Properties: 
-      SecurityGroups:
-        - !GetAtt VPC.DefaultSecurityGroup
-        - !Ref SecurityGroupMaster
-      Subnets: 
-        - !Ref SubnetPublic1
-        - !Ref SubnetPublic2
-        - !Ref SubnetPublic3
-    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
-        
   LoadBalancerWorker:
     Properties: 
       SecurityGroups:
@@ -534,16 +498,6 @@ Resources:
         - !Ref SubnetPublic3
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
         
-  RecordSetMaster:
-    Properties: 
-      AliasTarget: 
-        DNSName: !GetAtt LoadBalancerMaster.DNSName
-        HostedZoneId: !GetAtt LoadBalancerWorker.CanonicalHostedZoneID
-      HostedZoneName: !Sub '${HostedZoneName}.'
-      Name: !Sub '${RecordSetNameMaster}.${HostedZoneName}'
-      Type: A
-    Type: AWS::Route53::RecordSet
-      
   RecordSetWorker:
     Properties: 
       AliasTarget: 
@@ -654,20 +608,6 @@ Resources:
       RouteTableId: !Ref RouteTablePublic
       SubnetId: !Ref SubnetPublic3
     Type: AWS::EC2::SubnetRouteTableAssociation
-
-  TargetGroupMaster:
-    Properties: 
-      Matcher:
-        HttpCode: !Ref HttpCodeTargetGroupMaster
-      Port: !Ref PortTargetGroupMaster
-      Protocol: !Ref ProtocolTargetGroupMaster
-      Targets: 
-        -   Id: !Ref InstanceMaster1
-        -   Id: !Ref InstanceMaster2
-        -   Id: !Ref InstanceMaster3
-      TargetType: instance
-      VpcId: !Ref VPC
-    Type: AWS::ElasticLoadBalancingV2::TargetGroup
 
   TargetGroupWorker:
     Properties: 
