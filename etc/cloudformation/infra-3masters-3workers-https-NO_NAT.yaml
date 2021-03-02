@@ -363,8 +363,8 @@ Resources:
           DeviceIndex: 0
           GroupSet:
             - !GetAtt VPC.DefaultSecurityGroup
+          PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster1
           SubnetId: !Ref SubnetPublic1
-      PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster1
       UserData:
         "Fn::Base64":
           !Sub |
@@ -386,8 +386,8 @@ Resources:
           DeviceIndex: 0
           GroupSet:
             - !GetAtt VPC.DefaultSecurityGroup
+          PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster2
           SubnetId: !Ref SubnetPublic2
-      PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster2
       UserData:
         "Fn::Base64":
           !Sub |
@@ -409,8 +409,8 @@ Resources:
           DeviceIndex: 0
           GroupSet:
             - !GetAtt VPC.DefaultSecurityGroup
+          PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster3
           SubnetId: !Ref SubnetPublic3
-      PrivateIpAddress: !Ref PrivateIpAddressInstanceMaster3
       UserData:
         "Fn::Base64":
           !Sub |
