@@ -137,7 +137,7 @@ Metadata:
 Parameters:
 
   BranchAWS:
-    Default: "main"
+    Default: "v4.1"
     Description: >
       The branch of the git repo to download the script for the common install of the nodes.
     Type: String
