@@ -7,7 +7,7 @@
 
 AWSTemplateFormatVersion: "2010-09-09"
 
-Description: This template creates a new VPC and deploys a HA cluster in AWS
+Description: This template creates a new VPC and deploys an isolated bastion in AWS
 
 #============================================================
 # UI Definition
