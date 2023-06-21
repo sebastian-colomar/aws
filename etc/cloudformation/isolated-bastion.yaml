@@ -116,10 +116,10 @@ Parameters:
 #============================================================
 Resources:
 
-  EIPMaster1:
+  EIP1:
     Properties:
       Domain: vpc
-      InstanceId: !Ref InstanceMaster1
+      #InstanceId: !Ref InstanceMaster1
     Type: AWS::EC2::EIP
 
   InstanceMaster1:
