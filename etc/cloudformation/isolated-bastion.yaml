@@ -70,7 +70,8 @@ Parameters:
 #    Default: 'ami-026f33d38b6410e30' #MUMBAI #CENTOS7
 #    Default: 'ami-003b12a9a1ee83922' #MUMBAI #RHEL7
 #    Default: 'ami-0a9d27a9f4f5c0efc' #MUMBAI #RHEL8
-    Default: ami-05afd67c4a44cc983 #MUMBAI AMAZON
+#    Default: ami-05afd67c4a44cc983 #MUMBAI AMAZON
+    Default: ''
     Description: >
       Select AMI to use for the Cluster Master instances. 
       When it's left blank, the default AMI for your AWS region will be used. 
@@ -78,7 +79,7 @@ Parameters:
     Type: String
     
   InstanceMasterInstanceType:
-    Default: 't3a.small'
+    Default: 't2.micro'
     Description: >
       Select Amazon EC2 instance type for the Cluster Master instances.
     Type: String
@@ -90,13 +91,14 @@ Parameters:
     Type: String
     
   NodeInstallUrlFileMaster:
-    Default: bin/install-ssm-rhel.sh
+#    Default: bin/install-ssm-rhel.sh
+    Default: ''
     Description: >
       The name of the script for the common install of the Master nodes.
     Type: String
     
   PrivateIpAddressInstanceMaster1:
-    Default: 10.168.2.100
+    Default: 10.168.1.100
     Description: >
       The private IP address for Master 1.
     Type: String
