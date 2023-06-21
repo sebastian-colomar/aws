@@ -184,6 +184,13 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
     Type: AWS::IAM::Role
 
+  RoutePrivate1:
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway1
+      RouteTableId: !Ref RouteTablePrivate1
+    Type: AWS::EC2::Route
+    
   RoutePublic:
     DependsOn: [VPCGatewayAttachment]
     Properties:
@@ -192,6 +199,11 @@ Resources:
       RouteTableId: !Ref RouteTablePublic
     Type: AWS::EC2::Route
 
+  RouteTablePrivate1:
+    Properties:
+      VpcId: !Ref VPC
+    Type: AWS::EC2::RouteTable
+    
   RouteTablePublic:
     Properties:
       VpcId: !Ref VPC
