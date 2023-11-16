@@ -139,7 +139,7 @@ Parameters:
 
   Identifier:
 #    Default: '31ea6050-d1a0-4e91-a37b-ed862904188c' #IRELAND #sebastian-colomar.com
-    Default: 'c3f3310b-f4ed-4874-8849-bd5c2cfe001f' #MUMBAI #sebastian-colomar.com
+    Default: '62bfcd52-7375-4ffc-9ed8-345488c71b41' #MUMBAI #sebastian-colomar.com
     Description: >
       The Identifier of the certificate you want to use.
     Type: String
@@ -191,7 +191,7 @@ Parameters:
     Type: String
     
   NodeInstallUrlPath:
-    Default: "https://github.com/academiaonline/aws"
+    Default: "https://github.com/sebastian-colomar/aws"
     Description: >
       The URL path to download the script for the common install of the nodes.
     Type: String
