@@ -11,12 +11,13 @@ test -n "${InstanceMaster3}"    || exit 303                             ;
 test -n "${kube}"               || exit 304                             ;
 test -n "${port}"               || exit 305                             ;
 #########################################################################
-branch=docker                                                           ;
+branch=master                                                           ;
+folder=docker
 compose=etc/swarm/manifests/nlb.yaml                                    ;
 file=/etc/hosts                                                         ;
 namespace=kube-nlb                                                      ;
 pattern=127.0.0.1.*localhost                                            ;
-repository=https://github.com/academiaonline/nlb                        ;
+repository=https://github.com/sebastian-colomar/nlb                        ;
 sleep=10                                                                ;
 uuid=/tmp/$( uuidgen )                                                  ;
 #########################################################################
@@ -34,6 +35,7 @@ git clone                                                               \
         --single-branch --branch ${branch}                              \
         ${repository}                                                   \
         ${uuid}                                                         ;
+uuid=${uuid}/${folder}        
 sed --in-place s/worker/manager/                                        \
         ${uuid}/${compose}                                              ;
 sed --in-place s/port_master/${port}/                                   \
