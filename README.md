@@ -2,7 +2,7 @@
 
 Download the repository in a terminal with AWS credentials already configured:
 ```bash
-git clone https://github.com/academiaonline/aws && cd aws
+git clone https://github.com/sebastian-colomar/aws && cd aws
 ```
 Edit the [AWS configuration file](etc/aws.conf) and source it:
 ```bash
