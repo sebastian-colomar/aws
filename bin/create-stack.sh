@@ -12,7 +12,8 @@ test -n "${version_major}"			|| exit 105		;
 test -n "${version_minor}"			|| exit 106		;
 #########################################################################
 location=etc/cloudformation/${template}.yaml				;
-stack=${os}-${engine}-${version_major}-${version_minor}			;
+#stack=${os}-${engine}-${version_major}-${version_minor}			;
+stack=${os}-${engine}-${version_major}          			;
 #########################################################################
 export stack=${stack}-$( date +%s | rev | cut -c1,2 )			;
 #########################################################################
