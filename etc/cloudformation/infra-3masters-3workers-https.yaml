@@ -125,7 +125,7 @@ Metadata:
 Parameters:
 
   BranchAWS:
-    Default: "main"
+    Default: "ubuntu22"
     Description: >
       The branch of the git repo to download the script for the common install of the nodes.
     Type: String
@@ -148,7 +148,8 @@ Parameters:
 #    Default: 'ami-026f33d38b6410e30' #MUMBAI #CENTOS7
 #    Default: 'ami-003b12a9a1ee83922' #MUMBAI #RHEL7
 #    Default: 'ami-0a9d27a9f4f5c0efc' #MUMBAI #RHEL8
-    Default: 'ami-0db0b3ab7df22e366' #MUMBAI #UBUNTU18
+#    Default: 'ami-0db0b3ab7df22e366' #MUMBAI #UBUNTU18
+    Default: 'ami-0287a05f0ef0e9d9a' #MUMBAI #UBUNTU22
     Description: >
       Select AMI to use for the Cluster Master instances. 
       When it's left blank, the default AMI for your AWS region will be used. 
@@ -165,7 +166,8 @@ Parameters:
 #    Default: 'ami-026f33d38b6410e30' #MUMBAI #CENTOS7
 #    Default: 'ami-003b12a9a1ee83922' #MUMBAI #RHEL7
 #    Default: 'ami-0a9d27a9f4f5c0efc' #MUMBAI #RHEL8
-    Default: 'ami-0db0b3ab7df22e366' #MUMBAI #UBUNTU18
+#    Default: 'ami-0db0b3ab7df22e366' #MUMBAI #UBUNTU18
+    Default: 'ami-0287a05f0ef0e9d9a' #MUMBAI #UBUNTU22
     Description: >
       Select AMI to use for the Cluster Worker instances. 
       When it's left blank, the default AMI for your AWS region will be used. 
