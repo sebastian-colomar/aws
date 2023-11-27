@@ -37,7 +37,7 @@ done                                                                    ;
 #########################################################################
 sudo tee ${config} 0<<EOF
 ---
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
 #localAPIEndpoint:
 #  bindPort: ${port}
@@ -45,7 +45,7 @@ nodeRegistration:
   kubeletExtraArgs:
     cgroup-driver: systemd
 ---
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 controlPlaneEndpoint: "${kube}:${port}"
 networking:
