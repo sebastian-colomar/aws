@@ -32,6 +32,7 @@ Initialize the orchestrator in the masters running this [script](bin/init-orches
 ```bash
 script=bin/init-orchestrator-masters.sh
 nohup ${script} &
+sleep 10
 tail -f nohup.out
 ```
 Check that the control plane has been successfully initialized running this command from any master instance:
@@ -45,6 +46,7 @@ Connect the workers to the cluster running this [script](bin/init-orchestrator-w
 ```bash
 script=bin/init-orchestrator-workers.sh
 nohup ${script} &
+sleep 10
 tail -f nohup.out
 ```
 Check that the worker nodes have correctly joined the cluster running this command from any master instance:
@@ -58,6 +60,7 @@ Remove the entry in the hosts file for the Kubernetes API server running this [s
 ```bash
 script=bin/init-orchestrator-hosts.sh
 nohup ${script} &
+sleep 10
 tail -f nohup.out
 ```
 # How to manually set up a Kubernetes cluster
