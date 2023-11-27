@@ -49,6 +49,8 @@ sudo mkdir -p /etc/${engine}						;
 sudo mkdir -p /etc/systemd/system/${engine}.service.d                   ;
 #########################################################################
 ${engine} config default | sudo tee /etc/${engine}/config.toml          ;
+sudo sed -i /pause:/s/3.8/3.9/ /etc/${engine}/config.toml               ;
+sudo sed -i /systemd_cgroup/s/false/true/ /etc/${engine}/config.toml    ;
 #########################################################################
 sudo systemctl restart ${engine}					;
 sudo systemctl enable --now ${engine}					;
